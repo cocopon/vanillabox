@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo - Vanillabox</title>
+	<link rel="stylesheet" href="../vanillabox/vanillabox.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="../vanillabox/vanillabox.js"></script>
+</head>
+<body>
+	<h1>Demo</h1>
+	<ul id="demo-image-list">
+		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Foo">400x300</a></li>
+		<li><a href="http://placehold.it/1024x768/c0c/f7f7f7" title="Bar">1024x768</a></li>
+		<li><a href="http://placehold.it/500x800/cc0/f7f7f7" title="Baz">500x800</a></li>
+		<li><a href="http://placehold.it/57x57" title="Qux">57x57</a></li>
+	</ul>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var vanillabox = $('#demo-image-list a').vanillabox({
+			});
+		});
+	</script>
+</body>
+</html>
