@@ -1,0 +1,44 @@
+// Mask
+.vanilla-mask {
+	left: 0;
+	position: absolute;
+	top: 0;
+}
+.vanilla-mask * {
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+}
+
+
+// Frame
+.vanilla-frame {
+	position: absolute;
+}
+
+
+// Button
+.vanilla-prev,
+.vanilla-next {
+	visibility: hidden;
+}
+.vanilla-group {
+	.vanilla-prev,
+	.vanilla-next {
+		visibility: visible;
+	}
+}
+
+
+// Label
+.vanilla-pager {
+	visibility: hidden;
+}
+.vanilla-group .vanilla-pager {
+	visibility: visible;
+}
+
+
+// Container
+.vanilla-container {
+	overflow: hidden;
+}

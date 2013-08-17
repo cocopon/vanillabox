@@ -1,0 +1,133 @@
+@import '../base';
+
+
+// Color
+$mask-background-color: rgba(0, 0, 0, 0.5);
+$frame-background-color: #111;
+$title-color: #aaa;
+$pager-label-color: #ccc;
+
+// Font
+$font-family: sans-serif;
+$font-size: 1.0em;
+$pager-label-font-size: 90%;
+
+// Geometry
+$frame-width: 8px;
+$frame-corner-radius: 5px;
+$title-height: 44px;
+$pager-button-width: 44px;
+$pager-label-height: 22px;
+$pager-label-spacing: 8px;
+
+// Image
+$close-button-image: url(img/close0.png);
+$close-button-highlighted-image: url(img/close1.png);
+$prev-button-image: url(img/prev0.png);
+$prev-button-highlighted-image: url(img/prev1.png);
+$next-button-image: url(img/next0.png);
+$next-button-highlighted-image: url(img/next1.png);
+
+
+// Mask
+.vanilla-mask {
+	background-color: $mask-background-color;
+}
+
+
+// Frame
+.vanilla-frame {
+	background-color: $frame-background-color;
+	border-radius: $frame-corner-radius;
+	padding: $title-height $frame-width $frame-width;
+}
+
+
+// Button
+.vanilla-button {
+	position: absolute;
+}
+.vanilla-button.vanilla-disabled {
+	display: none;
+}
+.vanilla-close {
+	$close-button-size: $title-height - $frame-width * 2;
+
+	background: $close-button-image no-repeat center center;
+	height: $close-button-size;
+	right: $frame-width;
+	top: $frame-width;
+	width: $close-button-size;
+}
+.vanilla-close:hover {
+	background-image: $close-button-highlighted-image;
+}
+.vanilla-prev,
+.vanilla-next {
+	$pager-button-top: ($title-height - $frame-width) / 2;
+
+	height: 100%;
+	top: $pager-button-top;
+	width: $pager-button-width;
+}
+.vanilla-prev {
+	background: $prev-button-image no-repeat center center;
+	left: -$pager-button-width;
+}
+.vanilla-prev:hover {
+	background-image: $prev-button-highlighted-image;
+}
+.vanilla-next {
+	background: $next-button-image no-repeat center center;
+	right: -$pager-button-width;
+}
+.vanilla-next:hover {
+	background-image: $next-button-highlighted-image;
+}
+
+
+// Label
+.vanilla-label {
+	font-family: $font-family;
+	font-size: $font-size;
+	position: absolute;
+}
+.vanilla-title {
+	color: $title-color;
+	height: $title-height;
+	left: 0;
+	line-height: $title-height;
+	text-align: center;
+	top: 0;
+	width: 100%;
+}
+.vanilla-pager {
+	bottom: -($pager-label-spacing + $pager-label-height);
+	color: $pager-label-color;
+	font-size: $pager-label-font-size;
+	height: $pager-label-height;
+	left: 0;
+	line-height: $pager-label-height;
+	text-align: center;
+	width: 100%;
+}
+
+
+// Container
+.vanilla-container {
+	text-align: center;
+}
+
+
+// Content
+.vanilla-content {
+	margin: 0 auto;
+	vertical-align: middle;
+}
+.vanilla-loading {
+	// TODO: Loading image
+}
+.vanilla-error {
+	// TODO: Error image
+}
+
