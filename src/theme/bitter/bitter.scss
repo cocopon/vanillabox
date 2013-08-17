@@ -2,7 +2,6 @@
 
 
 // Color
-$mask-background-color: rgba(0, 0, 0, 0.5);
 $frame-background-color: #111;
 $title-color: #aaa;
 $pager-label-color: #ccc;
@@ -21,6 +20,7 @@ $pager-label-height: 22px;
 $pager-label-spacing: 8px;
 
 // Image
+$mask-image: url(img/mask.png);
 $close-button-image: url(img/close0.png);
 $close-button-highlighted-image: url(img/close1.png);
 $prev-button-image: url(img/prev0.png);
@@ -31,7 +31,7 @@ $next-button-highlighted-image: url(img/next1.png);
 
 // Mask
 .vanilla-mask {
-	background-color: $mask-background-color;
+	background: $mask-image repeat left top;
 }
 
 
