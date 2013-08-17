@@ -679,14 +679,12 @@
 		}
 		me.created_ = true;
 
-		// Mask
 		var mask = new Mask();
 		var maskElem = mask.getElement();
 		maskElem.hide();
 		$('body').append(maskElem);
 		me.mask_ = mask;
 
-		// Frame
 		var frame = new Frame();
 		var frameElem = frame.getElement();
 		if (me.pager_.getTotalPages() > 1) {
@@ -695,41 +693,35 @@
 		me.frame_ = frame;
 		maskElem.append(frameElem);
 
-		// Container
 		var container = new Container();
 		var containerElem = container.getElement();
 		me.container_ = container;
 		frameElem.append(containerElem);
 
-		// Title
 		var titleLabel = new Label({
 			cls: 'vanilla-title'
 		});
 		me.titleLabel_ = titleLabel;
 		frameElem.append(titleLabel.getElement());
 
-		// Pager
 		var pagerLabel = new Label({
 			cls: 'vanilla-pager'
 		});
 		me.pagerLabel_ = pagerLabel;
 		frameElem.append(pagerLabel.getElement());
 
-		// Previous
 		var prevButton = new Button({
 			cls: 'vanilla-prev'
 		});
 		me.prevButton_ = prevButton;
 		frameElem.append(prevButton.getElement());
 
-		// Next
 		var nextButton = new Button({
 			cls: 'vanilla-next'
 		});
 		me.nextButton_ = nextButton;
 		frameElem.append(nextButton.getElement());
 
-		// Close
 		var closeButton = new Button({
 			cls: 'vanilla-close'
 		});
