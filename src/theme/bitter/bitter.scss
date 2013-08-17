@@ -1,0 +1,115 @@
+@import '../base';
+
+
+// Color
+$title-color: #eee;
+$pager-label-color: #aaa;
+
+// Font
+$font-family: sans-serif;
+$font-size: 1.0em;
+$pager-label-font-size: 90%;
+
+// Geometry
+$title-height: 44px;
+$pager-button-width: 44px;
+$pager-label-height: 22px;
+$pager-label-spacing: 8px;
+
+// Image
+$mask-image: url(img/mask.png);
+$prev-button-image: url(img/prev0.png);
+$prev-button-highlighted-image: url(img/prev1.png);
+$next-button-image: url(img/next0.png);
+$next-button-highlighted-image: url(img/next1.png);
+
+
+// Mask
+.vanilla-mask {
+	background: $mask-image repeat left top;
+}
+
+
+// Frame
+.vanilla-frame {
+	padding-top: $title-height;
+}
+
+
+// Button
+.vanilla-button {
+	position: absolute;
+}
+.vanilla-button.vanilla-disabled {
+	display: none;
+}
+.vanilla-close {
+	display: none;
+}
+.vanilla-prev,
+.vanilla-next {
+	$pager-button-offset: $title-height / 2;
+
+	height: 100%;
+	margin-top: $pager-button-offset;
+	top: 0;
+	width: $pager-button-width;
+}
+.vanilla-prev {
+	background: $prev-button-image no-repeat center center;
+	left: -$pager-button-width;
+}
+.vanilla-prev:hover {
+	background-image: $prev-button-highlighted-image;
+}
+.vanilla-next {
+	background: $next-button-image no-repeat center center;
+	right: -$pager-button-width;
+}
+.vanilla-next:hover {
+	background-image: $next-button-highlighted-image;
+}
+
+
+// Label
+.vanilla-label {
+	font-family: $font-family;
+	font-size: $font-size;
+	position: absolute;
+}
+.vanilla-title {
+	color: $title-color;
+	height: $title-height;
+	left: 0;
+	line-height: $title-height;
+	text-align: center;
+	top: 0;
+	width: 100%;
+}
+.vanilla-pager {
+	bottom: -($pager-label-spacing + $pager-label-height);
+	color: $pager-label-color;
+	font-size: $pager-label-font-size;
+	height: $pager-label-height;
+	left: 0;
+	line-height: $pager-label-height;
+	text-align: center;
+	width: 100%;
+}
+
+
+// Container
+.vanilla-container {
+	text-align: center;
+}
+
+
+// Content
+.vanilla-loading {
+	// TODO: Loading image
+}
+.vanilla-error {
+	// TODO: Error image
+}
+
+
