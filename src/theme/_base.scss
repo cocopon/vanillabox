@@ -7,10 +7,6 @@
  */
 
 
-// Geometry
-$min-container-width: 200px;
-
-
 // Mask
 .vanilla-mask {
 	left: 0;
@@ -53,7 +49,6 @@ $min-container-width: 200px;
 
 // Container
 .vanilla-container {
-	min-width: $min-container-width;
 	overflow: hidden;
 	position: relative;
 }

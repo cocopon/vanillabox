@@ -39,7 +39,6 @@
 }
 
 .vanilla-container {
-  min-width: 200px;
   overflow: hidden;
   position: relative;
 }

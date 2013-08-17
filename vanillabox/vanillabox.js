@@ -195,6 +195,7 @@
 	};
 
 	Container.CONTENT_SIZE_SAFETY_MARGIN = 100;
+	Container.MIN_CONTENT_WIDTH = 200;
 
 	Container.prototype.create = function() {
 		var me = this;
@@ -271,19 +272,19 @@
 
 	Container.prototype.getContentSize = function() {
 		var me = this;
+		var w = 0;
+		var h = 0;
 
 		var content = me.getContent();
-		if (!content) {
-			return {
-				width: 0,
-				height: 0
-			};
+		var contentElem =  content && content.getElement();
+		if (contentElem) {
+			w = contentElem.width();
+			h = contentElem.height();
 		}
 
-		var contentElem = content.getElement();
 		return {
-			width: contentElem.width(),
-			height: contentElem.height()
+			width: Math.max(w, Container.MIN_CONTENT_WIDTH),
+			height: h
 		};
 	};
 
