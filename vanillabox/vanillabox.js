@@ -1,5 +1,5 @@
 /**
- * @license Vanillabox: Simple, modern Lightbox-like plugin for jQuery
+ * @license Vanillabox
  * (C) 2013 cocopon.
  *
  * Licensed under the MIT license:
