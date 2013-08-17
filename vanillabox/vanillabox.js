@@ -23,6 +23,18 @@
 		}
 	};
 
+	Util.Dom = {
+		getViewportWidth: function() {
+			return window.innerWidth ||
+				document.documentElement.clientWidth;
+		},
+
+		getViewportHeight: function() {
+			return window.innerHeight ||
+				document.documentElement.clientHeight;
+		}
+	};
+
 
 	var Animation = {};
 
@@ -280,8 +292,8 @@
 
 		var safetyMargin = Container.CONTENT_SIZE_SAFETY_MARGIN;
 		me.maxContentSize_ = {
-			width: window.innerWidth - safetyMargin,
-			height: window.innerHeight - safetyMargin
+			width: Util.Dom.getViewportWidth() - safetyMargin,
+			height: Util.Dom.getViewportHeight() - safetyMargin
 		};
 
 		var content = me.content_;
@@ -381,10 +393,11 @@
 
 		// Get preferred position
 		var elem = me.getElement();
-		var ow = window.innerWidth;
-		var oh = window.innerHeight;
+		var ow = Util.Dom.getViewportWidth();
+		var oh = Util.Dom.getViewportHeight();
 		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
 		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
+		console.log([ow, $window.innerWidth()]);
 
 		// Restore original size
 		containerElem.width(w);
@@ -408,7 +421,6 @@
 		me.title_ = config.title;
 
 		me.create();
-		me.load();
 	};
 
 	ImageContent.prototype.create = function() {
@@ -919,6 +931,8 @@
 		me.attachContent_();
 
 		me.setTitle(content.getTitle());
+
+		content.load();
 	};
 
 	Vanillabox.prototype.layout = function() {
