@@ -96,12 +96,15 @@
 			var contentSize = container.getContentSize();
 			var offset = frame.getPreferredOffset(contentSize);
 
-			Animation.Default.animateFrame_(
-				frame,
-				contentSize,
-				offset,
-				200
-			);
+			container.getElement().css({
+				width: contentSize.width,
+				height: contentSize.height
+			});
+
+			frame.getElement().css({
+				left: offset.left,
+				top: offset.top
+			});
 		},
 
 		hideFrame: function(frame) {
@@ -876,6 +879,10 @@
 		var container = me.frame_.getContainer();
 		container.updateMaxContentSize();
 
+		var animation = me.animation_;
+		animation.showMask(me.mask_);
+		animation.showFrame(me.frame_);
+
 		var pager = me.pager_;
 		var index = Util.getOrDefault(opt_index, 0);
 		var triggeredPagerEvent = (index !== pager.getCurrentPage());
@@ -883,10 +890,6 @@
 		if (!triggeredPagerEvent) {
 			me.updateContent_();
 		}
-
-		var animation = me.animation_;
-		animation.showMask(me.mask_);
-		animation.showFrame(me.frame_);
 	};
 
 	Vanillabox.prototype.hide = function() {
