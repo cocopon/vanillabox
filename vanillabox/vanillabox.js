@@ -397,7 +397,6 @@
 		var oh = Util.Dom.getViewportHeight();
 		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
 		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
-		console.log([ow, $window.innerWidth()]);
 
 		// Restore original size
 		containerElem.width(w);
