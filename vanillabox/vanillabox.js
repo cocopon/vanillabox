@@ -498,7 +498,7 @@
 		var currentIndex = me.currentPage_;
 		var nextIndex = currentIndex + 1;
 
-		if (nextIndex >= totalPages - 1) {
+		if (nextIndex > totalPages - 1) {
 			nextIndex = me.allowsLoop_ ?
 				0 :
 				totalPages - 1;
@@ -659,8 +659,8 @@
 		);
 
 		me.pager_ = new Pager({
-			totalPages: me.targetElems_.length,
-			allowsLoop: config.allowsLoop
+			allowsLoop: config.allowsLoop,
+			totalPages: me.targetElems_.length
 		});
 
 		me.create();
@@ -1005,6 +1005,7 @@
 		var animation = AnimationProvider.get(setting.animation);
 
 		var box = new Vanillabox({
+			allowsLoop: setting.allowsLoop,
 			animation: animation,
 			targets: targetElems
 		});
