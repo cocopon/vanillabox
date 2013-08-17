@@ -183,9 +183,9 @@
 
 	Mask.prototype.layout = function() {
 		var me = this;
-		var $body = $('body');
-		var ww = Math.max($body.width(), $window.width());
-		var wh = Math.max($body.height(), $window.height());
+		var $document = $(document);
+		var ww = Math.max($document.width(), $window.width());
+		var wh = Math.max($document.height(), $window.height());
 
 		me.elem_.width(ww);
 		me.elem_.height(wh);
