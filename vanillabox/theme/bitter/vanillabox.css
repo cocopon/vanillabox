@@ -39,7 +39,14 @@
 }
 
 .vanilla-container {
+  min-width: 200px;
   overflow: hidden;
+  position: relative;
+}
+
+.vanilla-content {
+  display: block;
+  margin: 0 auto;
 }
 
 .vanilla-mask {
@@ -126,9 +133,4 @@
 
 .vanilla-container {
   text-align: center;
-}
-
-.vanilla-content {
-  margin: 0 auto;
-  vertical-align: middle;
 }

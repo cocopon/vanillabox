@@ -5,6 +5,12 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  */
+
+
+// Geometry
+$min-container-width: 200px;
+
+
 // Mask
 .vanilla-mask {
 	left: 0;
@@ -47,5 +53,14 @@
 
 // Container
 .vanilla-container {
+	min-width: $min-container-width;
 	overflow: hidden;
+	position: relative;
+}
+
+
+// Content
+.vanilla-content {
+	display: block;
+	margin: 0 auto;
 }
