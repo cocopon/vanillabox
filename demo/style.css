@@ -42,6 +42,8 @@ li + li {
 pre {
 	background-color: #eee;
 	border: #ddd solid 1px;
+	font-family: monospace;
+	font-size: 90%;
 	margin: 0.5em 0;
 	padding: 8px;
 }
@@ -52,6 +54,23 @@ a {
 a:hover {
 	background-color: #d4e6e1;
 	text-decoration: none;
+}
+
+#theme-form {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin: 0;
+	position: relative;
+	text-align: right;
+	top: -30px;
+}
+#theme-form label {
+	font-size: 80%;
+	vertical-align: middle;
+}
+#theme-form select {
+	vertical-align: middle;
 }
 
 .row {

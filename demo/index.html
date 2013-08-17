@@ -3,13 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Demo - Vanillabox</title>
-	<link rel="stylesheet" href="../vanillabox/theme/bitter/vanillabox.css">
+	<link id="theme-link" rel="stylesheet" href="../vanillabox/theme/bitter/vanillabox.css">
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="../vanillabox/jquery.vanillabox.js"></script>
 </head>
 <body>
 	<h1>Vanillabox Demo</h1>
+	<form id="theme-form" autocomplete="off">
+		<label>Theme:</label>
+		<select>
+			<option value="bitter" selected="selected">Bitter</option>
+			<option value="bitter_frame">Bitter Frame</option>
+		</select>
+	</form>
 
 	<h2>Single Image</h2>
 	<div class="row">
@@ -45,6 +52,18 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			// Theme Selector
+			$('#theme-form select').on('change', function(e) {
+				var name = e.target.value;
+				var href =
+					'../vanillabox/theme/' +
+					name +
+					'/vanillabox.css';
+
+				$('#theme-link').attr('href', href);
+			});
+
+			// Vanillaboxes
 			$('#single-image').vanillabox();
 
 			$('#single-small-image').vanillabox();
