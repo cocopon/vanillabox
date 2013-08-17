@@ -883,8 +883,6 @@
 		me.attachContent_();
 
 		me.setTitle(content.getTitle());
-
-		me.layout();
 	};
 
 	Vanillabox.prototype.layout = function() {
