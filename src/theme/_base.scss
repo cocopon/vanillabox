@@ -62,5 +62,7 @@ $min-container-width: 200px;
 // Content
 .vanilla-content {
 	display: block;
-	margin: 0 auto;
+	left: 50%;
+	position: absolute;
+	top: 50%;
 }

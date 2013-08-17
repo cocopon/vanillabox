@@ -213,9 +213,17 @@
 	};
 
 	Container.prototype.attachContent_ = function() {
+		var me = this;
+		var content = me.getContent();
+
+		$(content).on('complete', $.proxy(me.onContentComplete_, me));
 	};
 
 	Container.prototype.detachContent_ = function() {
+		var me = this;
+		var content = me.getContent();
+
+		$(content).off('complete', me.onContentComplete_);
 	};
 
 	Container.prototype.getElement = function() {
@@ -285,6 +293,21 @@
 			maxWidth: me.maxContentSize_.width,
 			maxHeight: me.maxContentSize_.height
 		});
+	};
+
+	Container.prototype.layout = function() {
+		var me = this;
+		var content = me.getContent();
+		var contentElem = content.getElement();
+
+		contentElem.css({
+			marginLeft: -(contentElem.width() / 2),
+			marginTop: -(contentElem.height() / 2)
+		});
+	};
+
+	Container.prototype.onContentComplete_ = function() {
+		this.layout();
 	};
 
 
