@@ -196,85 +196,6 @@
 	};
 
 
-	var Frame = function(config) {
-		var me = this;
-
-		me.create();
-		me.attach_();
-	};
-
-	Frame.RESIZE_TIMEOUT_DELAY = 500;
-
-	Frame.prototype.create = function() {
-		var me = this;
-
-		if (me.elem_) {
-			return;
-		}
-
-		var elem = $('<div>');
-		elem.addClass('vanilla-frame');
-		me.elem_ = elem;
-	};
-
-	Frame.prototype.release = function() {
-		var me = this;
-
-		me.detach_();
-		me.elem_ = null;
-	};
-
-	Frame.prototype.attach_ = function() {
-		var me = this;
-		me.elem_.on('click', $.proxy(me.onClick_, me));
-	};
-
-	Frame.prototype.detach_ = function() {
-		var me = this;
-		me.elem_.off('click', me.onClick_);
-	};
-
-	Frame.prototype.getElement = function() {
-		return this.elem_;
-	};
-
-	Frame.prototype.getPreferredRect = function() {
-		var me = this;
-		var elem = me.elem_;
-
-		// Save current size
-		var width = elem.width();
-		var height = elem.height();
-
-		// Remove size constraints
-		elem.width('');
-		elem.height('');
-
-		// Get default size
-		var w = elem.width();
-		var h = elem.height();
-		var ow = window.innerWidth;
-		var oh = window.innerHeight;
-		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
-		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
-
-		// Restore size
-		elem.width(width);
-		elem.height(height);
-
-		return {
-			left: left,
-			top: top,
-			width: w,
-			height: h
-		};
-	};
-
-	Frame.prototype.onClick_ = function(e) {
-		e.stopPropagation();
-	};
-
-
 	var Container = function(config) {
 		var me = this;
 
@@ -308,6 +229,21 @@
 	};
 
 	Container.prototype.detach_ = function() {
+		this.detachContent_();
+	};
+
+	Container.prototype.attachContent_ = function() {
+		var me = this;
+		var content = me.getContent();
+
+		$(content).on('complete', $.proxy(me.onContentComplete_, me));
+	};
+
+	Container.prototype.detachContent_ = function() {
+		var me = this;
+		var content = me.getContent();
+
+		$(content).off('complete', me.onContentComplete_);
 	};
 
 	Container.prototype.getElement = function() {
@@ -322,11 +258,14 @@
 		var me = this;
 
 		if (me.content_) {
+			me.detachContent_();
 			me.content_.getElement().remove();
 			me.content_.release();
 		}
 
 		me.content_ = content;
+
+		me.attachContent_();
 
 		var contentElem = me.content_.getElement();
 		if (me.maxContentSize_) {
@@ -352,6 +291,111 @@
 			maxWidth: me.maxContentSize_.width,
 			maxHeight: me.maxContentSize_.height
 		});
+	};
+
+	Container.prototype.layout = function() {
+	};
+
+	Container.prototype.resetLayout = function() {
+	};
+
+	Container.prototype.onContentComplete_ = function() {
+		this.layout();
+	};
+
+
+	var Frame = function(config) {
+		var me = this;
+
+		var container = new Container();
+		me.container_ = container;
+
+		me.create();
+		me.attach_();
+	};
+
+	Frame.RESIZE_TIMEOUT_DELAY = 500;
+
+	Frame.prototype.create = function() {
+		var me = this;
+
+		if (me.elem_) {
+			return;
+		}
+
+		var elem = $('<div>');
+		elem.addClass('vanilla-frame');
+		me.elem_ = elem;
+
+		var container = me.container_;
+		me.elem_.append(container.getElement());
+	};
+
+	Frame.prototype.release = function() {
+		var me = this;
+
+		me.container_.release();
+		me.container_ = null;
+
+		me.detach_();
+		me.elem_ = null;
+	};
+
+	Frame.prototype.attach_ = function() {
+		var me = this;
+		me.elem_.on('click', $.proxy(me.onClick_, me));
+	};
+
+	Frame.prototype.detach_ = function() {
+		var me = this;
+		me.elem_.off('click', me.onClick_);
+	};
+
+	Frame.prototype.getElement = function() {
+		return this.elem_;
+	};
+
+	Frame.prototype.getContainer = function() {
+		return this.container_;
+	};
+
+	Frame.prototype.getPreferredRect = function() {
+		var me = this;
+		var elem = me.elem_;
+		var container = me.getContainer();
+
+		// Save current size
+		var width = elem.width();
+		var height = elem.height();
+
+		// Remove size constraints
+		elem.width('');
+		elem.height('');
+		container.resetLayout();
+
+		// Get default size
+		var w = elem.width();
+		var h = elem.height();
+		var ow = window.innerWidth;
+		var oh = window.innerHeight;
+		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
+		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
+
+		// Restore size
+		elem.width(width);
+		elem.height(height);
+		container.layout();
+
+		return {
+			left: left,
+			top: top,
+			width: w,
+			height: h
+		};
+	};
+
+	Frame.prototype.onClick_ = function(e) {
+		e.stopPropagation();
 	};
 
 
@@ -693,11 +737,6 @@
 		me.frame_ = frame;
 		maskElem.append(frameElem);
 
-		var container = new Container();
-		var containerElem = container.getElement();
-		me.container_ = container;
-		frameElem.append(containerElem);
-
 		var titleLabel = new Label({
 			cls: 'vanilla-title'
 		});
@@ -826,12 +865,12 @@
 
 		animation.showMask(me.mask_.getElement());
 
-		me.container_.updateMaxContentSize();
+		var container = me.frame_.getContainer();
+		container.resetLayout();
+		container.updateMaxContentSize();
 
 		var rect = me.frame_.getPreferredRect();
 		animation.showFrame(me.frame_.getElement(), rect);
-
-		me.layout();
 
 		var index = Util.getOrDefault(opt_index, 0);
 		me.pager_.setCurrentPage(index);
@@ -860,7 +899,10 @@
 	};
 
 	Vanillabox.prototype.getContent_ = function() {
-		return this.container_.getContent();
+		var me = this;
+		var container = me.frame_.getContainer();
+
+		return container.getContent();
 	};
 
 	Vanillabox.prototype.setContent_ = function(content) {
@@ -871,7 +913,8 @@
 			me.detachContent_();
 		}
 
-		me.container_.setContent(content);
+		var container = me.frame_.getContainer();
+		container.setContent(content);
 		me.attachContent_();
 
 		me.setTitle(content.getTitle());
