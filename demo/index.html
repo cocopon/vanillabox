@@ -9,17 +9,49 @@
 	<script type="text/javascript" src="../vanillabox/vanillabox.js"></script>
 </head>
 <body>
-	<h1>Demo</h1>
-	<ul id="demo-image-list">
-		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Foo">400x300</a></li>
-		<li><a href="http://placehold.it/1024x768/c0c/f7f7f7" title="Bar">1024x768</a></li>
-		<li><a href="http://placehold.it/500x800/cc0/f7f7f7" title="Baz">500x800</a></li>
-		<li><a href="http://placehold.it/57x57" title="Qux">57x57</a></li>
-	</ul>
+	<h1>Vanillabox Demo</h1>
+
+	<h2>Single Image</h2>
+	<div class="row">
+		<div class="span4">
+			<ul>
+				<li><a id="single-image" href="http://placehold.it/320x480/0cc/f7f7f7" title="Image">Image</a></li>
+				<li><a id="single-small-image" href="http://placehold.it/32x32/c0c/f7f7f7" title="Small Image">Small image</a></li>
+				<li><a id="single-large-image" href="http://placehold.it/1024x768/cc0/f7f7f7" title="Large Image">Large image</a></li>
+			</ul>
+		</div>
+		<div class="span4">
+			<pre>$(&#39;#single-image&#39;).vanillabox();</pre>
+		</div>
+		<div class="term">&nbsp;</div>
+	</div>
+
+	<h2>Grouped Image</h2>
+	<div class="row">
+		<div class="span4">
+			<ul id="grouped-image-list">
+				<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">Image 1</a></li>
+				<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">Image 2</a></li>
+				<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">Image 3</a></li>
+				<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">Image 4</a></li>
+			</ul>
+		</div>
+		<div class="span4">
+			<pre>$(&#39;#grouped-image-list a&#39;).vanillabox();</pre>
+		</div>
+		<div class="term">&nbsp;</div>
+	</div>
+	<div class="copyright">&copy; 2013 cocopon.</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var vanillabox = $('#demo-image-list a').vanillabox({
+			$('#single-image').vanillabox();
+
+			$('#single-small-image').vanillabox();
+
+			$('#single-large-image').vanillabox();
+
+			$('#grouped-image-list a').vanillabox({
 			});
 		});
 	</script>
