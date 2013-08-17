@@ -45,15 +45,15 @@
 		},
 
 		resizeFrame: function(frame) {
-			var elem = frame.getElement();
-			var rect = frame.getPreferredRect();
+			var container = frame.getContainer();
 
-			elem.css({
-				left: rect.left,
-				top: rect.top,
-				width: rect.width,
-				height: rect.height
+			var containerElem = container.getElement();
+			var contentSize = container.getContentSize();
+			containerElem.css({
+				width: contentSize.width,
+				height: contentSize.height
 			});
+
 		}
 	};
 
@@ -68,34 +68,41 @@
 
 		showFrame: function(frame) {
 			var elem = frame.getElement();
-			var rect = frame.getPreferredRect();
+			var container = frame.getContainer();
+			var contentSize = container.getContentSize();
+			var offset = frame.getPreferredOffset(contentSize);
 
-			elem.css({
-				left: rect.left,
-				top: rect.top,
-				width: rect.width,
-				height: rect.height
-			});
+			container.getElement().animate({
+				width: contentSize.width,
+				height: contentSize.height
+			}, 200);
 
-			elem.fadeIn(200);
+			frame.getElement().animate({
+				left: offset.left,
+				top: offset.top
+			}, 200);
 		},
 
 		hideFrame: function(frame) {
-			frame.getElement().fadeOut(300);
+			// Do nothing
 		},
 
 		resizeFrame: function(frame) {
-			var elem = frame.getElement();
-			var rect = frame.getPreferredRect();
+			var container = frame.getContainer();
+			var contentSize = container.getContentSize();
+			var offset = frame.getPreferredOffset(contentSize);
 
-			elem.animate({
-				left: rect.left,
-				top: rect.top,
-				width: rect.width,
-				height: rect.height
+			container.getElement().animate({
+				width: contentSize.width,
+				height: contentSize.height
 			}, {
-				duration: 2000
+				duration: 300
 			});
+
+			frame.getElement().animate({
+				left: offset.left,
+				top: offset.top
+			}, 300);
 		}
 	};
 
@@ -238,6 +245,24 @@
 		me.elem_.append(contentElem);
 	};
 
+	Container.prototype.getContentSize = function() {
+		var me = this;
+
+		var content = me.getContent();
+		if (!content) {
+			return {
+				width: 0,
+				height: 0
+			};
+		}
+
+		var contentElem = content.getElement();
+		return {
+			width: contentElem.width(),
+			height: contentElem.height()
+		};
+	};
+
 	Container.prototype.updateMaxContentSize = function() {
 		var me = this;
 
@@ -314,36 +339,33 @@
 		return this.container_;
 	};
 
-	Frame.prototype.getPreferredRect = function() {
+	Frame.prototype.getPreferredOffset = function(contentSize) {
 		var me = this;
-		var elem = me.elem_;
 		var container = me.getContainer();
+		var containerElem = container.getElement();
 
 		// Save current size
-		var width = elem.width();
-		var height = elem.height();
+		var w = containerElem.width();
+		var h = containerElem.height();
 
-		// Remove size constraints
-		elem.width('');
-		elem.height('');
+		// Set specified size temporarily
+		containerElem.width(contentSize.width);
+		containerElem.height(contentSize.height);
 
-		// Get default size
-		var w = elem.width();
-		var h = elem.height();
+		// Get preferred position
+		var elem = me.getElement();
 		var ow = window.innerWidth;
 		var oh = window.innerHeight;
 		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
 		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
 
-		// Restore size
-		elem.width(width);
-		elem.height(height);
+		// Restore original size
+		containerElem.width(w);
+		containerElem.height(h);
 
 		return {
 			left: left,
-			top: top,
-			width: w,
-			height: h
+			top: top
 		};
 	};
 
@@ -877,7 +899,6 @@
 
 		me.mask_.layout();
 
-		var rect = me.frame_.getPreferredRect();
 		me.animation_.resizeFrame(me.frame_);
 	};
 
