@@ -66,21 +66,30 @@
 			mask.getElement().fadeOut(300);
 		},
 
-		showFrame: function(frame) {
-			var elem = frame.getElement();
+		animateFrame_: function(frame, contentSize, offset, duration) {
 			var container = frame.getContainer();
-			var contentSize = container.getContentSize();
-			var offset = frame.getPreferredOffset(contentSize);
-
 			container.getElement().animate({
 				width: contentSize.width,
 				height: contentSize.height
-			}, 200);
+			}, duration);
 
 			frame.getElement().animate({
 				left: offset.left,
 				top: offset.top
-			}, 200);
+			}, duration);
+		},
+
+		showFrame: function(frame) {
+			var container = frame.getContainer();
+			var contentSize = container.getContentSize();
+			var offset = frame.getPreferredOffset(contentSize);
+
+			Animation.Default.animateFrame_(
+				frame,
+				contentSize,
+				offset,
+				200
+			);
 		},
 
 		hideFrame: function(frame) {
@@ -92,17 +101,12 @@
 			var contentSize = container.getContentSize();
 			var offset = frame.getPreferredOffset(contentSize);
 
-			container.getElement().animate({
-				width: contentSize.width,
-				height: contentSize.height
-			}, {
-				duration: 300
-			});
-
-			frame.getElement().animate({
-				left: offset.left,
-				top: offset.top
-			}, 300);
+			Animation.Default.animateFrame_(
+				frame,
+				contentSize,
+				offset,
+				300
+			);
 		}
 	};
 
