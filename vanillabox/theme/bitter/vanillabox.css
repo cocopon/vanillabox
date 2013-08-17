@@ -84,7 +84,8 @@
 .vanilla-prev,
 .vanilla-next {
   height: 100%;
-  top: 18px;
+  margin-top: 18px;
+  top: 0;
   width: 44px;
 }
 

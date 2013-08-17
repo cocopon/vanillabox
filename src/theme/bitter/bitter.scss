@@ -64,10 +64,11 @@ $next-button-highlighted-image: url(img/next1.png);
 }
 .vanilla-prev,
 .vanilla-next {
-	$pager-button-top: ($title-height - $frame-width) / 2;
+	$pager-button-offset: ($title-height - $frame-width) / 2;
 
 	height: 100%;
-	top: $pager-button-top;
+	margin-top: $pager-button-offset;
+	top: 0;
 	width: $pager-button-width;
 }
 .vanilla-prev {
