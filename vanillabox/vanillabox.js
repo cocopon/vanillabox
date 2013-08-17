@@ -27,23 +27,27 @@
 	var Animation = {};
 
 	Animation.None = {
-		showMask: function(elem) {
-			elem.show();
+		showMask: function(mask) {
+			mask.getElement().show();
 		},
 
-		hideMask: function(elem) {
-			elem.hide();
+		hideMask: function(mask) {
+			mask.getElement().hide();
 		},
 
-		showFrame: function(elem, rect) {
-			elem.show();
+		showFrame: function(frame) {
+			Animation.None.resizeFrame(frame);
+			frame.getElement().show();
 		},
 
-		hideFrame: function(elem) {
-			elem.hide();
+		hideFrame: function(frame) {
+			frame.getElement().hide();
 		},
 
-		resizeFrame: function(elem, rect) {
+		resizeFrame: function(frame) {
+			var elem = frame.getElement();
+			var rect = frame.getPreferredRect();
+
 			elem.css({
 				left: rect.left,
 				top: rect.top,
@@ -54,78 +58,43 @@
 	};
 
 	Animation.Default = {
-		showMask: function(elem) {
+		showMask: function(mask) {
+			mask.getElement().fadeIn(200);
+		},
+
+		hideMask: function(mask) {
+			mask.getElement().fadeOut(300);
+		},
+
+		showFrame: function(frame) {
+			var elem = frame.getElement();
+			var rect = frame.getPreferredRect();
+
+			elem.css({
+				left: rect.left,
+				top: rect.top,
+				width: rect.width,
+				height: rect.height
+			});
+
 			elem.fadeIn(200);
 		},
 
-		hideMask: function(elem) {
-			elem.fadeOut(300);
+		hideFrame: function(frame) {
+			frame.getElement().fadeOut(300);
 		},
 
-		getRect_: function(elem) {
-			return {
-				left: parseFloat(elem.css('left')),
-				top: parseFloat(elem.css('top')),
-				width: elem.width(),
-				height: elem.height()
-			};
-		},
+		resizeFrame: function(frame) {
+			var elem = frame.getElement();
+			var rect = frame.getPreferredRect();
 
-		scaleRect_: function(rect, scale) {
-			var result = {
-				width: rect.width * scale,
-				height: rect.height * scale
-			};
-
-			result.left = rect.left + (rect.width - result.width) / 2;
-			result.top = rect.top + (rect.height - result.height) / 2;
-
-			return result;
-		},
-
-		showFrame: function(elem, rect) {
-			var startRect = Animation.Default.scaleRect_(rect, 0.8);
-
-			elem.css({
-				left: startRect.left,
-				top: startRect.top,
-				width: startRect.width,
-				height: startRect.height
-			});
-			elem.animate({
-				opacity: 1.0,
-				left: rect.left,
-				top: rect.top,
-				width: rect.width,
-				height: rect.height
-			}, {
-				duration: 300
-			});
-		},
-
-		hideFrame: function(elem) {
-			var rect = Animation.Default.getRect_(elem);
-			var endRect = Animation.Default.scaleRect_(rect, 0.8);
-
-			elem.animate({
-				opacity: 0,
-				left: endRect.left,
-				top: endRect.top,
-				width: endRect.width,
-				height: endRect.height
-			}, {
-				duration: 300
-			});
-		},
-
-		resizeFrame: function(elem, rect) {
 			elem.animate({
 				left: rect.left,
 				top: rect.top,
 				width: rect.width,
 				height: rect.height
 			}, {
-				duration: 200
+				duration: 2000
 			});
 		}
 	};
@@ -233,17 +202,9 @@
 	};
 
 	Container.prototype.attachContent_ = function() {
-		var me = this;
-		var content = me.getContent();
-
-		$(content).on('complete', $.proxy(me.onContentComplete_, me));
 	};
 
 	Container.prototype.detachContent_ = function() {
-		var me = this;
-		var content = me.getContent();
-
-		$(content).off('complete', me.onContentComplete_);
 	};
 
 	Container.prototype.getElement = function() {
@@ -279,28 +240,22 @@
 
 	Container.prototype.updateMaxContentSize = function() {
 		var me = this;
-		var contentElem = me.content_.getElement();
-		var safetyMargin = Container.CONTENT_SIZE_SAFETY_MARGIN;
 
+		var safetyMargin = Container.CONTENT_SIZE_SAFETY_MARGIN;
 		me.maxContentSize_ = {
 			width: window.innerWidth - safetyMargin,
 			height: window.innerHeight - safetyMargin
 		};
 
-		contentElem.css({
+		var content = me.content_;
+		if (!content) {
+			return;
+		}
+
+		content.getElement().css({
 			maxWidth: me.maxContentSize_.width,
 			maxHeight: me.maxContentSize_.height
 		});
-	};
-
-	Container.prototype.layout = function() {
-	};
-
-	Container.prototype.resetLayout = function() {
-	};
-
-	Container.prototype.onContentComplete_ = function() {
-		this.layout();
 	};
 
 
@@ -371,7 +326,6 @@
 		// Remove size constraints
 		elem.width('');
 		elem.height('');
-		container.resetLayout();
 
 		// Get default size
 		var w = elem.width();
@@ -384,7 +338,6 @@
 		// Restore size
 		elem.width(width);
 		elem.height(height);
-		container.layout();
 
 		return {
 			left: left,
@@ -708,9 +661,6 @@
 		});
 
 		me.create();
-
-		me.updatePager_();
-		me.updateContent_();
 	};
 
 	Vanillabox.DELAYED_LAYOUT_DELAY = 300;
@@ -861,26 +811,28 @@
 
 	Vanillabox.prototype.show = function(opt_index) {
 		var me = this;
-		var animation = me.animation_;
-
-		animation.showMask(me.mask_.getElement());
 
 		var container = me.frame_.getContainer();
-		container.resetLayout();
 		container.updateMaxContentSize();
 
-		var rect = me.frame_.getPreferredRect();
-		animation.showFrame(me.frame_.getElement(), rect);
-
+		var pager = me.pager_;
 		var index = Util.getOrDefault(opt_index, 0);
-		me.pager_.setCurrentPage(index);
+		var triggeredPagerEvent = (index !== pager.getCurrentPage());
+		pager.setCurrentPage(index);
+		if (!triggeredPagerEvent) {
+			me.updateContent_();
+		}
+
+		var animation = me.animation_;
+		animation.showMask(me.mask_);
+		animation.showFrame(me.frame_);
 	};
 
 	Vanillabox.prototype.hide = function() {
 		var me = this;
 
-		me.animation_.hideFrame(me.frame_.getElement());
-		me.animation_.hideMask(me.mask_.getElement());
+		me.animation_.hideFrame(me.frame_);
+		me.animation_.hideMask(me.mask_);
 	};
 
 	Vanillabox.prototype.setTitle = function(title) {
@@ -926,7 +878,7 @@
 		me.mask_.layout();
 
 		var rect = me.frame_.getPreferredRect();
-		me.animation_.resizeFrame(me.frame_.getElement(), rect);
+		me.animation_.resizeFrame(me.frame_);
 	};
 
 	Vanillabox.prototype.updatePager_ = function() {
@@ -949,6 +901,9 @@
 
 	Vanillabox.prototype.updateContent_ = function() {
 		var me = this;
+
+		me.updatePager_();
+
 		var index = me.pager_.getCurrentPage();
 		var targetElem = $(me.targetElems_[index]);
 		var imgContent = new ImageContent({
@@ -993,10 +948,7 @@
 	};
 
 	Vanillabox.prototype.onPagerChange_ = function() {
-		var me = this;
-
-		me.updatePager_();
-		me.updateContent_();
+		this.updateContent_();
 	};
 
 	Vanillabox.prototype.onMaskClick_ = function() {
@@ -1016,17 +968,12 @@
 	};
 
 	Vanillabox.prototype.onContentComplete_ = function() {
-		var me = this;
-
-		me.layout();
+		this.layout();
 	};
 
 	Vanillabox.prototype.onContentClick_ = function(e) {
-		var me = this;
-
 		e.stopPropagation();
-
-		me.next();
+		this.next();
 	};
 
 
