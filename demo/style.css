@@ -9,7 +9,7 @@ html {
 body {
 	background-color: #f3f3f3;
 	color: #444;
-	font-family: sans-serif;
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 	font-size: 1.0em;
 	margin: 0 auto;
 	padding: 32px;
@@ -42,8 +42,8 @@ li + li {
 pre {
 	background-color: #eee;
 	border: #ddd solid 1px;
-	font-family: monospace;
-	font-size: 90%;
+	font-family: 'Source Code Pro', 'Menlo', 'Courier New', monospace;
+	font-size: 80%;
 	margin: 0.5em 0;
 	padding: 8px;
 }
@@ -73,13 +73,18 @@ a:hover {
 	vertical-align: middle;
 }
 
-.row {
+.double-column {
 	position: relative;
 	width: 100%;
 }
-.span4 {
+.column1, .column2 {
 	float: left;
-	width: 50%;
+}
+.column1 {
+	width: 40%;
+}
+.column2 {
+	width: 60%;
 }
 
 .term {
