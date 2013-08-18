@@ -176,12 +176,13 @@
 
 	Mask.prototype.layout = function() {
 		var me = this;
+		var elem = me.getElement();
 		var $document = $(document);
-		var ww = Math.max($document.width(), $window.width());
-		var wh = Math.max($document.height(), $window.height());
+		var w = Math.max($document.width(), $window.width());
+		var h = Math.max($document.height(), $window.height());
 
-		me.elem_.width(ww);
-		me.elem_.height(wh);
+		elem.width(w);
+		elem.height(h);
 	};
 
 	Mask.prototype.onWindowResize_ = function(e) {
@@ -716,9 +717,10 @@
 			config.animation,
 			AnimationProvider.get('default')
 		);
+		me.repositionOnScroll_ = config.autoReposition;
 
 		me.pager_ = new Pager({
-			allowsLoop: config.allowsLoop,
+			allowsLoop: config.loop,
 			totalPages: me.targetElems_.length
 		});
 
@@ -873,12 +875,15 @@
 
 	Vanillabox.prototype.show = function(opt_index) {
 		var me = this;
+		var animation = me.animation_;
 
 		var container = me.frame_.getContainer();
 		container.updateMaxContentSize();
 
-		var animation = me.animation_;
-		animation.showMask(me.mask_);
+		var mask = me.mask_;
+		mask.layout();
+		animation.showMask(mask);
+
 		animation.showFrame(me.frame_);
 
 		var pager = me.pager_;
@@ -936,12 +941,13 @@
 		content.load();
 	};
 
-	Vanillabox.prototype.layout = function() {
+	Vanillabox.prototype.layout = function(forceLayout) {
 		var me = this;
+		var needsResizing = (forceLayout || me.repositionOnScroll_);
 
-		me.mask_.layout();
-
-		me.animation_.resizeFrame(me.frame_);
+		if (needsResizing) {
+			me.animation_.resizeFrame(me.frame_);
+		}
 	};
 
 	Vanillabox.prototype.updatePager_ = function() {
@@ -977,7 +983,7 @@
 		me.setContent_(imgContent);
 	};
 
-	Vanillabox.prototype.delayedLayout_ = function() {
+	Vanillabox.prototype.delayedLayout_ = function(forceLayout) {
 		var me = this;
 
 		if (me.layoutTimeout_) {
@@ -985,16 +991,16 @@
 		}
 
 		me.layoutTimeout_ = setTimeout(function() {
-			me.layout();
+			me.layout(forceLayout);
 		}, Vanillabox.DELAYED_LAYOUT_DELAY);
 	};
 
 	Vanillabox.prototype.onWindowResize_ = function() {
-		this.delayedLayout_();
+		this.delayedLayout_(false);
 	};
 
 	Vanillabox.prototype.onWindowScroll_ = function() {
-		this.delayedLayout_();
+		this.delayedLayout_(false);
 	};
 
 	Vanillabox.prototype.onTargetElementClick_ = function(e) {
@@ -1031,7 +1037,7 @@
 	};
 
 	Vanillabox.prototype.onContentComplete_ = function() {
-		this.layout();
+		this.layout(true);
 	};
 
 	Vanillabox.prototype.onContentClick_ = function(e) {
@@ -1041,7 +1047,8 @@
 
 
 	var DEFAULT_CONFIG = {
-		allowsLoop: false,
+		repositionOnScroll: true,
+		loop: false,
 		animation: 'default'
 	};
 
@@ -1055,8 +1062,9 @@
 		var animation = AnimationProvider.get(config.animation);
 
 		var box = new Vanillabox({
-			allowsLoop: config.allowsLoop,
+			loop: config.loop,
 			animation: animation,
+			repositionOnScroll: config.repositionOnScroll,
 			targets: targetElems
 		});
 
