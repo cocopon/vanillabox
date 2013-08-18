@@ -729,6 +729,7 @@
 			AnimationProvider.get('default')
 		);
 		me.repositionOnScroll_ = config.repositionOnScroll;
+		me.supportsKeyboard_ = config.keyboard;
 
 		me.pager_ = new Pager({
 			allowsLoop: config.loop,
@@ -864,16 +865,20 @@
 
 	Vanillabox.prototype.attachWindow_ = function() {
 		var me = this;
+		var $document = $(document);
 
 		$window.on('resize', $.proxy(me.onWindowResize_, me));
 		$window.on('scroll', $.proxy(me.onWindowScroll_, me));
+		$document.on('keyup', $.proxy(me.onDocumentKeyUp_, me));
 	};
 
 	Vanillabox.prototype.detachWindow_ = function() {
 		var me = this;
+		var $document = $(document);
 
 		$window.off('resize', me.onWindowResize_, me);
 		$window.off('scroll', me.onWindowScroll_, me);
+		$document.off('keyup', me.onDocumentKeyUp_, me);
 	};
 
 	Vanillabox.prototype.attachContent_ = function() {
@@ -1040,6 +1045,26 @@
 		this.delayedLayout_(false);
 	};
 
+	Vanillabox.prototype.onDocumentKeyUp_ = function(e) {
+		var me = this;
+
+		if (!me.supportsKeyboard_) {
+			return;
+		}
+
+		switch (e.keyCode) {
+			case 27:  // Escape
+				me.hide();
+				break;
+			case 37:  // Left
+				me.previous();
+				break;
+			case 39:  // Right
+				me.next();
+				break;
+		}
+	};
+
 	Vanillabox.prototype.onTargetElementClick_ = function(e) {
 		var me = this;
 		var index = me.targetElems_.index(e.target);
@@ -1084,9 +1109,10 @@
 
 
 	var DEFAULT_CONFIG = {
-		repositionOnScroll: true,
+		animation: 'default',
+		keyboard: true,
 		loop: false,
-		animation: 'default'
+		repositionOnScroll: true
 	};
 
 
@@ -1099,8 +1125,9 @@
 		var animation = AnimationProvider.get(config.animation);
 
 		var box = new Vanillabox({
-			loop: config.loop,
 			animation: animation,
+			keyboard: config.keyboard,
+			loop: config.loop,
 			repositionOnScroll: config.repositionOnScroll,
 			targets: targetElems
 		});
