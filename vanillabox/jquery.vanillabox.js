@@ -750,6 +750,7 @@
 
 		var mask = new Mask();
 		var maskElem = mask.getElement();
+		maskElem.addClass('vanilla');
 		maskElem.hide();
 		$('body').append(maskElem);
 		me.mask_ = mask;
