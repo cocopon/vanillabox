@@ -6,8 +6,6 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 (function($) {
-	var defaults = {
-	};
 	var $window = $(window);
 
 
@@ -1042,15 +1040,22 @@
 	};
 
 
-	$.fn.vanillabox = function(config) {
-		var me = this;
-		var setting = $.extend(defaults, config);
+	var DEFAULT_CONFIG = {
+		allowsLoop: false,
+		animation: 'default'
+	};
 
-		var targetElems = $(me);
-		var animation = AnimationProvider.get(setting.animation);
+
+	$.fn.vanillabox = function(opt_config) {
+		var config = {};
+		$.extend(config, DEFAULT_CONFIG);
+		$.extend(config, opt_config);
+
+		var targetElems = $(this);
+		var animation = AnimationProvider.get(config.animation);
 
 		var box = new Vanillabox({
-			allowsLoop: setting.allowsLoop,
+			allowsLoop: config.allowsLoop,
 			animation: animation,
 			targets: targetElems
 		});
