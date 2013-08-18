@@ -42,7 +42,7 @@
 		},
 
 		hideMask: function(mask) {
-			mask.getElement().hide();
+			return mask.getElement().hide();
 		},
 
 		showFrame: function(frame) {
@@ -51,7 +51,7 @@
 		},
 
 		hideFrame: function(frame) {
-			frame.getElement().hide();
+			return frame.getElement().hide();
 		},
 
 		resizeFrame: function(frame) {
@@ -63,7 +63,6 @@
 				width: contentSize.width,
 				height: contentSize.height
 			});
-
 		}
 	};
 
@@ -73,7 +72,7 @@
 		},
 
 		hideMask: function(mask) {
-			mask.getElement().fadeOut(300);
+			return mask.getElement().fadeOut(300);
 		},
 
 		animateFrame_: function(frame, contentSize, offset, duration) {
@@ -106,7 +105,13 @@
 		},
 
 		hideFrame: function(frame) {
-			// Do nothing
+			var d = new $.Deferred();
+
+			setTimeout(function() {
+				d.resolve();
+			}, 0);
+
+			return d.promise();
 		},
 
 		resizeFrame: function(frame) {
@@ -716,6 +721,8 @@
 	var Vanillabox = function(config) {
 		var me = this;
 
+		me.showed_ = false;
+
 		me.targetElems_ = config.targets;
 		me.animation_ = Util.getOrDefault(
 			config.animation,
@@ -791,6 +798,7 @@
 	Vanillabox.prototype.release = function() {
 		var me = this;
 
+		me.detachWindow_();
 		me.detach_();
 
 		me.mask_.getElement().remove();
@@ -821,9 +829,6 @@
 	Vanillabox.prototype.attach_ = function() {
 		var me = this;
 
-		$window.on('resize', $.proxy(me.onWindowResize_, me));
-		$window.on('scroll', $.proxy(me.onWindowScroll_, me));
-
 		me.targetElems_.on('click', $.proxy(me.onTargetElementClick_, me));
 
 		var maskElem = me.mask_.getElement();
@@ -840,9 +845,6 @@
 	Vanillabox.prototype.detach_ = function() {
 		var me = this;
 
-		$window.off('resize', me.onWindowResize_, me);
-		$window.off('scroll', me.onWindowScroll_, me);
-
 		me.targetElems_.off('click', me.onTargetElementClick_);
 
 		var maskElem = me.mask_.getElement();
@@ -857,6 +859,20 @@
 
 		me.detachContent_();
 		me.content_ = null;
+	};
+
+	Vanillabox.prototype.attachWindow_ = function() {
+		var me = this;
+
+		$window.on('resize', $.proxy(me.onWindowResize_, me));
+		$window.on('scroll', $.proxy(me.onWindowScroll_, me));
+	};
+
+	Vanillabox.prototype.detachWindow_ = function() {
+		var me = this;
+
+		$window.off('resize', me.onWindowResize_, me);
+		$window.off('scroll', me.onWindowScroll_, me);
 	};
 
 	Vanillabox.prototype.attachContent_ = function() {
@@ -881,6 +897,13 @@
 		var me = this;
 		var animation = me.animation_;
 
+		if (me.showed_) {
+			return;
+		}
+		me.showed_ = true;
+
+		me.attachWindow_();
+
 		var container = me.frame_.getContainer();
 		container.updateMaxContentSize();
 
@@ -902,8 +925,17 @@
 	Vanillabox.prototype.hide = function() {
 		var me = this;
 
-		me.animation_.hideFrame(me.frame_);
-		me.animation_.hideMask(me.mask_);
+		if (!me.showed_) {
+			return;
+		}
+
+		$.when(
+			me.animation_.hideFrame(me.frame_),
+			me.animation_.hideMask(me.mask_)
+		).done(function() {
+			me.detachWindow_();
+			me.showed_ = false;
+		});
 	};
 
 	Vanillabox.prototype.setTitle = function(title) {
