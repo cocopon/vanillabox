@@ -177,6 +177,10 @@
 	Mask.prototype.layout = function() {
 		var me = this;
 		var elem = me.getElement();
+
+		elem.width('');
+		elem.height('');
+
 		var $document = $(document);
 		var w = Math.max($document.width(), $window.width());
 		var h = Math.max($document.height(), $window.height());
@@ -717,7 +721,7 @@
 			config.animation,
 			AnimationProvider.get('default')
 		);
-		me.repositionOnScroll_ = config.autoReposition;
+		me.repositionOnScroll_ = config.repositionOnScroll;
 
 		me.pager_ = new Pager({
 			allowsLoop: config.loop,
