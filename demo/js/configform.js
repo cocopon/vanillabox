@@ -130,16 +130,21 @@ ConfigRow.prototype.updateEnabled_ = function() {
 	var me = this;
 	var enabled = me.isEnabled();
 
-	console.log(enabled);
 	me.elem_.toggleClass('config-row-disabled', !enabled);
 };
 
 ConfigRow.prototype.onCheckboxChange_ = function() {
-	this.updateEnabled_();
+	var me = this;
+
+	me.updateEnabled_();
+	$(me).trigger('change');
 };
 
 ConfigRow.prototype.onFieldChange_ = function() {
-	this.setEnabled(true);
+	var me = this;
+
+	me.setEnabled(true);
+	$(me).trigger('change');
 };
 
 
@@ -217,6 +222,20 @@ ConfigForm.prototype.create = function() {
 	}
 
 	elem.append(tableElem);
+
+	me.attach_();
+};
+
+ConfigForm.prototype.attach_ = function() {
+	var me = this;
+	var len = me.rows_.length;
+	var i;
+	var row;
+
+	for (i = 0; i < len; i++) {
+		row = me.rows_[i];
+		$(row).on('change', $.proxy(me.onRowChange_, me));
+	}
 };
 
 ConfigForm.prototype.getElement = function() {
@@ -242,4 +261,8 @@ ConfigForm.prototype.buildConfig = function() {
 	}
 
 	return config;
+};
+
+ConfigForm.prototype.onRowChange_ = function() {
+	$(this).trigger('change');
 };

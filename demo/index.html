@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="../vanillabox/jquery.vanillabox.js"></script>
 	<script type="text/javascript" src="js/configform.js"></script>
+	<script type="text/javascript" src="js/configpre.js"></script>
 </head>
 <body>
 	<h1>Vanillabox Demo</h1>
@@ -61,7 +62,7 @@
 	<form id="config-form">
 	</form>
 	<button id="show-button">Show</button>
-	<pre>TODO: Preview</pre>
+	<pre id="config-pre">{}</pre>
 
 	<div class="copyright">&copy; 2013 cocopon.</div>
 
@@ -85,8 +86,15 @@
 			$('#grouped-image-list a').vanillabox();
 
 			// Interactive
-			var interactiveBox = null;
 			var configForm = new ConfigForm($('#config-form'));
+			var configPre = new ConfigPre($('#config-pre'));
+
+			$(configForm).on('change', function() {
+				var config = configForm.buildConfig();
+				configPre.setConfig(config);
+			});
+
+			var interactiveBox = null;
 			$('#show-button').on('click', function() {
 				if (interactiveBox) {
 					interactiveBox.release();
