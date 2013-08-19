@@ -74,6 +74,10 @@
   width: 44px;
 }
 
+.vanilla-close:hover {
+  background-image: url(img/close1.png);
+}
+
 .vanilla-prev,
 .vanilla-next {
   height: 100%;

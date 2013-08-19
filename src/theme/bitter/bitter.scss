@@ -54,6 +54,9 @@ $next-button-highlighted-image: url(img/next1.png);
 	top: 0;
 	width: $close-button-size;
 }
+.vanilla-close:hover {
+	background-image: $close-button-highlighted-image;
+}
 .vanilla-prev,
 .vanilla-next {
 	$pager-button-offset: $title-height / 2;

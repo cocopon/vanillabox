@@ -33,6 +33,12 @@
 		}
 	};
 
+	var Events = {
+		CHANGE: 'vanilla-change',
+		CLICK: 'vanilla-click',
+		COMPLETE: 'vanilla-complete'
+	};
+
 
 	var Animation = {};
 
@@ -168,11 +174,20 @@
 
 	Mask.prototype.attach_ = function() {
 		var me = this;
+
 		$window.on('resize', $.proxy(me.onWindowResize_, me));
+
+		var elem = me.getElement();
+		elem.on('click', $.proxy(me.onClick_, me));
 	};
 
 	Mask.prototype.detach_ = function() {
-		$window.off('resize', this.onWindowResize_);
+		var me = this;
+
+		$window.off('resize', me.onWindowResize_);
+
+		var elem = me.getElement();
+		elem.off('click', me.onClick_);
 	};
 
 	Mask.prototype.getElement = function() {
@@ -196,6 +211,12 @@
 
 	Mask.prototype.onWindowResize_ = function(e) {
 		this.layout();
+	};
+
+	Mask.prototype.onClick_ = function() {
+		var me = this;
+
+		$(me).trigger(Events.CLICK);
 	};
 
 
@@ -240,14 +261,14 @@
 		var me = this;
 		var content = me.getContent();
 
-		$(content).on('complete', $.proxy(me.onContentComplete_, me));
+		$(content).on(Events.COMPLETE, $.proxy(me.onContentComplete_, me));
 	};
 
 	Container.prototype.detachContent_ = function() {
 		var me = this;
 		var content = me.getContent();
 
-		$(content).off('complete', me.onContentComplete_);
+		$(content).off(Events.COMPLETE, me.onContentComplete_);
 	};
 
 	Container.prototype.getElement = function() {
@@ -507,7 +528,7 @@
 			elem.addClass('vanilla-error');
 		}
 
-		$(me).trigger('complete');
+		$(me).trigger(Events.COMPLETE);
 	};
 
 
@@ -532,7 +553,7 @@
 		me.currentPage_ = newIndex;
 
 		if (currentIndex !== newIndex) {
-			$(me).trigger('change');
+			$(me).trigger(Events.CHANGE);
 		}
 	};
 
@@ -575,7 +596,7 @@
 		me.currentPage_ = nextIndex;
 
 		if (currentIndex !== nextIndex) {
-			$(me).trigger('change');
+			$(me).trigger(Events.CHANGE);
 		}
 	};
 
@@ -593,7 +614,7 @@
 		me.currentPage_ = prevIndex;
 
 		if (currentIndex !== prevIndex) {
-			$(me).trigger('change');
+			$(me).trigger(Events.CHANGE);
 		}
 	};
 
@@ -672,7 +693,7 @@
 		e.stopPropagation();
 
 		if (!me.isDisabled()) {
-			$(me).trigger('click');
+			$(me).trigger(Events.CLICK);
 		}
 	};
 
@@ -837,15 +858,14 @@
 
 		me.targetElems_.on('click', $.proxy(me.onTargetElementClick_, me));
 
-		var maskElem = me.mask_.getElement();
-		maskElem.on('click', $.proxy(me.onMaskClick_, me));
+		$(me.mask_).on(Events.CLICK, $.proxy(me.onMaskClick_, me));
 
 		var $pager = $(me.pager_);
-		$pager.on('change', $.proxy(me.onPagerChange_, me));
+		$pager.on(Events.CHANGE, $.proxy(me.onPagerChange_, me));
 
-		$(me.closeButton_).on('click', $.proxy(me.onCloseButtonClick_, me));
-		$(me.prevButton_).on('click', $.proxy(me.onPreviousButtonClick_, me));
-		$(me.nextButton_).on('click', $.proxy(me.onNextButtonClick_, me));
+		$(me.closeButton_).on(Events.CLICK, $.proxy(me.onCloseButtonClick_, me));
+		$(me.prevButton_).on(Events.CLICK, $.proxy(me.onPreviousButtonClick_, me));
+		$(me.nextButton_).on(Events.CLICK, $.proxy(me.onNextButtonClick_, me));
 	};
 
 	Vanillabox.prototype.detach_ = function() {
@@ -853,15 +873,14 @@
 
 		me.targetElems_.off('click', me.onTargetElementClick_);
 
-		var maskElem = me.mask_.getElement();
-		maskElem.off('click', me.onMaskClick_);
+		$(me.mask_).off(Events.CLICK, me.onMaskClick_);
 
 		var $pager = $(me.pager_);
-		$pager.off('change', me.onPagerChange_);
+		$pager.off(Events.CHANGE, me.onPagerChange_);
 
-		$(me.closeButton_).off('click', me.onCloseButtonClick_);
-		$(me.prevButton_).off('click', me.onPreviousButtonClick_);
-		$(me.nextButton_).off('click', me.onNextButtonClick_);
+		$(me.closeButton_).off(Events.CLICK, me.onCloseButtonClick_);
+		$(me.prevButton_).off(Events.CLICK, me.onPreviousButtonClick_);
+		$(me.nextButton_).off(Events.CLICK, me.onNextButtonClick_);
 
 		me.detachContent_();
 		me.content_ = null;
@@ -890,7 +909,7 @@
 		var content = me.getContent_();
 		var contentElem = content.getElement();
 
-		$(content).on('complete', $.proxy(me.onContentComplete_, me));
+		$(content).on(Events.COMPLETE, $.proxy(me.onContentComplete_, me));
 		contentElem.on('click', $.proxy(me.onContentClick_, me));
 	};
 
