@@ -30,6 +30,22 @@ h2 {
 	padding: 2px 0;
 }
 
+table {
+	border-collapse: collapse;
+	border: #ddd solid 1px;
+	margin: 0.5em 0;
+	width: 100%;
+}
+th, td {
+	border: #ddd solid 1px;
+	padding: 8px 1.0em;
+}
+th {
+	background-color: #eee;
+	color: #999;
+	font-weight: normal;
+}
+
 ul {
 	list-style-type: none;
 	margin: 0.5em 0;
@@ -93,9 +109,21 @@ a:hover {
 	width: 0;
 }
 
+.config-enabled {
+	text-align: center;
+}
+.config-name {
+	font-family: 'Source Code Pro', 'Menlo', 'Courier New', monospace;
+}
+
+#interactive-image-list {
+	display: none;
+}
+
 .copyright {
 	color: #bbb;
 	font-size: 90%;
 	margin-top: 2.0em;
 	text-align: center;
 }
+

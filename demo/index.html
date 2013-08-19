@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="../vanillabox/jquery.vanillabox.js"></script>
+	<script type="text/javascript" src="js/configform.js"></script>
 </head>
 <body>
 	<h1>Vanillabox Demo</h1>
@@ -48,6 +49,20 @@
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
+
+	<!-- TODO: Layout -->
+	<h2>Interactive Config</h2>
+	<ul id="interactive-image-list">
+		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">Image 1</a></li>
+		<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">Image 2</a></li>
+		<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">Image 3</a></li>
+		<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">Image 4</a></li>
+	</ul>
+	<form id="config-form">
+	</form>
+	<button id="show-button">Show</button>
+	<pre>TODO: Preview</pre>
+
 	<div class="copyright">&copy; 2013 cocopon.</div>
 
 	<script type="text/javascript">
@@ -65,12 +80,21 @@
 
 			// Vanillaboxes
 			$('#single-image').vanillabox();
-
 			$('#single-small-image').vanillabox();
-
 			$('#single-large-image').vanillabox();
+			$('#grouped-image-list a').vanillabox();
 
-			$('#grouped-image-list a').vanillabox({
+			// Interactive
+			var interactiveBox = null;
+			var configForm = new ConfigForm($('#config-form'));
+			$('#show-button').on('click', function() {
+				if (interactiveBox) {
+					interactiveBox.release();
+				}
+
+				var config = configForm.buildConfig();
+				interactiveBox = $('#interactive-image-list a').vanillabox(config);
+				interactiveBox.show();
 			});
 		});
 	</script>
