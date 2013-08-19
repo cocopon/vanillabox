@@ -42,7 +42,6 @@ th, td {
 }
 th {
 	background-color: #eee;
-	color: #999;
 	font-weight: normal;
 }
 
@@ -109,11 +108,19 @@ a:hover {
 	width: 0;
 }
 
-.config-enabled {
+.config-row-disabled {
+	background-color: #eee;
+	color: #aaa;
+}
+.config-enabled-cell {
 	text-align: center;
 }
-.config-name {
+.config-name-cell {
 	font-family: 'Source Code Pro', 'Menlo', 'Courier New', monospace;
+	font-size: 80%;
+}
+.config-desc-cell {
+	font-size: 90%;
 }
 
 #interactive-image-list {

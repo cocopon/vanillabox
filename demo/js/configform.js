@@ -6,6 +6,13 @@ var BooleanField = function(config) {
 
 	me.name_ = config.name;
 	me.setValue(config.value);
+
+	me.attach_();
+};
+
+BooleanField.prototype.attach_ = function() {
+	var me = this;
+	me.elem_.on('change', $.proxy(me.onChange_, me));
 };
 
 BooleanField.prototype.getElement = function() {
@@ -24,6 +31,10 @@ BooleanField.prototype.setValue = function(value) {
 	this.elem_.attr('checked', value);
 };
 
+BooleanField.prototype.onChange_ = function() {
+	$(this).trigger('change');
+};
+
 
 var ConfigRow = function(config) {
 	var me = this;
@@ -31,6 +42,8 @@ var ConfigRow = function(config) {
 	me.config_ = config;
 
 	me.create();
+
+	me.updateEnabled_();
 };
 
 ConfigRow.FIELD_CLASSES = {
@@ -51,7 +64,7 @@ ConfigRow.prototype.create = function() {
 	// enabled
 	var checkboxElem;
 	tdElem = $('<td>');
-	tdElem.addClass('config-enabled');
+	tdElem.addClass('config-enabled-cell');
 	checkboxElem = $('<input type="checkbox">');
 	tdElem.append(checkboxElem);
 	elem.append(tdElem);
@@ -59,13 +72,13 @@ ConfigRow.prototype.create = function() {
 
 	// name
 	tdElem = $('<td>');
-	tdElem.addClass('config-name');
+	tdElem.addClass('config-name-cell');
 	tdElem.text(config.name);
 	elem.append(tdElem);
 
 	// description
 	tdElem = $('<td>');
-	tdElem.addClass('config-desc');
+	tdElem.addClass('config-desc-cell');
 	tdElem.text(config.description);
 	elem.append(tdElem);
 
@@ -73,12 +86,24 @@ ConfigRow.prototype.create = function() {
 	var FieldClass = ConfigRow.FIELD_CLASSES[config.type];
 	var field = new FieldClass(config);
 	tdElem = $('<td>');
-	tdElem.addClass('config-field');
+	tdElem.addClass('config-field-cell');
 	tdElem.append(field.getElement());
 	elem.append(tdElem);
 	me.field_ = field;
 
 	me.elem_ = elem;
+
+	me.attach_();
+};
+
+ConfigRow.prototype.attach_ = function() {
+	var me = this;
+
+	var checkboxElem = me.checkboxElem_;
+	$(checkboxElem).on('change', $.proxy(me.onCheckboxChange_, me));
+
+	var field = me.field_;
+	$(field).on('change', $.proxy(me.onFieldChange_, me));
 };
 
 ConfigRow.prototype.getElement = function() {
@@ -92,6 +117,29 @@ ConfigRow.prototype.getField = function() {
 ConfigRow.prototype.isEnabled = function() {
 	var me = this;
 	return me.checkboxElem_.is(':checked');
+};
+
+ConfigRow.prototype.setEnabled = function(enabled) {
+	var me = this;
+
+	me.checkboxElem_.attr('checked', enabled);
+	me.updateEnabled_();
+};
+
+ConfigRow.prototype.updateEnabled_ = function() {
+	var me = this;
+	var enabled = me.isEnabled();
+
+	console.log(enabled);
+	me.elem_.toggleClass('config-row-disabled', !enabled);
+};
+
+ConfigRow.prototype.onCheckboxChange_ = function() {
+	this.updateEnabled_();
+};
+
+ConfigRow.prototype.onFieldChange_ = function() {
+	this.setEnabled(true);
 };
 
 
