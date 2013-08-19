@@ -532,19 +532,21 @@
 	};
 
 
-	var Pager = function(config) {
+	var Pager = function(opt_config) {
 		var me = this;
+		var config = opt_config || {};
 
-		me.totalPages_ = config.totalPages;
-		me.currentPage_ = Util.getOrDefault(config.page, 0);
-		me.allowsLoop_ = Util.getOrDefault(config.allowsLoop, false);
+		me.totalPages_ = Util.getOrDefault(config.totalPages, 1);
+		me.allowsLoop_ = Util.getOrDefault(config.loop, false);
+
+		me.setPage(Util.getOrDefault(config.page, 0));
 	};
 
-	Pager.prototype.getCurrentPage = function() {
+	Pager.prototype.getPage = function() {
 		return this.currentPage_;
 	};
 
-	Pager.prototype.setCurrentPage = function(page) {
+	Pager.prototype.setPage = function(page) {
 		var me = this;
 		var currentIndex = me.currentPage_;
 		var totalPages = me.getTotalPages();
@@ -754,7 +756,7 @@
 		me.closeButtonEnabled_ = config.closeButton;
 
 		me.pager_ = new Pager({
-			allowsLoop: config.loop,
+			loop: config.loop,
 			totalPages: me.targetElems_.length
 		});
 
@@ -944,8 +946,8 @@
 
 		var pager = me.pager_;
 		var index = Util.getOrDefault(opt_index, 0);
-		var triggeredPagerEvent = (index !== pager.getCurrentPage());
-		pager.setCurrentPage(index);
+		var triggeredPagerEvent = (index !== pager.getPage());
+		pager.setPage(index);
 		if (!triggeredPagerEvent) {
 			me.updateContent_();
 		}
@@ -1019,7 +1021,7 @@
 		var me = this;
 		var pager = me.pager_;
 
-		var page = pager.getCurrentPage();
+		var page = pager.getPage();
 		var totalPages = pager.getTotalPages();
 		var text =
 			String(page + 1) +
@@ -1038,7 +1040,7 @@
 
 		me.updatePager_();
 
-		var index = me.pager_.getCurrentPage();
+		var index = me.pager_.getPage();
 		var targetElem = $(me.targetElems_[index]);
 		var imgContent = new ImageContent({
 			path: targetElem.attr('href'),
@@ -1168,5 +1170,11 @@
 		});
 
 		return box;
+	};
+
+	// For testing of private classes
+	$.fn.vanillabox.privateClasses_ = {
+		Events: Events,
+		Pager: Pager
 	};
 })(jQuery);
