@@ -18,6 +18,8 @@ $pager-label-spacing: 8px;
 
 // Image
 $mask-image: url(img/mask.png);
+$close-button-image: url(img/close0.png);
+$close-button-highlighted-image: url(img/close1.png);
 $prev-button-image: url(img/prev0.png);
 $prev-button-highlighted-image: url(img/prev1.png);
 $next-button-image: url(img/next0.png);
@@ -44,7 +46,13 @@ $next-button-highlighted-image: url(img/next1.png);
 	display: none;
 }
 .vanilla-close {
-	display: none;
+	$close-button-size: $title-height;
+
+	background: $close-button-image no-repeat center center;
+	height: $close-button-size;
+	right: 0;
+	top: 0;
+	width: $close-button-size;
 }
 .vanilla-prev,
 .vanilla-next {

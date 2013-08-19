@@ -730,6 +730,7 @@
 		);
 		me.repositionOnScroll_ = config.repositionOnScroll;
 		me.supportsKeyboard_ = config.keyboard;
+		me.closeButtonEnabled_ = config.closeButton;
 
 		me.pager_ = new Pager({
 			allowsLoop: config.loop,
@@ -791,6 +792,9 @@
 		var closeButton = new Button({
 			cls: 'vanilla-close'
 		});
+		if (!me.closeButtonEnabled_) {
+			closeButton.getElement().hide();
+		}
 		me.closeButton_ = closeButton;
 		frameElem.append(closeButton.getElement());
 
@@ -1083,11 +1087,21 @@
 	};
 
 	Vanillabox.prototype.onMaskClick_ = function() {
-		this.hide();
+		var me = this;
+
+		if (!me.closeButtonEnabled_) {
+			me.hide();
+		}
 	};
 
 	Vanillabox.prototype.onCloseButtonClick_ = function() {
-		this.hide();
+		var me = this;
+
+		if (!me.closeButtonEnabled_) {
+			return;
+		}
+
+		me.hide();
 	};
 
 	Vanillabox.prototype.onPreviousButtonClick_ = function() {
@@ -1110,6 +1124,7 @@
 
 	var DEFAULT_CONFIG = {
 		animation: 'default',
+		closeButton: false,
 		keyboard: true,
 		loop: false,
 		repositionOnScroll: true
@@ -1126,6 +1141,7 @@
 
 		var box = new Vanillabox({
 			animation: animation,
+			closeButton: config.closeButton,
 			keyboard: config.keyboard,
 			loop: config.loop,
 			repositionOnScroll: config.repositionOnScroll,

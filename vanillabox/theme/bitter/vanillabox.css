@@ -67,7 +67,11 @@
 }
 
 .vanilla-close {
-  display: none;
+  background: url(img/close0.png) no-repeat center center;
+  height: 44px;
+  right: 0;
+  top: 0;
+  width: 44px;
 }
 
 .vanilla-prev,
