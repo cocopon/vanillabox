@@ -33,7 +33,6 @@ h2 {
 table {
   border-collapse: collapse;
   border: gainsboro solid 1px;
-  margin: 0.5em 0;
   width: 100%;
 }
 
@@ -117,6 +116,10 @@ a:hover {
   width: 0;
 }
 
+#config-form {
+  margin: 1em 0 0.5em;
+}
+
 .config-row-disabled {
   background-color: #eeeeee;
   color: #959595;
@@ -135,13 +138,31 @@ a:hover {
   font-size: 90%;
 }
 
-#interactive-image-list {
-  display: none;
+.button {
+  background-color: #4ab098;
+  color: #d7eee9;
+  cursor: pointer;
+  display: inline-block;
+  margin: 1em 0;
+  padding: 4px 8px;
+  text-align: center;
+}
+.button:hover {
+  background-color: #48cbad;
+  color: white;
 }
 
 .copyright {
   color: silver;
   font-size: 90%;
   margin-top: 2em;
+  text-align: center;
+}
+
+#interactive-image-list {
+  display: none;
+}
+
+.config-form-toolbar {
   text-align: center;
 }

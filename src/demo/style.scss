@@ -2,7 +2,8 @@
 $outer-background-color: #ccc;
 $background-color: #f3f3f3;
 $color: #444;
-$a-color: hsl(166, 41%, 49%);
+$key-color: hsl(166, 41%, 49%);
+$a-color: $key-color;
 $a-hover-background-color: adjust-color($a-color, $saturation: -15%, $lightness: +38%);
 $heading-border-color: darken($background-color, 9%);
 $pre-background-color: darken($background-color, 2%);
@@ -10,6 +11,10 @@ $pre-border-color: darken($background-color, 9%);
 $table-border-color: darken($background-color, 9%);
 $th-background-color: darken($background-color, 2%);
 
+$button-background-color: $key-color;
+$button-color: lighten($button-background-color, 40%);
+$button-hover-background-color: adjust-color($button-background-color, $saturation: +15%, $lightness: +5%);
+$button-hover-color: lighten($button-color, 30%);
 $config-row-disabled-background-color: darken($background-color, 2%);
 $config-row-disabled-color: darken($config-row-disabled-background-color, 35%);
 $copyright-color: darken($background-color, 20%);
@@ -21,7 +26,6 @@ $font-size: 1.0em;
 $font-size-monospace: 80%;
 $h1-font-size: 150%;
 $h2-font-size: 100%;
-$table-cell-padding: 8px 1.0em;
 
 $config-desc-cell-font-size: 90%;
 $copyright-font-size: 90%;
@@ -30,7 +34,6 @@ $theme-form-label-font-size: 80%;
 // Geometry
 $body-padding: 32px;
 $body-width: 800px;
-$copyright-spacing: 2.0em;
 $h1-margin: 0;
 $h1-padding: 0;
 $h2-margin: 2.0em 0 0.5em;
@@ -39,8 +42,12 @@ $list-margin: 0.5em 0;
 $list-item-spacing: 0.25em;
 $pre-margin: 0.5em 0;
 $pre-padding: 8px;
-$table-margin: 0.5em 0;
+$table-cell-padding: 8px 1.0em;
 
+$button-margin: 1.0em 0;
+$button-padding: 4px 8px;
+$config-form-margin:1.0em 0 0.5em;
+$copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
 $double-column-column2-width: 60%;
 $theme-form-height: 30px;
@@ -78,7 +85,6 @@ h2 {
 table {
 	border-collapse: collapse;
 	border: $table-border-color solid 1px;
-	margin: $table-margin;
 	width: 100%;
 }
 th, td {
@@ -153,6 +159,9 @@ a:hover {
 	width: 0;
 }
 
+#config-form {
+	margin: $config-form-margin;
+}
 .config-row-disabled {
 	background-color: $config-row-disabled-background-color;
 	color: $config-row-disabled-color;
@@ -168,13 +177,32 @@ a:hover {
 	font-size: $config-desc-cell-font-size;
 }
 
-#interactive-image-list {
-	display: none;
+.button {
+	background-color: $button-background-color;
+	color: $button-color;
+	cursor: pointer;
+	display: inline-block;
+	margin: $button-margin;
+	padding: $button-padding;
+	text-align: center;
+
+	&:hover {
+		background-color: $button-hover-background-color;
+		color: $button-hover-color;
+	}
 }
 
 .copyright {
 	color: $copyright-color;
 	font-size: $copyright-font-size;
 	margin-top: $copyright-spacing;
+	text-align: center;
+}
+
+#interactive-image-list {
+	display: none;
+}
+
+.config-form-toolbar {
 	text-align: center;
 }
