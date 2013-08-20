@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 					style: 'expanded'
 				},
 				files: {
+					'demo/style.css': 'src/demo/style.scss',
 					'vanillabox/theme/bitter/vanillabox.css': 'src/theme/bitter/bitter.scss',
 					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/theme/bitter_frame/bitter_frame.scss'
 				}
@@ -18,7 +19,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			css: {
-				files: 'src/theme/**/*.scss',
+				files: 'src/**/*.scss',
 				tasks: ['sass']
 			}
 		}
