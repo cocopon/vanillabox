@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: Replace it with Grunt task
 
 
 # $COMPILER_JAR: Path of Google Closure Compiler

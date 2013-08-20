@@ -1,1 +1,4 @@
 .sass-cache
+
+# node.js
+node_modules

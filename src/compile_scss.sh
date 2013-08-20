@@ -1,4 +1,6 @@
 #!/bin/bash
+# TODO: Replace it with Grunt task
+
 
 # --style (compact|compressed|expanded)
 STYLE=expanded
