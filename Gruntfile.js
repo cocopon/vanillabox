@@ -15,9 +15,16 @@ module.exports = function(grunt) {
 					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/theme/bitter_frame/bitter_frame.scss'
 				}
 			}
+		},
+		watch: {
+			css: {
+				files: 'src/theme/**/*.scss',
+				tasks: ['sass']
+			}
 		}
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 };
