@@ -24,7 +24,7 @@ h1 {
 }
 
 h2 {
-  border-bottom: #dddddd solid 1px;
+  border-bottom: gainsboro solid 1px;
   font-size: 100%;
   margin: 2em 0 0.5em;
   padding: 2px 0;
@@ -32,13 +32,13 @@ h2 {
 
 table {
   border-collapse: collapse;
-  border: #dddddd solid 1px;
+  border: gainsboro solid 1px;
   margin: 0.5em 0;
   width: 100%;
 }
 
 th, td {
-  border: #dddddd solid 1px;
+  border: gainsboro solid 1px;
   padding: 8px 1em;
 }
 
@@ -59,7 +59,7 @@ li + li {
 
 pre {
   background-color: #eeeeee;
-  border: #dddddd solid 1px;
+  border: gainsboro solid 1px;
   font-family: "Source Code Pro", "Menlo", "Courier New", monospace;
   font-size: 80%;
   margin: 0.5em 0;
@@ -67,11 +67,11 @@ pre {
 }
 
 a {
-  color: #4aaf97;
+  color: #4ab098;
 }
 
 a:hover {
-  background-color: #d4e6e1;
+  background-color: #d5e6e2;
   text-decoration: none;
 }
 
@@ -119,7 +119,7 @@ a:hover {
 
 .config-row-disabled {
   background-color: #eeeeee;
-  color: #aaaaaa;
+  color: #959595;
 }
 
 .config-enabled-cell {
@@ -140,7 +140,7 @@ a:hover {
 }
 
 .copyright {
-  color: #bbbbbb;
+  color: silver;
   font-size: 90%;
   margin-top: 2em;
   text-align: center;

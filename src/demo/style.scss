@@ -2,17 +2,17 @@
 $outer-background-color: #ccc;
 $background-color: #f3f3f3;
 $color: #444;
-$a-color: #4aaf97;
-$a-hover-background-color: #d4e6e1;
-$heading-border-color: #ddd;
-$pre-background-color: #eee;
-$pre-border-color: #ddd;
-$table-border-color: #ddd;
-$th-background-color: #eee;
+$a-color: hsl(166, 41%, 49%);
+$a-hover-background-color: adjust-color($a-color, $saturation: -15%, $lightness: +38%);
+$heading-border-color: darken($background-color, 9%);
+$pre-background-color: darken($background-color, 2%);
+$pre-border-color: darken($background-color, 9%);
+$table-border-color: darken($background-color, 9%);
+$th-background-color: darken($background-color, 2%);
 
-$config-row-disabled-background-color: #eee;
-$config-row-disabled-color: #aaa;
-$copyright-color: #bbb;
+$config-row-disabled-background-color: darken($background-color, 2%);
+$config-row-disabled-color: darken($config-row-disabled-background-color, 35%);
+$copyright-color: darken($background-color, 20%);
 
 // Font
 $font-family-sans-serif: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
