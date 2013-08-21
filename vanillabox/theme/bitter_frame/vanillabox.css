@@ -136,3 +136,8 @@
 .vanilla-container {
   text-align: center;
 }
+
+.vanilla-empty {
+  height: 100px;
+  width: 100px;
+}

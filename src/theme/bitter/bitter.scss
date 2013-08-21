@@ -11,6 +11,8 @@ $font-size: 1.0em;
 $pager-label-font-size: 90%;
 
 // Geometry
+$empty-content-height: 100px;
+$empty-content-width: 100px;
 $title-height: 44px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
@@ -116,6 +118,10 @@ $next-button-highlighted-image: url(img/next1.png);
 
 
 // Content
+.vanilla-empty {
+	height: $empty-content-height;
+	width: $empty-content-width;
+}
 .vanilla-loading {
 	// TODO: Loading image
 }

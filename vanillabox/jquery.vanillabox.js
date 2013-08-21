@@ -446,6 +446,45 @@
 	};
 
 
+	var EmptyContent = function() {
+		var me = this;
+		me.create();
+	};
+
+	EmptyContent.prototype.create = function() {
+		var me = this;
+
+		if (me.elem_) {
+			return;
+		}
+
+		var elem = $('<div>');
+		elem.addClass('vanilla-empty');
+		me.elem_ = elem;
+	};
+
+	EmptyContent.prototype.release = function() {
+		var me = this;
+		me.elem_ = null;
+	};
+
+	EmptyContent.prototype.getElement = function() {
+		return this.elem_;
+	};
+
+	EmptyContent.prototype.getTitle = function() {
+		return '';
+	};
+
+	EmptyContent.prototype.load = function() {
+		var me = this;
+
+		setTimeout(function() {
+			$(me).trigger(Events.COMPLETE);
+		}, 0);
+	};
+
+
 	var ImageContent = function(config) {
 		var me = this;
 
@@ -822,6 +861,9 @@
 		frameElem.append(closeButton.getElement());
 
 		me.attach_();
+
+		var emptyContent = new EmptyContent();
+		me.setContent_(emptyContent);
 	};
 
 	Vanillabox.prototype.release = function() {
@@ -1002,7 +1044,6 @@
 		var container = me.frame_.getContainer();
 		container.setContent(content);
 		me.attachContent_();
-
 		me.setTitle(content.getTitle());
 
 		content.load();
