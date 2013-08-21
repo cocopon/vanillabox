@@ -181,8 +181,8 @@ ConfigForm.CONFIGS = [
 	}, {
 		name: 'repositionOnScroll',
 		type: 'boolean',
-		value: true,
-		description: 'If false, reposition on scroll will be disabled.'
+		value: false,
+		description: 'If true, reposition on scroll will be enabled.'
 	}
 ];
 

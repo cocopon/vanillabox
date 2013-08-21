@@ -1148,7 +1148,7 @@
 		closeButton: false,
 		keyboard: true,
 		loop: false,
-		repositionOnScroll: true
+		repositionOnScroll: false
 	};
 
 
