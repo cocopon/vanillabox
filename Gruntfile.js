@@ -2,6 +2,14 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.initConfig({
+		jsdoc: {
+			dist: {
+				src: ['vanillabox/jquery.vanillabox.js'],
+				options: {
+					destination: 'doc'
+				}
+			}
+		},
 		qunit: {
 			all: ['test/**/*.html']
 		},
@@ -28,4 +36,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-jsdoc');
 };

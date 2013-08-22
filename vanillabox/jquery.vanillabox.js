@@ -9,6 +9,9 @@
 	var $window = $(window);
 
 
+	/**
+	 * @alias Util
+	 */
 	var Util = {
 		isDefined: function(value) {
 			return value !== undefined;
@@ -40,6 +43,9 @@
 	};
 
 
+	/**
+	 * @alias Animation
+	 */
 	var Animation = {};
 
 	Animation.None = {
@@ -134,6 +140,10 @@
 		}
 	};
 
+
+	/**
+	 * @alias Animationprovider
+	 */
 	var AnimationProvider = {
 		ANIMATIONS_: {
 			'none': Animation.None,
@@ -147,6 +157,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Mask
+	 */
 	var Mask = function() {
 		this.create();
 	};
@@ -220,6 +234,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Container
+	 */
 	var Container = function(config) {
 		var me = this;
 
@@ -356,6 +374,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Frame
+	 */
 	var Frame = function(config) {
 		var me = this;
 
@@ -446,6 +468,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Emptycontent
+	 */
 	var EmptyContent = function() {
 		var me = this;
 		me.create();
@@ -571,6 +597,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Pager
+	 */
 	var Pager = function(opt_config) {
 		var me = this;
 		var config = opt_config || {};
@@ -660,6 +690,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Button
+	 */
 	var Button = function(config) {
 		var me = this;
 
@@ -738,6 +772,11 @@
 		}
 	};
 
+
+	/**
+	 * @constructor
+	 * @alias Label
+	 */
 	var Label = function(config) {
 		var me = this;
 
@@ -780,6 +819,10 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias Vanillabox
+	 */
 	var Vanillabox = function(config) {
 		var me = this;
 
