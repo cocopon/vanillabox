@@ -75,6 +75,7 @@ $loading-image: url(img/loading.gif);
 	background: $prev-button-image no-repeat center center;
 	left: -$pager-button-width;
 }
+.vanilla-prev:active,
 .vanilla-prev:hover {
 	background-image: $prev-button-highlighted-image;
 }
@@ -82,6 +83,7 @@ $loading-image: url(img/loading.gif);
 	background: $next-button-image no-repeat center center;
 	right: -$pager-button-width;
 }
+.vanilla-next:active,
 .vanilla-next:hover {
 	background-image: $next-button-highlighted-image;
 }

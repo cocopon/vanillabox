@@ -91,6 +91,7 @@
   left: -44px;
 }
 
+.vanilla-prev:active,
 .vanilla-prev:hover {
   background-image: url(img/prev1.png);
 }
@@ -100,6 +101,7 @@
   right: -44px;
 }
 
+.vanilla-next:active,
 .vanilla-next:hover {
   background-image: url(img/next1.png);
 }
