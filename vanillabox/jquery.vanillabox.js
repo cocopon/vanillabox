@@ -351,7 +351,7 @@
 		});
 	};
 
-	Container.prototype.onContentComplete_ = function() {
+	Container.prototype.onContentComplete_ = function(e, success) {
 		this.layout();
 	};
 
@@ -480,7 +480,7 @@
 		var me = this;
 
 		setTimeout(function() {
-			$(me).trigger(Events.COMPLETE);
+			$(me).trigger(Events.COMPLETE, true);
 		}, 0);
 	};
 
@@ -567,7 +567,7 @@
 			elem.addClass('vanilla-error');
 		}
 
-		$(me).trigger(Events.COMPLETE);
+		$(me).trigger(Events.COMPLETE, success);
 	};
 
 
@@ -1047,6 +1047,7 @@
 		me.setTitle(content.getTitle());
 
 		content.load();
+		container.layout();
 	};
 
 	Vanillabox.prototype.layout = function(forceLayout) {
@@ -1174,7 +1175,7 @@
 		this.next();
 	};
 
-	Vanillabox.prototype.onContentComplete_ = function() {
+	Vanillabox.prototype.onContentComplete_ = function(e, success) {
 		this.layout(true);
 	};
 

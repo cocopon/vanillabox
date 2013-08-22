@@ -134,10 +134,17 @@
 }
 
 .vanilla-container {
+  background-color: #222222;
   text-align: center;
 }
 
 .vanilla-empty {
   height: 100px;
   width: 100px;
+}
+
+.vanilla-loading {
+  background: url(img/loading.gif) no-repeat center center;
+  height: 32px;
+  width: 32px;
 }

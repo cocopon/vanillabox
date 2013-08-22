@@ -4,6 +4,7 @@
 // Color
 $frame-background-color: #111;
 $title-color: #aaa;
+$container-background-color: #222;
 $pager-label-color: #ccc;
 
 // Font
@@ -20,6 +21,7 @@ $title-height: 44px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
 $pager-label-spacing: 8px;
+$loading-image-size: 32px;
 
 // Image
 $mask-image: url(img/mask.png);
@@ -29,6 +31,7 @@ $prev-button-image: url(img/prev0.png);
 $prev-button-highlighted-image: url(img/prev1.png);
 $next-button-image: url(img/next0.png);
 $next-button-highlighted-image: url(img/next1.png);
+$loading-image: url(img/loading.gif);
 
 
 // Mask
@@ -118,6 +121,7 @@ $next-button-highlighted-image: url(img/next1.png);
 
 // Container
 .vanilla-container {
+	background-color: $container-background-color;
 	text-align: center;
 }
 
@@ -128,7 +132,9 @@ $next-button-highlighted-image: url(img/next1.png);
 	width: $empty-content-width;
 }
 .vanilla-loading {
-	// TODO: Loading image
+	background: $loading-image no-repeat center center;
+	height: $loading-image-size;
+	width: $loading-image-size;
 }
 .vanilla-error {
 	// TODO: Error image
