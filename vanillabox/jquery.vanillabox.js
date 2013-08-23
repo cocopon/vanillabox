@@ -310,14 +310,13 @@
 
 		me.attachContent_();
 
-		var contentElem = me.content_.getElement();
 		if (me.maxContentSize_) {
-			contentElem.css({
-				maxWidth: me.maxContentSize_.width,
-				maxHeight: me.maxContentSize_.height
-			});
+			me.content_.setMaxContentSize(
+				me.maxContentSize_.width,
+				me.maxContentSize_.height
+			);
 		}
-		me.elem_.append(contentElem);
+		me.elem_.append(me.content_.getElement());
 	};
 
 	Container.prototype.getContentSize = function() {
@@ -352,10 +351,10 @@
 			return;
 		}
 
-		content.getElement().css({
-			maxWidth: me.maxContentSize_.width,
-			maxHeight: me.maxContentSize_.height
-		});
+		content.setMaxContentSize(
+			me.maxContentSize_.width,
+			me.maxContentSize_.height
+		);
 	};
 
 	Container.prototype.layout = function() {
@@ -502,6 +501,13 @@
 		return '';
 	};
 
+	EmptyContent.prototype.setMaxContentSize = function(width, height) {
+		this.getElement().css({
+			maxWidth: width,
+			maxHeight: height
+		});
+	};
+
 	EmptyContent.prototype.load = function() {
 		var me = this;
 
@@ -527,10 +533,13 @@
 			return;
 		}
 
-		// Element
-		var elem = $('<img>');
+		var elem = $('<div>');
 		elem.addClass('vanilla-content');
 		me.elem_ = elem;
+
+		var imgElem = $('<img>');
+		me.elem_.append(imgElem);
+		me.imgElem_ = imgElem;
 
 		me.attach_();
 	};
@@ -540,22 +549,23 @@
 
 		me.detach_();
 		me.elem_ = null;
+		me.imgElem_ = null;
 	};
 
 	ImageContent.prototype.attach_ = function() {
 		var me = this;
-		var elem = me.getElement();
+		var imgElem = me.imgElem_;
 
-		elem.on('load', $.proxy(me.onLoad_, me));
-		elem.on('error', $.proxy(me.onError_, me));
+		imgElem.on('load', $.proxy(me.onLoad_, me));
+		imgElem.on('error', $.proxy(me.onError_, me));
 	};
 
 	ImageContent.prototype.detach_ = function() {
 		var me = this;
-		var elem = me.getElement();
+		var imgElem = me.imgElem_;
 
-		elem.off('load', me.onLoad_);
-		elem.off('error', me.onError_);
+		imgElem.off('load', me.onLoad_);
+		imgElem.off('error', me.onError_);
 	};
 
 	ImageContent.prototype.getElement = function() {
@@ -566,12 +576,23 @@
 		return this.title_;
 	};
 
+	ImageContent.prototype.setMaxContentSize = function(width, height) {
+		var me = this;
+		var imgElem = me.imgElem_;
+
+		imgElem.css({
+			maxWidth: width,
+			maxHeight: height
+		});
+	};
+
 	ImageContent.prototype.load = function() {
 		var me = this;
 		var elem = me.getElement();
 
 		elem.addClass('vanilla-loading');
-		elem.attr({
+
+		me.imgElem_.attr({
 			src: me.path_
 		});
 	};

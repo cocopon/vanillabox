@@ -60,4 +60,13 @@
 	left: 50%;
 	position: absolute;
 	top: 50%;
+
+	& > img {
+		vertical-align: middle;
+	}
+}
+.vanilla-error {
+	& > img {
+		display: none;
+	}
 }

@@ -22,6 +22,7 @@ $pager-button-width: 44px;
 $pager-label-height: 22px;
 $pager-label-spacing: 8px;
 $loading-image-size: 32px;
+$error-image-size: 32px;
 
 // Image
 $mask-image: url(img/mask.png);
@@ -32,6 +33,7 @@ $prev-button-highlighted-image: url(img/prev1.png);
 $next-button-image: url(img/next0.png);
 $next-button-highlighted-image: url(img/next1.png);
 $loading-image: url(img/loading.gif);
+$error-image: url(img/error.png);
 
 
 // Mask
@@ -139,5 +141,7 @@ $loading-image: url(img/loading.gif);
 	width: $loading-image-size;
 }
 .vanilla-error {
-	// TODO: Error image
+	background: $error-image no-repeat center center;
+	height: $error-image-size;
+	width: $error-image-size;
 }

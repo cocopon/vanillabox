@@ -49,6 +49,13 @@
   position: absolute;
   top: 50%;
 }
+.vanilla-content > img {
+  vertical-align: middle;
+}
+
+.vanilla-error > img {
+  display: none;
+}
 
 .vanilla-mask {
   background: url(img/mask.png) repeat left top;
@@ -147,6 +154,12 @@
 
 .vanilla-loading {
   background: url(img/loading.gif) no-repeat center center;
+  height: 32px;
+  width: 32px;
+}
+
+.vanilla-error {
+  background: url(img/error.png) no-repeat center center;
   height: 32px;
   width: 32px;
 }
