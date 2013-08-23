@@ -56,6 +56,10 @@ li + li {
   margin-top: 0.25em;
 }
 
+p {
+  margin: 0.5em 0;
+}
+
 pre {
   background-color: #eeeeee;
   border: gainsboro solid 1px;
