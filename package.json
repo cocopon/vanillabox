@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-closure-compiler": "0.0.19",
     "grunt-contrib-qunit": "~0.2.2",
     "grunt-contrib-sass": "~0.4.1",
     "grunt-contrib-watch": "~0.5.2",

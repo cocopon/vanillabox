@@ -2,6 +2,17 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		'closure-compiler': {
+			frontend: {
+				js: 'vanillabox/jquery.vanillabox.js',
+				jsOutputFile: 'vanillabox/jquery.vanillabox-<%= pkg.version %>.min.js',
+				noreport: true,
+				options: {
+					compilation_level: 'SIMPLE_OPTIMIZATIONS'
+				}
+			}
+		},
 		jsdoc: {
 			dist: {
 				src: ['vanillabox/jquery.vanillabox.js'],
@@ -33,6 +44,7 @@ module.exports = function(grunt) {
 		}
 	});
 	
+	grunt.loadNpmTasks('grunt-closure-compiler');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
