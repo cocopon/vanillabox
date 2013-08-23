@@ -36,10 +36,33 @@
 		}
 	};
 
+
+	/**
+	 * @alias Events
+	 */
 	var Events = {
 		CHANGE: 'vanilla-change',
 		CLICK: 'vanilla-click',
 		COMPLETE: 'vanilla-complete'
+	};
+
+
+	/**
+	 * @constructor
+	 * @alias VanillaException
+	 */
+	var VanillaException = function(type) {
+		var me = this;
+
+		me.type_ = type;
+	};
+
+	VanillaException.Types = {
+		NO_IMAGE: 'no_image'
+	};
+
+	VanillaException.prototype.getType = function() {
+		return this.type_;
 	};
 
 
@@ -851,6 +874,10 @@
 	var Vanillabox = function(config) {
 		var me = this;
 
+		if (!config.targets || config.targets.length === 0) {
+			throw new VanillaException(VanillaException.Types.NO_IMAGE);
+		}
+
 		me.showed_ = false;
 
 		me.targetElems_ = config.targets;
@@ -1294,6 +1321,8 @@
 	// For testing of private classes
 	$.fn.vanillabox.privateClasses_ = {
 		'Events': Events,
-		'Pager': Pager
+		'Pager': Pager,
+		'Vanillabox': Vanillabox,
+		'VanillaException': VanillaException
 	};
 })(jQuery);
