@@ -1227,8 +1227,17 @@
 	};
 
 	Vanillabox.prototype.onContentClick_ = function(e) {
+		var me = this;
+		var pager = me.pager_;
+
 		e.stopPropagation();
-		this.next();
+
+		if (!pager.hasNext()) {
+			me.hide();
+			return;
+		}
+
+		me.next();
 	};
 
 
