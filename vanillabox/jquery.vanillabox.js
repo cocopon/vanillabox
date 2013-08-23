@@ -364,8 +364,8 @@
 		var contentElem = content.getElement();
 
 		contentElem.css({
-			marginLeft: -(contentElem.width() / 2),
-			marginTop: -(contentElem.height() / 2)
+			marginLeft: -Math.round(contentElem.width() / 2),
+			marginTop: -Math.round(contentElem.height() / 2)
 		});
 	};
 
@@ -450,8 +450,8 @@
 		var elem = me.getElement();
 		var ow = Util.Dom.getViewportWidth();
 		var oh = Util.Dom.getViewportHeight();
-		var left = $window.scrollLeft() + (ow - elem.outerWidth()) / 2;
-		var top = $window.scrollTop() + (oh - elem.outerHeight()) / 2;
+		var left = Math.round($window.scrollLeft() + (ow - elem.outerWidth()) / 2);
+		var top = Math.round($window.scrollTop() + (oh - elem.outerHeight()) / 2);
 
 		// Restore original size
 		containerElem.width(w);
