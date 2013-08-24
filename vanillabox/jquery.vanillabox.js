@@ -585,6 +585,10 @@
 	 */
 	var Content = function() {
 		var me = this;
+
+		me.loaded_ = false;
+		me.success_ = false;
+
 		me.create();
 	};
 
@@ -599,11 +603,11 @@
 		elem.addClass('vanilla-content');
 		me.elem_ = elem;
 
-		me.createInnerElement_();
+		me.createInternal_();
 		me.attach_();
 	};
 
-	Content.prototype.createInnerElement_ = Util.EMPTY_FN;
+	Content.prototype.createInternal_ = Util.EMPTY_FN;
 
 	Content.prototype.attach_ = Util.EMPTY_FN;
 
@@ -631,12 +635,42 @@
 		});
 	};
 
-	Content.prototype.load = Util.EMPTY_FN;
+	Content.prototype.load = function() {
+		var me = this;
+		var elem = me.getElement();
+
+		elem.addClass('vanilla-loading');
+
+		if (me.loaded_) {
+			this.onComplete_(me.success_);
+			return;
+		}
+
+		me.loadInternal_();
+	};
+
+	Content.prototype.loadInternal_ = Util.EMPTY_FN;
+
+	Content.prototype.onComplete_ = function(success) {
+		var me = this;
+		var elem = me.getElement();
+
+		me.loaded_ = true;
+		me.success_ = success;
+
+		elem.removeClass('vanilla-loading');
+		if (!success) {
+			elem.addClass('vanilla-error');
+		}
+
+		$(me).trigger(Events.COMPLETE, success);
+	};
 
 
 	/**
 	 * @constructor
-	 * @alias Emptycontent
+	 * @alias EmptyContent
+	 * @extends Content
 	 */
 	var EmptyContent = function() {
 		Content.call(this);
@@ -660,11 +694,13 @@
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias ImageContent
+	 * @extends Content
+	 */
 	var ImageContent = function(config) {
 		var me = this;
-
-		me.loaded_ = false;
-		me.success_ = false;
 
 		me.path_ = config.path;
 		me.title_ = config.title;
@@ -673,7 +709,7 @@
 	};
 	Util.inherits(ImageContent, Content);
 
-	ImageContent.prototype.createInnerElement_ = function() {
+	ImageContent.prototype.createInternal_ = function() {
 		var me = this;
 
 		var imgElem = $('<img>');
@@ -715,19 +751,9 @@
 		});
 	};
 
-	ImageContent.prototype.load = function() {
+	ImageContent.prototype.loadInternal_ = function() {
 		var me = this;
-		var elem = me.getElement();
-
-		elem.addClass('vanilla-loading');
-
-		if (me.loaded_) {
-			this.onComplete_(me.success_);
-			return;
-		}
-
-		var imgElem = me.imgElem_;
-		imgElem.attr('src', me.path_);
+		me.imgElem_.attr('src', me.path_);
 	};
 
 	ImageContent.prototype.onLoad_ = function(e) {
@@ -736,21 +762,6 @@
 
 	ImageContent.prototype.onError_ = function(e) {
 		this.onComplete_(false);
-	};
-
-	ImageContent.prototype.onComplete_ = function(success) {
-		var me = this;
-		var elem = me.getElement();
-
-		me.loaded_ = true;
-		me.success_ = success;
-
-		elem.removeClass('vanilla-loading');
-		if (!success) {
-			elem.addClass('vanilla-error');
-		}
-
-		$(me).trigger(Events.COMPLETE, success);
 	};
 
 
