@@ -194,15 +194,6 @@ ConfigRow.prototype.create = function() {
 	var elem = $('<tr>');
 	var tdElem;
 
-	// enabled
-	var checkboxElem;
-	tdElem = $('<td>');
-	tdElem.addClass('config-enabled-cell');
-	checkboxElem = $('<input type="checkbox">');
-	tdElem.append(checkboxElem);
-	elem.append(tdElem);
-	me.checkboxElem_ = checkboxElem;
-
 	// name
 	tdElem = $('<td>');
 	tdElem.addClass('config-name-cell');
@@ -223,6 +214,15 @@ ConfigRow.prototype.create = function() {
 	tdElem.append(field.getElement());
 	elem.append(tdElem);
 	me.field_ = field;
+
+	// enabled
+	var checkboxElem;
+	tdElem = $('<td>');
+	tdElem.addClass('config-enabled-cell');
+	checkboxElem = $('<input type="checkbox">');
+	tdElem.append(checkboxElem);
+	elem.append(tdElem);
+	me.checkboxElem_ = checkboxElem;
 
 	me.elem_ = elem;
 
@@ -293,10 +293,10 @@ var ConfigForm = function(elem) {
 };
 
 ConfigForm.HEADERS = [
-	'Enabled',
 	'Name',
 	'Description',
-	'Value'
+	'Value',
+	'Enabled'
 ];
 ConfigForm.CONFIGS = [
 	{
