@@ -101,12 +101,17 @@
 
 		resizeFrame: function(frame) {
 			var container = frame.getContainer();
-
-			var containerElem = container.getElement();
 			var contentSize = container.getContentSize();
-			containerElem.css({
+			var offset = frame.getPreferredOffset(contentSize);
+
+			container.getElement().css({
 				width: contentSize.width,
 				height: contentSize.height
+			});
+
+			frame.getElement().css({
+				left: offset.left,
+				top: offset.top
 			});
 
 			return Util.emptyPromise();
