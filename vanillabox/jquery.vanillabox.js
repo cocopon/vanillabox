@@ -1599,8 +1599,10 @@
 	};
 
 	// For testing of private classes
+	// TODO: Better solution?
 	$.fn.vanillabox.privateClasses_ = {
 		'Events': Events,
+		'DEFAULT_CONFIG': DEFAULT_CONFIG,
 		'Pager': Pager,
 		'Vanillabox': Vanillabox,
 		'VanillaException': VanillaException

@@ -7,8 +7,15 @@ var Util = {
 
 		Child.prototype = new Tmp();
 		Child.prototype.constructor = Child;
+	},
+
+	privateClass: function(name) {
+		return $.fn.vanillabox.privateClasses_[name];
 	}
 };
+
+
+var DEFAULT_CONFIG = Util.privateClass('DEFAULT_CONFIG');
 
 
 /**
@@ -20,6 +27,8 @@ var Field = function(config) {
 	me.name_ = config.name;
 
 	me.create_(config);
+	me.setValue(DEFAULT_CONFIG[me.name_]);
+
 	me.attach_();
 };
 
@@ -51,7 +60,6 @@ BooleanField.prototype.create_ = function(config) {
 	var me = this;
 
 	me.elem_ = $('<input type="checkbox">');
-	me.setValue(config.value);
 };
 
 BooleanField.prototype.attach_ = function() {
@@ -84,7 +92,7 @@ Util.inherits(SelectField, Field);
 SelectField.prototype.create_ = function(config) {
 	var me = this;
 	var elem = $('<select>');
-	var opts = config.value;
+	var opts = config.options;
 	var len = opts.length;
 	var i;
 	var optElem;
@@ -97,7 +105,6 @@ SelectField.prototype.create_ = function(config) {
 	}
 
 	me.elem_ = elem;
-	me.setValue(opts[i]);
 };
 
 SelectField.prototype.attach_ = function() {
@@ -131,7 +138,6 @@ NumberField.prototype.create_ = function(config) {
 	var me = this;
 
 	me.elem_ = $('<input type="text">');
-	me.setValue(config.value);
 };
 
 NumberField.prototype.attach_ = function() {
@@ -140,13 +146,17 @@ NumberField.prototype.attach_ = function() {
 };
 
 NumberField.prototype.getValue = function() {
-	var value = this.elem_.val();
-	return parseInt(value, 10);
+	var me = this;
+	var value = me.elem_.val();
+	var intValue = parseInt(value, 10);
+
+	return isNaN(intValue) ?
+		DEFAULT_CONFIG[me.getName()] :
+		intValue;
 };
 
 NumberField.prototype.setValue = function(value) {
-	var intValue = parseInt(value, 10);
-	this.elem_.val(String(intValue));
+	this.elem_.val(value);
 };
 
 NumberField.prototype.onChange_ = function() {
@@ -292,38 +302,32 @@ ConfigForm.CONFIGS = [
 	{
 		name: 'animation',
 		type: 'select',
-		value: ['default', 'none'],
+		options: ['default', 'none'],
 		description: 'Animation type. Set \'none\' to disable animation.'
 	},
 	{
 		name: 'closeButton',
 		type: 'boolean',
-		value: false,
 		description: 'Visibility of the close button. If true, the mask will be unclickable.'
 	}, {
 		name: 'keyboard',
 		type: 'boolean',
-		value: true,
 		description: 'If false, keyboard operations will be disabled.'
 	}, {
 		name: 'loop',
 		type: 'boolean',
-		value: false,
 		description: 'If true, grouped images will become a continuous loop.'
 	}, {
 		name: 'preferredWidth',
 		type: 'number',
-		value: 800,
 		description: 'Used when a content doesn\'t have fixed width (e.g. iframe)'
 	}, {
 		name: 'preferredHeight',
 		type: 'number',
-		value: 600,
 		description: 'Used when a content doesn\'t have fixed height (e.g. iframe)'
 	}, {
 		name: 'repositionOnScroll',
 		type: 'boolean',
-		value: false,
 		description: 'If true, reposition on scroll will be enabled.'
 	}
 ];
