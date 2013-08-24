@@ -21,6 +21,16 @@
 			return Util.isDefined(value) ?
 				value :
 				defaultValue;
+		},
+
+		emptyPromise: function() {
+			var d = new $.Deferred();
+
+			setTimeout(function() {
+				d.resolve();
+			}, 0);
+
+			return d.promise();
 		}
 	};
 
@@ -73,7 +83,7 @@
 
 	Animation.None = {
 		showMask: function(mask) {
-			mask.getElement().show();
+			return mask.getElement().show();
 		},
 
 		hideMask: function(mask) {
@@ -82,7 +92,7 @@
 
 		showFrame: function(frame) {
 			Animation.None.resizeFrame(frame);
-			frame.getElement().show();
+			return frame.getElement().show();
 		},
 
 		hideFrame: function(frame) {
@@ -98,12 +108,14 @@
 				width: contentSize.width,
 				height: contentSize.height
 			});
+
+			return Util.emptyPromise();
 		}
 	};
 
 	Animation.Default = {
 		showMask: function(mask) {
-			mask.getElement().fadeIn(200);
+			return mask.getElement().fadeIn(200);
 		},
 
 		hideMask: function(mask) {
@@ -121,6 +133,8 @@
 				left: offset.left,
 				top: offset.top
 			}, duration);
+
+			return Util.emptyPromise();
 		},
 
 		showFrame: function(frame) {
@@ -137,16 +151,12 @@
 				left: offset.left,
 				top: offset.top
 			});
+
+			return Util.emptyPromise();
 		},
 
 		hideFrame: function(frame) {
-			var d = new $.Deferred();
-
-			setTimeout(function() {
-				d.resolve();
-			}, 0);
-
-			return d.promise();
+			return Util.emptyPromise();
 		},
 
 		resizeFrame: function(frame) {
@@ -154,7 +164,7 @@
 			var contentSize = container.getContentSize();
 			var offset = frame.getPreferredOffset(contentSize);
 
-			Animation.Default.animateFrame_(
+			return Animation.Default.animateFrame_(
 				frame,
 				contentSize,
 				offset,
@@ -1066,7 +1076,7 @@
 		var animation = me.animation_;
 
 		if (me.showed_) {
-			return;
+			return Util.emptyPromise();
 		}
 		me.showed_ = true;
 
@@ -1077,9 +1087,9 @@
 
 		var mask = me.mask_;
 		mask.layout();
-		animation.showMask(mask);
+		var maskPromise = animation.showMask(mask);
 
-		animation.showFrame(me.frame_);
+		var framePromise = animation.showFrame(me.frame_);
 
 		var pager = me.pager_;
 		var index = Util.getOrDefault(opt_index, 0);
@@ -1088,16 +1098,21 @@
 		if (!triggeredPagerEvent) {
 			me.updateContent_();
 		}
+
+		return $.when(
+			maskPromise,
+			framePromise
+		);
 	};
 
 	Vanillabox.prototype.hide = function() {
 		var me = this;
 
 		if (!me.showed_) {
-			return;
+			return Util.emptyPromise();
 		}
 
-		$.when(
+		return $.when(
 			me.animation_.hideFrame(me.frame_),
 			me.animation_.hideMask(me.mask_)
 		).done(function() {

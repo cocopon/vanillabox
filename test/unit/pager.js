@@ -1,4 +1,5 @@
 /*global
+	$: false,
 	asyncTest: false,
 	deepEqual: false,
 	expect: false,
