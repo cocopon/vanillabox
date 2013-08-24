@@ -142,6 +142,14 @@
 			});
 
 			return Util.Deferred.emptyPromise();
+		},
+
+		showContent: function(content) {
+			return content.getElement().show();
+		},
+
+		hideContent: function(content) {
+			return content.getElement().hide();
 		}
 	};
 
@@ -211,6 +219,14 @@
 				offset,
 				300
 			);
+		},
+
+		showContent: function(content) {
+			return content.getElement().fadeIn(200);
+		},
+
+		hideContent: function(content) {
+			return content.getElement().fadeOut(300);
 		}
 	};
 
@@ -226,7 +242,11 @@
 
 		get: function(id) {
 			var animation = AnimationProvider.ANIMATIONS_[id];
-			return animation || Animation.Default;
+			return animation || AnimationProvider.getDefault();
+		},
+		
+		getDefault: function() {
+			return Animation.Default;
 		}
 	};
 
@@ -312,8 +332,11 @@
 	 * @constructor
 	 * @alias Container
 	 */
-	var Container = function(config) {
+	var Container = function(opt_config) {
 		var me = this;
+		var config = opt_config || {};
+
+		me.animation_ = Util.getOrDefault(config.animation, AnimationProvider.getDefault());
 
 		me.create();
 	};
@@ -373,12 +396,11 @@
 
 	Container.prototype.setContent = function(content) {
 		var me = this;
+		var animation = me.animation_;
 
 		if (me.content_) {
 			me.detachContent_();
-
-			// TODO: Hide animation
-			me.content_.getElement().hide();
+			animation.hideContent(me.content_);
 		}
 
 		me.content_ = content;
@@ -393,9 +415,7 @@
 		}
 
 		me.elem_.append(me.content_.getElement());
-
-		// TODO: Show animation
-		me.content_.getElement().show();
+		animation.showContent(me.content_);
 	};
 
 	Container.prototype.getContentSize = function() {
@@ -456,10 +476,13 @@
 	 * @constructor
 	 * @alias Frame
 	 */
-	var Frame = function(config) {
+	var Frame = function(opt_config) {
 		var me = this;
+		var config = opt_config || {};
 
-		var container = new Container();
+		var container = new Container({
+			animation: config.animation
+		});
 		me.container_ = container;
 
 		me.create();
@@ -949,7 +972,7 @@
 		me.targetElems_ = config.targets;
 		me.animation_ = Util.getOrDefault(
 			config.animation,
-			AnimationProvider.get('default')
+			AnimationProvider.getDefault()
 		);
 		me.repositionOnScroll_ = config.repositionOnScroll;
 		me.supportsKeyboard_ = config.keyboard;
@@ -980,7 +1003,9 @@
 		$('body').append(maskElem);
 		me.mask_ = mask;
 
-		var frame = new Frame();
+		var frame = new Frame({
+			animation: me.animation_
+		});
 		var frameElem = frame.getElement();
 		if (me.pager_.getTotalPages() > 1) {
 			frameElem.addClass('vanilla-group');
