@@ -594,11 +594,15 @@
 	 * @constructor
 	 * @alias Content
 	 */
-	var Content = function() {
+	var Content = function(opt_config) {
 		var me = this;
+		var config = opt_config || {};
 
 		me.loaded_ = false;
 		me.success_ = false;
+
+		me.path_ = config.path;
+		me.title_ = Util.getOrDefault(config.title, '');
 
 		me.create();
 	};
@@ -683,12 +687,8 @@
 	 * @alias EmptyContent
 	 * @extends Content
 	 */
-	var EmptyContent = function() {
-		var me = this;
-
-		Content.call(me);
-
-		me.title_ = '';
+	var EmptyContent = function(opt_config) {
+		Content.call(this, opt_config);
 	};
 	Util.inherits(EmptyContent, Content);
 
@@ -714,13 +714,8 @@
 	 * @alias ImageContent
 	 * @extends Content
 	 */
-	var ImageContent = function(config) {
-		var me = this;
-
-		me.path_ = config.path;
-		me.title_ = config.title;
-
-		Content.call(me);
+	var ImageContent = function(opt_config) {
+		Content.call(this, opt_config);
 	};
 	Util.inherits(ImageContent, Content);
 
@@ -785,15 +780,14 @@
 	 * @alias IframeContent
 	 * @extends Content
 	 */
-	var IframeContent = function(config) {
+	var IframeContent = function(opt_config) {
 		var me = this;
+		var config = opt_config || {};
 
-		me.path_ = config.path;
-		me.title_ = config.title;
 		me.preferredWidth_ = config.preferredWidth;
 		me.preferredHeight_ = config.preferredHeight;
 
-		Content.call(me);
+		Content.call(me, config);
 	};
 	Util.inherits(IframeContent, Content);
 
@@ -801,7 +795,7 @@
 		var me = this;
 
 		var iframeElem = $('<iframe>');
-		iframeElem.attr('frameborder', 0);
+		iframeElem.attr('frameborder', 0);  // Need to disable border in IE
 		me.elem_.append(iframeElem);
 		me.iframeElem_ = iframeElem;
 	};

@@ -55,10 +55,20 @@
 		<div class="term">&nbsp;</div>
 	</div>
 
-	<h2>Other Formats</h2>
-	<ul>
-		<li><a id="wikipedia-link" href="http://en.wikipedia.org/wiki/Vanilla" title="Vanilla">Web page</a></li>
-	</ul>
+	<h2>Webpage</h2>
+	<div class="double-column">
+		<div class="column1">
+			<ul id="grouped-page-list">
+				<li><a href="http://en.wikipedia.org/wiki/Vanilla" title="Vanilla">Vanilla - Wikipedia</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/JQuery" title="jQuery">jQuery - Wikipedia</a></li>
+			</ul>
+		</div>
+		<div class="column2">
+			<pre>$(&#39;#grouped-page-list a&#39;).vanillabox({
+  type: &#39;iframe&#39;
+});</pre>
+		</div>
+	</div>
 
 	<h2>Options</h2>
 	<ul id="interactive-image-list">
@@ -95,7 +105,7 @@
 			$('#single-large-image').vanillabox();
 			$('#single-error').vanillabox();
 			$('#grouped-image-list a').vanillabox();
-			$('#wikipedia-link').vanillabox({
+			$('#grouped-page-list a').vanillabox({
 				type: 'iframe'
 			});
 
