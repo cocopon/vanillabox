@@ -1,3 +1,6 @@
+/**
+ * @constructor
+ */
 var BooleanField = function(config) {
 	var me = this;
 
@@ -36,6 +39,62 @@ BooleanField.prototype.onChange_ = function() {
 };
 
 
+/**
+ * @constructor
+ */
+var SelectField = function(config) {
+	var me = this;
+
+	var elem = $('<select>');
+	var opts = config.value;
+	var len = opts.length;
+	var i;
+	var optElem;
+
+	for (i = 0; i < len; i++) {
+		optElem = $('<option>');
+		optElem.attr('value', opts[i]);
+		optElem.text(opts[i]);
+		elem.append(optElem);
+	}
+
+	me.elem_ = elem;
+
+	me.name_ = config.name;
+	me.setValue(opts[i]);
+
+	me.attach_();
+};
+
+SelectField.prototype.attach_ = function() {
+	var me = this;
+	me.elem_.on('change', $.proxy(me.onChange_, me));
+};
+
+SelectField.prototype.getElement = function() {
+	return this.elem_;
+};
+
+SelectField.prototype.getName = function() {
+	return this.name_;
+};
+
+SelectField.prototype.getValue = function() {
+	return this.elem_.val();
+};
+
+SelectField.prototype.setValue = function(value) {
+	this.elem_.val(value);
+};
+
+SelectField.prototype.onChange_ = function() {
+	$(this).trigger('change');
+};
+
+
+/**
+ * @constructor
+ */
 var ConfigRow = function(config) {
 	var me = this;
 
@@ -47,7 +106,8 @@ var ConfigRow = function(config) {
 };
 
 ConfigRow.FIELD_CLASSES = {
-	'boolean': BooleanField
+	'boolean': BooleanField,
+	'select': SelectField
 };
 
 ConfigRow.prototype.create = function() {
@@ -148,6 +208,9 @@ ConfigRow.prototype.onFieldChange_ = function() {
 };
 
 
+/**
+ * @constructor
+ */
 var ConfigForm = function(elem) {
 	var me = this;
 
@@ -163,6 +226,12 @@ ConfigForm.HEADERS = [
 	'Value'
 ];
 ConfigForm.CONFIGS = [
+	{
+		name: 'animation',
+		type: 'select',
+		value: ['default', 'none'],
+		description: 'Animation type. Set \'none\' to disable animation.'
+	},
 	{
 		name: 'closeButton',
 		type: 'boolean',
