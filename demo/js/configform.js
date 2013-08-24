@@ -1,29 +1,62 @@
+var Util = {
+	EMPTY_FN: function() {},
+
+	inherits: function(Child, Parent) {
+		var Tmp = function() {};
+		Tmp.prototype = Parent.prototype;
+
+		Child.prototype = new Tmp();
+		Child.prototype.constructor = Child;
+	}
+};
+
+
 /**
  * @constructor
  */
-var BooleanField = function(config) {
+var Field = function(config) {
 	var me = this;
 
-	var elem = $('<input type="checkbox">');
-	me.elem_ = elem;
-
 	me.name_ = config.name;
-	me.setValue(config.value);
 
+	me.create_(config);
 	me.attach_();
+};
+
+Field.prototype.create_ = Util.EMPTY_FN;
+Field.prototype.attach_ = Util.EMPTY_FN;
+
+Field.prototype.getElement = function() {
+	return this.elem_;
+};
+
+Field.prototype.getName = function() {
+	return this.name_;
+};
+
+Field.prototype.getValue = Util.EMPTY_FN;
+Field.prototype.setValue = Util.EMPTY_FN;
+
+
+/**
+ * @constructor
+ * @extends Field
+ */
+var BooleanField = function(config) {
+	Field.call(this, config);
+};
+Util.inherits(BooleanField, Field);
+
+BooleanField.prototype.create_ = function(config) {
+	var me = this;
+
+	me.elem_ = $('<input type="checkbox">');
+	me.setValue(config.value);
 };
 
 BooleanField.prototype.attach_ = function() {
 	var me = this;
 	me.elem_.on('change', $.proxy(me.onChange_, me));
-};
-
-BooleanField.prototype.getElement = function() {
-	return this.elem_;
-};
-
-BooleanField.prototype.getName = function() {
-	return this.name_;
 };
 
 BooleanField.prototype.getValue = function() {
@@ -41,10 +74,15 @@ BooleanField.prototype.onChange_ = function() {
 
 /**
  * @constructor
+ * @extends Field
  */
 var SelectField = function(config) {
-	var me = this;
+	Field.call(this, config);
+};
+Util.inherits(SelectField, Field);
 
+SelectField.prototype.create_ = function(config) {
+	var me = this;
 	var elem = $('<select>');
 	var opts = config.value;
 	var len = opts.length;
@@ -59,24 +97,12 @@ var SelectField = function(config) {
 	}
 
 	me.elem_ = elem;
-
-	me.name_ = config.name;
 	me.setValue(opts[i]);
-
-	me.attach_();
 };
 
 SelectField.prototype.attach_ = function() {
 	var me = this;
 	me.elem_.on('change', $.proxy(me.onChange_, me));
-};
-
-SelectField.prototype.getElement = function() {
-	return this.elem_;
-};
-
-SelectField.prototype.getName = function() {
-	return this.name_;
 };
 
 SelectField.prototype.getValue = function() {
@@ -88,6 +114,42 @@ SelectField.prototype.setValue = function(value) {
 };
 
 SelectField.prototype.onChange_ = function() {
+	$(this).trigger('change');
+};
+
+
+/**
+ * @constructor
+ * @extends Field
+ */
+var NumberField = function(config) {
+	Field.call(this, config);
+};
+Util.inherits(NumberField, Field);
+
+NumberField.prototype.create_ = function(config) {
+	var me = this;
+
+	me.elem_ = $('<input type="text">');
+	me.setValue(config.value);
+};
+
+NumberField.prototype.attach_ = function() {
+	var me = this;
+	me.elem_.on('change', $.proxy(me.onChange_, me));
+};
+
+NumberField.prototype.getValue = function() {
+	var value = this.elem_.val();
+	return parseInt(value, 10);
+};
+
+NumberField.prototype.setValue = function(value) {
+	var intValue = parseInt(value, 10);
+	this.elem_.val(String(intValue));
+};
+
+NumberField.prototype.onChange_ = function() {
 	$(this).trigger('change');
 };
 
@@ -107,7 +169,8 @@ var ConfigRow = function(config) {
 
 ConfigRow.FIELD_CLASSES = {
 	'boolean': BooleanField,
-	'select': SelectField
+	'select': SelectField,
+	'number': NumberField
 };
 
 ConfigRow.prototype.create = function() {
@@ -247,6 +310,16 @@ ConfigForm.CONFIGS = [
 		type: 'boolean',
 		value: false,
 		description: 'If true, grouped images will become a continuous loop.'
+	}, {
+		name: 'preferredWidth',
+		type: 'number',
+		value: 800,
+		description: 'Used when a content doesn\'t have fixed width (e.g. iframe)'
+	}, {
+		name: 'preferredHeight',
+		type: 'number',
+		value: 600,
+		description: 'Used when a content doesn\'t have fixed height (e.g. iframe)'
 	}, {
 		name: 'repositionOnScroll',
 		type: 'boolean',
