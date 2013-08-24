@@ -13,6 +13,8 @@
 	 * @alias Util
 	 */
 	var Util = {
+		EMPTY_FN: function() {},
+
 		isDefined: function(value) {
 			return value !== undefined;
 		},
@@ -21,6 +23,14 @@
 			return Util.isDefined(value) ?
 				value :
 				defaultValue;
+		},
+
+		inherits: function(Child, Parent) {
+			var Tmp = function() {};
+			Tmp.prototype = Parent.prototype;
+
+			Child.prototype = new Tmp();
+			Child.prototype.constructor = Child;
 		}
 	};
 
@@ -571,14 +581,14 @@
 
 	/**
 	 * @constructor
-	 * @alias Emptycontent
+	 * @alias Content
 	 */
-	var EmptyContent = function() {
+	var Content = function() {
 		var me = this;
 		me.create();
 	};
 
-	EmptyContent.prototype.create = function() {
+	Content.prototype.create = function() {
 		var me = this;
 
 		if (me.elem_) {
@@ -586,28 +596,59 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-empty');
+		elem.addClass('vanilla-content');
 		me.elem_ = elem;
+
+		me.createInnerElement_();
+		me.attach_();
 	};
 
-	EmptyContent.prototype.release = function() {
+	Content.prototype.createInnerElement_ = Util.EMPTY_FN;
+
+	Content.prototype.attach_ = Util.EMPTY_FN;
+
+	Content.prototype.detach_ = Util.EMPTY_FN;
+
+	Content.prototype.release = function() {
 		var me = this;
+
+		me.detach_();
 		me.elem_ = null;
 	};
 
-	EmptyContent.prototype.getElement = function() {
+	Content.prototype.getElement = function() {
 		return this.elem_;
 	};
 
-	EmptyContent.prototype.getTitle = function() {
+	Content.prototype.getTitle = function() {
 		return '';
 	};
 
-	EmptyContent.prototype.setMaxContentSize = function(width, height) {
+	Content.prototype.setMaxContentSize = function(width, height) {
 		this.getElement().css({
 			maxWidth: width,
 			maxHeight: height
 		});
+	};
+
+	Content.prototype.load = Util.EMPTY_FN;
+
+
+	/**
+	 * @constructor
+	 * @alias Emptycontent
+	 */
+	var EmptyContent = function() {
+		Content.call(this);
+	};
+	Util.inherits(EmptyContent, Content);
+
+	EmptyContent.prototype.create = function() {
+		var me = this;
+
+		Content.prototype.create.call(me);
+
+		me.elem_.addClass('vanilla-empty');
 	};
 
 	EmptyContent.prototype.load = function() {
@@ -628,32 +669,23 @@
 		me.path_ = config.path;
 		me.title_ = config.title;
 
-		me.create();
+		Content.call(me);
 	};
+	Util.inherits(ImageContent, Content);
 
-	ImageContent.prototype.create = function() {
+	ImageContent.prototype.createInnerElement_ = function() {
 		var me = this;
-
-		if (me.elem_) {
-			return;
-		}
-
-		var elem = $('<div>');
-		elem.addClass('vanilla-content');
-		me.elem_ = elem;
 
 		var imgElem = $('<img>');
 		me.elem_.append(imgElem);
 		me.imgElem_ = imgElem;
-
-		me.attach_();
 	};
 
 	ImageContent.prototype.release = function() {
 		var me = this;
 
-		me.detach_();
-		me.elem_ = null;
+		Content.prototype.release.call(me);
+
 		me.imgElem_ = null;
 	};
 
@@ -671,14 +703,6 @@
 
 		imgElem.off('load', me.onLoad_);
 		imgElem.off('error', me.onError_);
-	};
-
-	ImageContent.prototype.getElement = function() {
-		return this.elem_;
-	};
-
-	ImageContent.prototype.getTitle = function() {
-		return this.title_;
 	};
 
 	ImageContent.prototype.setMaxContentSize = function(width, height) {
