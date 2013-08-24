@@ -27,11 +27,11 @@ BooleanField.prototype.getName = function() {
 };
 
 BooleanField.prototype.getValue = function() {
-	return !!this.elem_.is(':checked');
+	return !!this.elem_.prop('checked');
 };
 
 BooleanField.prototype.setValue = function(value) {
-	this.elem_.attr('checked', value);
+	this.elem_.prop('checked', value);
 };
 
 BooleanField.prototype.onChange_ = function() {
@@ -176,13 +176,13 @@ ConfigRow.prototype.getField = function() {
 
 ConfigRow.prototype.isEnabled = function() {
 	var me = this;
-	return me.checkboxElem_.is(':checked');
+	return me.checkboxElem_.prop('checked');
 };
 
 ConfigRow.prototype.setEnabled = function(enabled) {
 	var me = this;
 
-	me.checkboxElem_.attr('checked', enabled);
+	me.checkboxElem_.prop('checked', enabled);
 	me.updateEnabled_();
 };
 
