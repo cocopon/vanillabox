@@ -636,7 +636,7 @@
 	};
 
 	Content.prototype.getTitle = function() {
-		return '';
+		return this.title_;
 	};
 
 	Content.prototype.setMaxContentSize = function(width, height) {
@@ -684,7 +684,11 @@
 	 * @extends Content
 	 */
 	var EmptyContent = function() {
-		Content.call(this);
+		var me = this;
+
+		Content.call(me);
+
+		me.title_ = '';
 	};
 	Util.inherits(EmptyContent, Content);
 
