@@ -11,6 +11,9 @@
   "bugs": {
     "url": "https://github.com/cocopon/vanillabox/issues"
   },
+  "scripts": {
+	  "test": "grunt qunit"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-closure-compiler": "0.0.19",
