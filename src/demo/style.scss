@@ -181,6 +181,11 @@ a:hover {
 .config-desc-cell {
 	font-size: $config-desc-cell-font-size;
 }
+.config-field-cell {
+	input, select {
+		width: 100%;
+	}
+}
 
 .button {
 	background-color: $button-background-color;

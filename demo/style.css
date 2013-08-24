@@ -142,6 +142,10 @@ a:hover {
   font-size: 90%;
 }
 
+.config-field-cell input, .config-field-cell select {
+  width: 100%;
+}
+
 .button {
   background-color: #4ab098;
   color: #d7eee9;
