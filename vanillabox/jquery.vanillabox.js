@@ -425,7 +425,17 @@
 			);
 		}
 
-		me.elem_.append(me.content_.getElement());
+		var elem = me.getElement();
+		var contentElem = me.content_.getElement();
+		var contentElems = elem.find('>');
+		if (contentElems.length === 0) {
+			elem.append(contentElem);
+		}
+		else {
+			// Insert newer content behind all existing contents
+			contentElem.insertBefore(contentElems.first());
+		}
+
 		animation.showContent(me.content_);
 	};
 
@@ -823,7 +833,7 @@
 		var me = this;
 
 		if (!me.iframeElem_.attr('src')) {
-			// Ignore unwanted load event that won't be fired when appending to DOM
+			// Ignore unwanted load event that is fired when appending to DOM
 			return;
 		}
 
