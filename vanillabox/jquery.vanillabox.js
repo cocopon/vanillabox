@@ -786,6 +786,8 @@
 
 		me.path_ = config.path;
 		me.title_ = config.title;
+		me.preferredWidth_ = config.preferredWidth;
+		me.preferredHeight_ = config.preferredHeight;
 
 		Content.call(me);
 	};
@@ -824,6 +826,16 @@
 		iframeElem.off('error', me.onError_);
 	};
 
+	IframeContent.prototype.setMaxContentSize = function(width, height) {
+		var me = this;
+		var iframeElem = me.iframeElem_;
+
+		iframeElem.css({
+			maxWidth: width,
+			maxHeight: height
+		});
+	};
+
 	IframeContent.prototype.loadInternal_ = function() {
 		var me = this;
 		me.iframeElem_.attr('src', me.path_);
@@ -831,10 +843,18 @@
 
 	IframeContent.prototype.onLoad_ = function(e) {
 		var me = this;
+		var iframeElem = me.iframeElem_;
 
-		if (!me.iframeElem_.attr('src')) {
+		if (!iframeElem.attr('src')) {
 			// Ignore unwanted load event that is fired when appending to DOM
 			return;
+		}
+
+		if (Util.isDefined(me.preferredWidth_)) {
+			iframeElem.width(me.preferredWidth_);
+		}
+		if (Util.isDefined(me.preferredHeight_)) {
+			iframeElem.height(me.preferredHeight_);
 		}
 
 		me.onComplete_(true);
@@ -850,28 +870,30 @@
 	 */
 	var ContentFactory = {
 		FACTORIES_: {
-			'image': function(target) {
+			'image': function(target, options) {
 				return new ImageContent({
 					path: target.attr('href'),
 					title: target.attr('title')
 				});
 			},
-			'iframe': function(target) {
+			'iframe': function(target, options) {
 				return new IframeContent({
 					path: target.attr('href'),
+					preferredWidth: options.preferredWidth,
+					preferredHeight: options.preferredHeight,
 					title: target.attr('title')
 				});
 			}
 		},
 
-		create: function(type, target) {
-			var factoryFn = ContentFactory.FACTORIES_[type];
+		create: function(target, options) {
+			var factoryFn = ContentFactory.FACTORIES_[options.type];
 
 			if (!factoryFn) {
 				throw new VanillaException(VanillaException.Types.INVALID_TYPE);
 			}
 
-			return factoryFn(target);
+			return factoryFn(target, options);
 		}
 	};
 
@@ -1123,7 +1145,12 @@
 		me.repositionOnScroll_ = config.repositionOnScroll;
 		me.supportsKeyboard_ = config.keyboard;
 		me.closeButtonEnabled_ = config.closeButton;
-		me.contentType_ = config.type;
+
+		me.contentOptions_ = {
+			preferredWidth: config.preferredWidth,
+			preferredHeight: config.preferredHeight,
+			type: config.type
+		};
 
 		me.pager_ = new Pager({
 			loop: config.loop,
@@ -1197,7 +1224,7 @@
 
 		var contents = Util.Array.map(me.targetElems_, function(target) {
 			var targetElem = $(target);
-			return ContentFactory.create(me.contentType_, targetElem);
+			return ContentFactory.create(targetElem, me.contentOptions_);
 		});
 		me.contents_ = contents;
 
@@ -1543,6 +1570,8 @@
 		closeButton: false,
 		keyboard: true,
 		loop: false,
+		preferredHeight: 600,
+		preferredWidth: 800,
 		repositionOnScroll: false,
 		type: 'image'
 	};
@@ -1561,6 +1590,8 @@
 			closeButton: config.closeButton,
 			keyboard: config.keyboard,
 			loop: config.loop,
+			preferredHeight: config.preferredHeight,
+			preferredWidth: config.preferredWidth,
 			repositionOnScroll: config.repositionOnScroll,
 			targets: targetElems,
 			type: config.type
