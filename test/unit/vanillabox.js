@@ -47,7 +47,8 @@ asyncTest('Vanillabox#(show|hide)', function() {
 	var box;
 
 	box = new Vanillabox({
-		targets: Util.targets(1)
+		targets: Util.targets(1),
+		type: 'image'
 	});
 
 	box.show().then(function() {
