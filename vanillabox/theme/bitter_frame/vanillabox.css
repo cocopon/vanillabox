@@ -5,19 +5,25 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  */
+.vanilla * {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+}
+
 .vanilla-mask {
   left: 0;
   position: absolute;
   top: 0;
 }
 
-.vanilla * {
-  box-sizing: content-box;
-  -moz-box-sizing: content-box;
-}
-
 .vanilla-frame {
   position: absolute;
+}
+
+.vanilla-button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
 }
 
 .vanilla-prev,

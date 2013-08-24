@@ -7,18 +7,18 @@
  */
 
 
-// Mask
-.vanilla-mask {
-	left: 0;
-	position: absolute;
-	top: 0;
-}
 .vanilla * {
 	box-sizing: content-box;
 	-moz-box-sizing: content-box;
 }
 
 
+// Mask
+.vanilla-mask {
+	left: 0;
+	position: absolute;
+	top: 0;
+}
 // Frame
 .vanilla-frame {
 	position: absolute;
@@ -26,6 +26,11 @@
 
 
 // Button
+.vanilla-button {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+}
 .vanilla-prev,
 .vanilla-next {
 	visibility: hidden;
