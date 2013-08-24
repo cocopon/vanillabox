@@ -308,7 +308,7 @@ ConfigForm.CONFIGS = [
 	{
 		name: 'closeButton',
 		type: 'boolean',
-		description: 'Visibility of the close button. If true, the mask will be unclickable.'
+		description: 'Visibility of a close button. If true, a mask will be unclickable.'
 	}, {
 		name: 'keyboard',
 		type: 'boolean',
@@ -329,6 +329,11 @@ ConfigForm.CONFIGS = [
 		name: 'repositionOnScroll',
 		type: 'boolean',
 		description: 'If true, reposition on scroll will be enabled.'
+	}, {
+		name: 'type',
+		type: 'select',
+		options: ['image', 'iframe'],
+		description: 'Type of contents.'
 	}
 ];
 
