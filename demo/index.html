@@ -55,6 +55,11 @@
 		<div class="term">&nbsp;</div>
 	</div>
 
+	<h2>Other Formats</h2>
+	<ul>
+		<li><a id="wikipedia-link" href="http://en.wikipedia.org/wiki/Vanilla" title="Vanilla">Web page</a></li>
+	</ul>
+
 	<h2>Options</h2>
 	<ul id="interactive-image-list">
 		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">Image 1</a></li>
@@ -90,6 +95,9 @@
 			$('#single-large-image').vanillabox();
 			$('#single-error').vanillabox();
 			$('#grouped-image-list a').vanillabox();
+			$('#wikipedia-link').vanillabox({
+				type: 'iframe'
+			});
 
 			// Interactive
 			var configForm = new ConfigForm($('#config-form'));

@@ -105,6 +105,7 @@
 	};
 
 	VanillaException.Types = {
+		INVALID_TYPE: 'invalid_type',
 		NO_IMAGE: 'no_image'
 	};
 
@@ -767,6 +768,106 @@
 
 	/**
 	 * @constructor
+	 * @alias IframeContent
+	 * @extends Content
+	 */
+	var IframeContent = function(config) {
+		var me = this;
+
+		me.path_ = config.path;
+		me.title_ = config.title;
+
+		Content.call(me);
+	};
+	Util.inherits(IframeContent, Content);
+
+	IframeContent.prototype.createInternal_ = function() {
+		var me = this;
+
+		var iframeElem = $('<iframe>');
+		iframeElem.attr('frameborder', 0);
+		me.elem_.append(iframeElem);
+		me.iframeElem_ = iframeElem;
+	};
+
+	IframeContent.prototype.release = function() {
+		var me = this;
+
+		Content.prototype.release.call(me);
+
+		me.iframeElem_ = null;
+	};
+
+	IframeContent.prototype.attach_ = function() {
+		var me = this;
+		var iframeElem = me.iframeElem_;
+
+		iframeElem.on('load', $.proxy(me.onLoad_, me));
+		iframeElem.on('error', $.proxy(me.onError_, me));
+	};
+
+	IframeContent.prototype.detach_ = function() {
+		var me = this;
+		var iframeElem = me.iframeElem_;
+
+		iframeElem.off('load', me.onLoad_);
+		iframeElem.off('error', me.onError_);
+	};
+
+	IframeContent.prototype.loadInternal_ = function() {
+		var me = this;
+		me.iframeElem_.attr('src', me.path_);
+	};
+
+	IframeContent.prototype.onLoad_ = function(e) {
+		var me = this;
+
+		if (!me.iframeElem_.attr('src')) {
+			// Ignore unwanted load event that won't be fired when appending to DOM
+			return;
+		}
+
+		me.onComplete_(true);
+	};
+
+	IframeContent.prototype.onError_ = function(e) {
+		this.onComplete_(false);
+	};
+
+
+	/**
+	 * @alias ContentFactory
+	 */
+	var ContentFactory = {
+		FACTORIES_: {
+			'image': function(target) {
+				return new ImageContent({
+					path: target.attr('href'),
+					title: target.attr('title')
+				});
+			},
+			'iframe': function(target) {
+				return new IframeContent({
+					path: target.attr('href'),
+					title: target.attr('title')
+				});
+			}
+		},
+
+		create: function(type, target) {
+			var factoryFn = ContentFactory.FACTORIES_[type];
+
+			if (!factoryFn) {
+				throw new VanillaException(VanillaException.Types.INVALID_TYPE);
+			}
+
+			return factoryFn(target);
+		}
+	};
+
+
+	/**
+	 * @constructor
 	 * @alias Pager
 	 */
 	var Pager = function(opt_config) {
@@ -1012,6 +1113,7 @@
 		me.repositionOnScroll_ = config.repositionOnScroll;
 		me.supportsKeyboard_ = config.keyboard;
 		me.closeButtonEnabled_ = config.closeButton;
+		me.contentType_ = config.type;
 
 		me.pager_ = new Pager({
 			loop: config.loop,
@@ -1085,10 +1187,7 @@
 
 		var contents = Util.Array.map(me.targetElems_, function(target) {
 			var targetElem = $(target);
-			return new ImageContent({
-				path: targetElem.attr('href'),
-				title: targetElem.attr('title')
-			});
+			return ContentFactory.create(me.contentType_, targetElem);
 		});
 		me.contents_ = contents;
 
@@ -1434,7 +1533,8 @@
 		closeButton: false,
 		keyboard: true,
 		loop: false,
-		repositionOnScroll: false
+		repositionOnScroll: false,
+		type: 'image'
 	};
 
 
@@ -1452,7 +1552,8 @@
 			keyboard: config.keyboard,
 			loop: config.loop,
 			repositionOnScroll: config.repositionOnScroll,
-			targets: targetElems
+			targets: targetElems,
+			type: config.type
 		});
 
 		return box;

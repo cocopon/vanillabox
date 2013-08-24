@@ -64,9 +64,16 @@
 	& > img {
 		vertical-align: middle;
 	}
+
+	& > iframe {
+		border-width: 0;
+		vertical-align: middle;
+	}
 }
+.vanilla-loading,
 .vanilla-error {
-	& > img {
+	& > img,
+	& > iframe {
 		display: none;
 	}
 }

@@ -52,8 +52,14 @@
 .vanilla-content > img {
   vertical-align: middle;
 }
+.vanilla-content > iframe {
+  border-width: 0;
+  vertical-align: middle;
+}
 
-.vanilla-error > img {
+.vanilla-loading > img, .vanilla-loading > iframe,
+.vanilla-error > img,
+.vanilla-error > iframe {
   display: none;
 }
 
