@@ -88,6 +88,16 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			// Vanillaboxes
+			$('#single-image').vanillabox();
+			$('#single-small-image').vanillabox();
+			$('#single-large-image').vanillabox();
+			$('#single-error').vanillabox();
+			$('#grouped-image-list a').vanillabox();
+			$('#grouped-page-list a').vanillabox({
+				type: 'iframe'
+			});
+
 			// Theme Selector
 			$('#theme-form select').on('change', function(e) {
 				var name = e.target.value;
@@ -97,16 +107,6 @@
 					'/vanillabox.css';
 
 				$('#theme-link').attr('href', href);
-			});
-
-			// Vanillaboxes
-			$('#single-image').vanillabox();
-			$('#single-small-image').vanillabox();
-			$('#single-large-image').vanillabox();
-			$('#single-error').vanillabox();
-			$('#grouped-image-list a').vanillabox();
-			$('#grouped-page-list a').vanillabox({
-				type: 'iframe'
 			});
 
 			// Interactive
