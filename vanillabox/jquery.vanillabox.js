@@ -21,8 +21,35 @@
 			return Util.isDefined(value) ?
 				value :
 				defaultValue;
+		}
+	};
+
+	Util.Array = {
+		forEach: function(array, fn, opt_scope) {
+			var scope = opt_scope || this;
+			var len = array.length;
+			var i;
+
+			for (i = 0; i < len; i++) {
+				fn.call(scope, array[i], i);
+			}
 		},
 
+		map: function(array, fn, opt_scope) {
+			var scope = opt_scope || this;
+			var result = [];
+			var len = array.length;
+			var i;
+
+			for (i = 0; i < len; i++) {
+				result.push(fn.call(scope, array[i], i));
+			}
+
+			return result;
+		}
+	};
+
+	Util.Deferred = {
 		emptyPromise: function() {
 			var d = new $.Deferred();
 
@@ -114,7 +141,7 @@
 				top: offset.top
 			});
 
-			return Util.emptyPromise();
+			return Util.Deferred.emptyPromise();
 		}
 	};
 
@@ -129,17 +156,26 @@
 
 		animateFrame_: function(frame, contentSize, offset, duration) {
 			var container = frame.getContainer();
-			container.getElement().animate({
+			var containerElem = container.getElement();
+			var containerPromise;
+			containerElem.stop();
+			containerPromise = containerElem.animate({
 				width: contentSize.width,
 				height: contentSize.height
 			}, duration);
 
-			frame.getElement().animate({
+			var frameElem = frame.getElement();
+			var framePromise;
+			frameElem.stop();
+			framePromise = frameElem.animate({
 				left: offset.left,
 				top: offset.top
 			}, duration);
 
-			return Util.emptyPromise();
+			return $.when(
+				containerPromise,
+				framePromise
+			);
 		},
 
 		showFrame: function(frame) {
@@ -157,11 +193,11 @@
 				top: offset.top
 			});
 
-			return Util.emptyPromise();
+			return Util.Deferred.emptyPromise();
 		},
 
 		hideFrame: function(frame) {
-			return Util.emptyPromise();
+			return Util.Deferred.emptyPromise();
 		},
 
 		resizeFrame: function(frame) {
@@ -340,8 +376,9 @@
 
 		if (me.content_) {
 			me.detachContent_();
-			me.content_.getElement().remove();
-			me.content_.release();
+
+			// TODO: Hide animation
+			me.content_.getElement().hide();
 		}
 
 		me.content_ = content;
@@ -354,7 +391,11 @@
 				me.maxContentSize_.height
 			);
 		}
+
 		me.elem_.append(me.content_.getElement());
+
+		// TODO: Show animation
+		me.content_.getElement().show();
 	};
 
 	Container.prototype.getContentSize = function() {
@@ -558,6 +599,9 @@
 	var ImageContent = function(config) {
 		var me = this;
 
+		me.loaded_ = false;
+		me.success_ = false;
+
 		me.path_ = config.path;
 		me.title_ = config.title;
 
@@ -630,22 +674,29 @@
 
 		elem.addClass('vanilla-loading');
 
-		me.imgElem_.attr({
-			src: me.path_
-		});
+		if (me.loaded_) {
+			this.onComplete_(me.success_);
+			return;
+		}
+
+		var imgElem = me.imgElem_;
+		imgElem.attr('src', me.path_);
 	};
 
 	ImageContent.prototype.onLoad_ = function(e) {
-		this.onComplete_(true, e);
+		this.onComplete_(true);
 	};
 
 	ImageContent.prototype.onError_ = function(e) {
-		this.onComplete_(false, e);
+		this.onComplete_(false);
 	};
 
-	ImageContent.prototype.onComplete_ = function(success, e) {
+	ImageContent.prototype.onComplete_ = function(success) {
 		var me = this;
 		var elem = me.getElement();
+
+		me.loaded_ = true;
+		me.success_ = success;
 
 		elem.removeClass('vanilla-loading');
 		if (!success) {
@@ -972,6 +1023,15 @@
 
 		me.attach_();
 
+		var contents = Util.Array.map(me.targetElems_, function(target) {
+			var targetElem = $(target);
+			return new ImageContent({
+				path: targetElem.attr('href'),
+				title: targetElem.attr('title')
+			});
+		});
+		me.contents_ = contents;
+
 		var emptyContent = new EmptyContent();
 		me.setContent_(emptyContent);
 	};
@@ -982,12 +1042,10 @@
 		me.detachWindow_();
 		me.detach_();
 
-		me.mask_.getElement().remove();
-		me.mask_.release();
-		me.mask_ = null;
-
-		me.frame_.release();
-		me.frame_ = null;
+		Util.Array.forEach(me.contents_, function(content) {
+			content.release();
+		});
+		me.contents_ = null;
 
 		me.titleLabel_.release();
 		me.titleLabel_ = null;
@@ -1003,6 +1061,13 @@
 
 		me.nextButton_.release();
 		me.nextButton_ = null;
+
+		me.frame_.release();
+		me.frame_ = null;
+
+		me.mask_.getElement().remove();
+		me.mask_.release();
+		me.mask_ = null;
 
 		me.created_ = false;
 	};
@@ -1081,7 +1146,7 @@
 		var animation = me.animation_;
 
 		if (me.showed_) {
-			return Util.emptyPromise();
+			return Util.Deferred.emptyPromise();
 		}
 		me.showed_ = true;
 
@@ -1114,7 +1179,7 @@
 		var me = this;
 
 		if (!me.showed_) {
-			return Util.emptyPromise();
+			return Util.Deferred.emptyPromise();
 		}
 
 		return $.when(
@@ -1198,13 +1263,8 @@
 		me.updatePager_();
 
 		var index = me.pager_.getPage();
-		var targetElem = $(me.targetElems_[index]);
-		var imgContent = new ImageContent({
-			path: targetElem.attr('href'),
-			title: targetElem.attr('title')
-		});
-
-		me.setContent_(imgContent);
+		var content = me.contents_[index];
+		me.setContent_(content);
 	};
 
 	Vanillabox.prototype.delayedLayout_ = function(forceLayout) {
