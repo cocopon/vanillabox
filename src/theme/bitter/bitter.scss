@@ -12,8 +12,6 @@ $font-size: 1.0em;
 $pager-label-font-size: 90%;
 
 // Geometry
-$empty-content-height: 100px;
-$empty-content-width: 100px;
 $title-height: 44px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
@@ -128,10 +126,6 @@ $error-image: url(img/error.png);
 // Content
 .vanilla-content {
 	display: inline-block;
-}
-.vanilla-empty {
-	height: $empty-content-height;
-	width: $empty-content-width;
 }
 .vanilla-loading {
 	background: $loading-image no-repeat center center;

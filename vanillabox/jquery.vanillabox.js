@@ -354,6 +354,7 @@
 
 	Container.CONTENT_SIZE_SAFETY_MARGIN = 100;
 	Container.MIN_CONTENT_WIDTH = 200;
+	Container.MIN_CONTENT_HEIGHT = 125;
 
 	Container.prototype.create = function() {
 		var me = this;
@@ -453,7 +454,7 @@
 
 		return {
 			width: Math.max(w, Container.MIN_CONTENT_WIDTH),
-			height: h
+			height: Math.max(h, Container.MIN_CONTENT_HEIGHT)
 		};
 	};
 

@@ -7,6 +7,11 @@
  */
 
 
+// Geometry
+$empty-content-height: 100px;
+$empty-content-width: 100px;
+
+
 .vanilla * {
 	box-sizing: content-box;
 	-moz-box-sizing: content-box;
@@ -74,6 +79,10 @@
 		border-width: 0;
 		vertical-align: middle;
 	}
+}
+.vanilla-empty {
+	height: $empty-content-height;
+	width: $empty-content-width;
 }
 .vanilla-loading,
 .vanilla-error {

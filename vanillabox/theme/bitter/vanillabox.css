@@ -63,6 +63,11 @@
   vertical-align: middle;
 }
 
+.vanilla-empty {
+  height: 100px;
+  width: 100px;
+}
+
 .vanilla-loading > img, .vanilla-loading > iframe,
 .vanilla-error > img,
 .vanilla-error > iframe {
@@ -159,11 +164,6 @@
 
 .vanilla-content {
   display: inline-block;
-}
-
-.vanilla-empty {
-  height: 100px;
-  width: 100px;
 }
 
 .vanilla-loading {

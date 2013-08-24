@@ -63,6 +63,11 @@
   vertical-align: middle;
 }
 
+.vanilla-empty {
+  height: 100px;
+  width: 100px;
+}
+
 .vanilla-loading > img, .vanilla-loading > iframe,
 .vanilla-error > img,
 .vanilla-error > iframe {
@@ -157,11 +162,6 @@
 .vanilla-container {
   background-color: #222222;
   text-align: center;
-}
-
-.vanilla-empty {
-  height: 100px;
-  width: 100px;
 }
 
 .vanilla-loading {

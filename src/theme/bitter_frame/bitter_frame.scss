@@ -13,8 +13,6 @@ $font-size: 1.0em;
 $pager-label-font-size: 90%;
 
 // Geometry
-$empty-content-height: 100px;
-$empty-content-width: 100px;
 $frame-width: 8px;
 $frame-corner-radius: 5px;
 $title-height: 44px;
@@ -131,10 +129,6 @@ $error-image: url(img/error.png);
 
 
 // Content
-.vanilla-empty {
-	height: $empty-content-height;
-	width: $empty-content-width;
-}
 .vanilla-loading {
 	background: $loading-image no-repeat center center;
 	height: $loading-image-size;
