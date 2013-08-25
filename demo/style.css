@@ -12,12 +12,17 @@ body {
   background-color: #f3f3f3;
   border: silver solid 1px;
   color: #444444;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: 1em;
-  line-height: 130%;
+  line-height: 150%;
   margin: 32px auto;
   padding: 32px;
   width: 800px;
+}
+
+h1, h2 {
+  color: #444444;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 h1 {
@@ -27,9 +32,9 @@ h1 {
 
 h2 {
   border-bottom: gainsboro solid 1px;
-  font-size: 100%;
-  margin: 2em 0 0.5em;
-  padding: 2px 0;
+  font-size: 120%;
+  margin: 2em 0 0.75em;
+  padding: 4px 0;
 }
 
 table {
@@ -49,17 +54,16 @@ th {
 }
 
 ul {
-  list-style-type: none;
-  margin: 0.5em 0;
-  padding: 0;
+  margin: 0.75em 0;
+  padding: 0 0 0 1.5em;
 }
 
 li + li {
-  margin-top: 0.25em;
+  margin-top: 0.75em;
 }
 
 p {
-  margin: 0.5em 0;
+  margin: 0.75em 0;
 }
 
 pre {
@@ -67,7 +71,8 @@ pre {
   border: gainsboro solid 1px;
   font-family: "Source Code Pro", "Menlo", "Courier New", monospace;
   font-size: 80%;
-  margin: 0.5em 0;
+  line-height: 150%;
+  margin: 0.75em 0;
   padding: 8px;
 }
 
@@ -99,6 +104,10 @@ a:hover {
   vertical-align: middle;
 }
 
+.link-list li + li {
+  margin-top: 0;
+}
+
 .double-column {
   position: relative;
   width: 100%;
@@ -123,7 +132,7 @@ a:hover {
 }
 
 #config-form {
-  margin: 1em 0 0.5em;
+  margin: 1em 0 0.75em;
 }
 
 .config-row-disabled {
@@ -138,6 +147,7 @@ a:hover {
 .config-name-cell {
   font-family: "Source Code Pro", "Menlo", "Courier New", monospace;
   font-size: 80%;
+  line-height: 150%;
 }
 
 .config-desc-cell {
@@ -153,8 +163,9 @@ a:hover {
   color: #d7eee9;
   cursor: pointer;
   display: inline-block;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   margin: 1em 0;
-  padding: 6px 1em;
+  padding: 4px 1em;
   text-align: center;
 }
 .button:hover {
