@@ -1237,22 +1237,17 @@
 
 		var mask = new Mask();
 		var maskElem = mask.getElement();
+		maskElem.addClass('vanilla');
 		maskElem.hide();
 		$('body').append(maskElem);
 		me.mask_ = mask;
 
-		maskElem.addClass('vanilla');
-		if (Util.Browser.isIos()) {
-			maskElem.addClass('vanilla-ios');
-		}
+		me.setupRootCss_();
 
 		var frame = new Frame({
 			animation: me.animation_
 		});
 		var frameElem = frame.getElement();
-		if (me.pager_.getTotalPages() > 1) {
-			frameElem.addClass('vanilla-group');
-		}
 		me.frame_ = frame;
 		maskElem.append(frameElem);
 
@@ -1299,6 +1294,21 @@
 
 		var emptyContent = new EmptyContent();
 		me.setContent_(emptyContent);
+	};
+
+	Vanillabox.prototype.setupRootCss_ = function() {
+		var me = this;
+		var rootElem = me.mask_.getElement();
+
+		if (Util.Browser.isIos()) {
+			rootElem.addClass('vanilla-ios');
+		}
+		if (me.closeButtonEnabled_) {
+			rootElem.addClass('vanilla-close-button-enabled');
+		}
+		if (me.pager_.getTotalPages() > 1) {
+			rootElem.addClass('vanilla-group');
+		}
 	};
 
 	Vanillabox.prototype.release = function() {
@@ -1516,7 +1526,7 @@
 		var totalPages = pager.getTotalPages();
 		var text =
 			String(page + 1) +
-			'/' +
+			' of ' +
 			String(totalPages);
 
 		var label = me.pagerLabel_;

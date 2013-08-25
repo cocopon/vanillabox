@@ -62,7 +62,6 @@
   border-width: 0;
   vertical-align: middle;
 }
-
 .vanilla-ios .vanilla-content {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -98,7 +97,7 @@
 .vanilla-frame {
   background-color: #111111;
   border-radius: 5px;
-  padding: 44px 8px 8px;
+  padding: 38px 6px 6px;
 }
 
 .vanilla-button {
@@ -111,10 +110,10 @@
 
 .vanilla-close {
   background: url(img/close0.png) no-repeat center center;
-  height: 28px;
-  right: 8px;
-  top: 8px;
-  width: 28px;
+  height: 26px;
+  right: 6px;
+  top: 6px;
+  width: 26px;
 }
 
 .vanilla-close:hover {
@@ -124,7 +123,7 @@
 .vanilla-prev,
 .vanilla-next {
   height: 100%;
-  margin-top: 18px;
+  margin-top: 16px;
   top: 0;
   width: 44px;
 }
@@ -156,18 +155,27 @@
 }
 
 .vanilla-title {
-  color: #aaaaaa;
-  height: 44px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #888888;
+  height: 38px;
   left: 0;
-  line-height: 44px;
-  text-align: center;
+  line-height: 38px;
+  overflow: hidden;
+  padding-left: 6px;
+  text-align: left;
+  text-overflow: ellipsis;
   top: 0;
+  white-space: nowrap;
   width: 100%;
+}
+.vanilla-close-button-enabled .vanilla-title {
+  padding-right: 40px;
 }
 
 .vanilla-pager {
   bottom: -30px;
-  color: #cccccc;
+  color: #aaaaaa;
   font-size: 90%;
   height: 22px;
   left: 0;

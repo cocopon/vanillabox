@@ -12,9 +12,14 @@ $min-content-height: 150px;
 $min-content-width: 200px;
 
 
+@mixin box-sizing($value) {
+	box-sizing: $value;
+	-moz-box-sizing: $value;
+}
+
+
 .vanilla * {
-	box-sizing: content-box;
-	-moz-box-sizing: content-box;
+	@include box-sizing(content-box);
 }
 
 
@@ -79,9 +84,8 @@ $min-content-width: 200px;
 		border-width: 0;
 		vertical-align: middle;
 	}
-}
-.vanilla-ios {
-	.vanilla-content {
+
+	.vanilla-ios & {
 		overflow: auto;
 		-webkit-overflow-scrolling: touch;
 

@@ -12,10 +12,14 @@ $font-size: 1.0em;
 $pager-label-font-size: 90%;
 
 // Geometry
-$title-height: 44px;
+$title-height: 32px;
+$close-button-spacing: 8px;
+$close-button-intutive-offset: -8px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
 $pager-label-spacing: 8px;
+
+$close-button-size: $title-height;
 
 // Image
 $mask-image: url(img/mask.png);
@@ -49,11 +53,9 @@ $error-image: url(img/error.png);
 	display: none;
 }
 .vanilla-close {
-	$close-button-size: $title-height;
-
 	background: $close-button-image no-repeat center center;
 	height: $close-button-size;
-	right: 0;
+	right: 0 + $close-button-intutive-offset;
 	top: 0;
 	width: $close-button-size;
 }
@@ -94,13 +96,24 @@ $error-image: url(img/error.png);
 	position: absolute;
 }
 .vanilla-title {
+	@include box-sizing(border-box);
+
 	color: $title-color;
 	height: $title-height;
 	left: 0;
 	line-height: $title-height;
-	text-align: center;
+	overflow: hidden;
+	text-align: left;
+	text-overflow: ellipsis;
 	top: 0;
+	white-space: nowrap;
 	width: 100%;
+
+	.vanilla-close-button-enabled & {
+		padding-right: $close-button-spacing
+			+ $close-button-size
+			+ $close-button-intutive-offset;
+	}
 }
 .vanilla-pager {
 	bottom: -($pager-label-spacing + $pager-label-height);

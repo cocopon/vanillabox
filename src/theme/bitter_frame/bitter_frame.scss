@@ -3,9 +3,9 @@
 
 // Color
 $frame-background-color: #111;
-$title-color: #aaa;
+$title-color: #888;
 $container-background-color: #222;
-$pager-label-color: #ccc;
+$pager-label-color: #aaa;
 
 // Font
 $font-family: sans-serif;
@@ -13,14 +13,17 @@ $font-size: 1.0em;
 $pager-label-font-size: 90%;
 
 // Geometry
-$frame-width: 8px;
+$frame-width: 6px;
 $frame-corner-radius: 5px;
-$title-height: 44px;
+$title-height: 38px;
+$close-button-spacing: 8px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
 $pager-label-spacing: 8px;
 $loading-image-size: 32px;
 $error-image-size: 32px;
+
+$close-button-size: $title-height - $frame-width * 2;
 
 // Image
 $mask-image: url(img/mask.png);
@@ -56,8 +59,6 @@ $error-image: url(img/error.png);
 	display: none;
 }
 .vanilla-close {
-	$close-button-size: $title-height - $frame-width * 2;
-
 	background: $close-button-image no-repeat center center;
 	height: $close-button-size;
 	right: $frame-width;
@@ -101,13 +102,25 @@ $error-image: url(img/error.png);
 	position: absolute;
 }
 .vanilla-title {
+	@include box-sizing(border-box);
+
 	color: $title-color;
 	height: $title-height;
 	left: 0;
 	line-height: $title-height;
-	text-align: center;
+	overflow: hidden;
+	padding-left: $frame-width;
+	text-align: left;
+	text-overflow: ellipsis;
 	top: 0;
+	white-space: nowrap;
 	width: 100%;
+
+	.vanilla-close-button-enabled & {
+		padding-right: $close-button-spacing
+			+ $close-button-size
+			+ $frame-width;
+	}
 }
 .vanilla-pager {
 	bottom: -($pager-label-spacing + $pager-label-height);
