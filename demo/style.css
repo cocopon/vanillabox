@@ -21,6 +21,7 @@ body {
 }
 
 h1, h2 {
+  clear: both;
   color: #444444;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
@@ -104,6 +105,43 @@ a:hover {
   vertical-align: middle;
 }
 
+ul.nav {
+  border: #888888 solid 1px;
+  border-radius: 3px;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  height: 30px;
+  margin: 2em 0;
+  padding: 0;
+  width: 100%;
+}
+ul.nav li {
+  background-color: #888888;
+  border-right: #888888 solid 1px;
+  color: #f3f3f3;
+  display: block;
+  float: left;
+  height: 28px;
+  line-height: 28px;
+  list-style-type: none;
+  text-align: center;
+  width: 20%;
+}
+ul.nav li > a {
+  background-color: #f3f3f3;
+  color: #888888;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
+}
+ul.nav li > a:active, ul.nav li > a:hover {
+  background-color: #e6e6e6;
+  color: #888888;
+}
+ul.nav li + li {
+  margin-top: 0;
+}
+
 .link-list li + li {
   margin-top: 0;
 }
@@ -115,6 +153,7 @@ a:hover {
 
 .column1, .column2 {
   float: left;
+  margin-top: -0.75em;
 }
 
 .column1 {
@@ -132,7 +171,7 @@ a:hover {
 }
 
 #config-form {
-  margin: 1em 0 0.75em;
+  margin: 0.75em 0;
 }
 
 .config-row-disabled {

@@ -21,6 +21,14 @@ $button-hover-color: lighten($button-color, 30%);
 $config-row-disabled-background-color: darken($background-color, 2%);
 $config-row-disabled-color: darken($config-row-disabled-background-color, 35%);
 $copyright-color: darken($background-color, 20%);
+$nav-key-color: #888;
+$nav-border-color: $nav-key-color;
+$nav-item-background-color: $background-color;
+$nav-item-color: $nav-key-color;
+$nav-active-item-background-color: $nav-key-color;
+$nav-active-item-color: $background-color;
+$nav-item-hover-background-color: darken($nav-item-background-color, 5%);
+$nav-item-hover-color: $nav-item-color;
 
 // Font
 $font-family-sans-serif: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -31,6 +39,7 @@ $font-family: $font-family-serif;
 $button-font-family: $font-family-sans-serif;
 $code-font-family: $font-family-monospace;
 $heading-font-family: $font-family-sans-serif;
+$nav-font-family: $font-family-sans-serif;
 
 $font-size: 1.0em;
 $font-size-monospace: 80%;
@@ -58,14 +67,21 @@ $p-margin: 0.75em 0;
 $pre-margin: 0.75em 0;
 $pre-padding: 8px;
 $table-cell-padding: 8px 1.0em;
+$double-column-margin-offset: -0.75em;
 
 $button-margin: 1.0em 0;
 $button-padding: 4px 1.0em;
-$config-form-margin:1.0em 0 0.75em;
+$config-form-margin:0.75em 0;
 $copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
 $double-column-column2-width: 60%;
 $link-li-spacing: 0;
+$nav-height: 30px;
+$nav-margin: 2.0em 0;
+$nav-border-radius: 3px;
+$nav-border-width: 1px;
+$nav-item-height: $nav-height - $nav-border-width * 2;
+$nav-item-width: 20%;
 $theme-form-height: 30px;
 
 
@@ -90,6 +106,7 @@ body {
 }
 
 h1, h2 {
+	clear: both;
 	color: $heading-color;
 	font-family: $heading-font-family;
 }
@@ -165,6 +182,47 @@ a:hover {
 	vertical-align: middle;
 }
 
+ul.nav {
+	border: $nav-border-color solid $nav-border-width;
+	border-radius: $nav-border-radius;
+	font-family: $nav-font-family;
+	height: $nav-height;
+	margin: $nav-margin;
+	padding: 0;
+	width: 100%;
+
+	li {
+		background-color: $nav-active-item-background-color;
+		border-right: $nav-border-color solid $nav-border-width;
+		color: $nav-active-item-color;
+		display: block;
+		float: left;
+		height: $nav-item-height;
+		line-height: $nav-item-height;
+		list-style-type: none;
+		text-align: center;
+		width: $nav-item-width;
+
+		& > a {
+			background-color: $nav-item-background-color;
+			color: $nav-item-color;
+			display: block;
+			height: 100%;
+			text-decoration: none;
+			width: 100%;
+
+			&:active,
+			&:hover {
+				background-color: $nav-item-hover-background-color;
+				color: $nav-item-hover-color;
+			}
+		}
+	}
+	li + li {
+		margin-top: 0;
+	}
+}
+
 .link-list {
 	li + li {
 		margin-top: $link-li-spacing;
@@ -177,6 +235,7 @@ a:hover {
 }
 .column1, .column2 {
 	float: left;
+	margin-top: $double-column-margin-offset;
 }
 .column1 {
 	width: $double-column-column1-width;

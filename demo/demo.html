@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vanillabox</title>
+	<link id="theme-link" rel="stylesheet" href="../vanillabox/theme/bitter/vanillabox.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="../vanillabox/jquery.vanillabox.js"></script>
+	<script type="text/javascript" src="js/configform.js"></script>
+	<script type="text/javascript" src="js/configpre.js"></script>
+</head>
+<body>
+	<h1>Vanillabox</h1>
+	<form id="theme-form" autocomplete="off">
+		<label>Theme:</label>
+		<select>
+			<option value="bitter" selected="selected">Bitter</option>
+			<option value="bitter_frame">Bitter Frame</option>
+		</select>
+	</form>
+
+	<ul class="nav">
+		<li><a href="index.html">Overview</a></li>
+		<li><a href="getting_started.html">Getting Started</a></li>
+		<li>Demo</li>
+	</ul>
+
+	<h2>Single Image</h2>
+	<div class="double-column">
+		<div class="column1">
+			<ul class="link-list">
+				<li><a id="single-image" href="http://placehold.it/320x480/0cc/f7f7f7" title="Image">Image</a></li>
+				<li><a id="single-small-image" href="http://placehold.it/32x32/c0c/f7f7f7" title="Small Image">Small image</a></li>
+				<li><a id="single-large-image" href="http://placehold.it/1024x768/cc0/f7f7f7" title="Large Image">Large image</a></li>
+				<li><a id="single-error" href="noimage" title="Error">Error</a></li>
+			</ul>
+		</div>
+		<div class="column2">
+			<pre>$('a.image').vanillabox();</pre>
+		</div>
+		<div class="term">&nbsp;</div>
+	</div>
+
+	<h2>Grouped Image</h2>
+	<div class="double-column">
+		<div class="column1">
+			<ul id="grouped-image-list" class="link-list">
+				<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">Image 1</a></li>
+				<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">Image 2</a></li>
+				<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">Image 3</a></li>
+				<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">Image 4</a></li>
+			</ul>
+		</div>
+		<div class="column2">
+			<pre>$('.image-list a').vanillabox();</pre>
+		</div>
+		<div class="term">&nbsp;</div>
+	</div>
+
+	<h2>Webpage</h2>
+	<div class="double-column">
+		<div class="column1">
+			<ul class="link-list">
+				<li><a id="dribbble" href="http://dribbble.com/" title="Dribbble">Dribbble</a></li>
+				<li><a id="vimeo" href="https://player.vimeo.com/video/61411580" title="Vimeo">Vimeo</a></li>
+			</ul>
+		</div>
+		<div class="column2">
+			<pre>$('a.webpage').vanillabox({
+  type: 'iframe'
+});</pre>
+		</div>
+		<div class="term">&nbsp;</div>
+	</div>
+
+	<h2>Options</h2>
+	<ul id="interactive-image-list" class="link-list">
+		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">&nbsp;</a></li>
+		<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">&nbsp;</a></li>
+		<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">&nbsp;</a></li>
+		<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">&nbsp;</a></li>
+	</ul>
+	<ul id="interactive-page-list" class="link-list">
+		<li><a href="http://dribbble.com/" title="Dribbble">&nbsp;</a></li>
+	</ul>
+
+	<form id="config-form">
+	</form>
+	<div class="config-form-toolbar">
+		<div id="show-button" class="button">Show</div>
+	</div>
+	<pre id="config-pre">{}</pre>
+
+	<div class="copyright">&copy; 2013 cocopon.</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// Vanillaboxes
+			$('#single-image').vanillabox();
+			$('#single-small-image').vanillabox();
+			$('#single-large-image').vanillabox();
+			$('#single-error').vanillabox();
+			$('#grouped-image-list a').vanillabox();
+			$('#dribbble').vanillabox({
+				type: 'iframe'
+			});
+			$('#vimeo').vanillabox({
+				type: 'iframe',
+				preferredWidth: 500,
+				preferredHeight: 281
+			});
+
+			// Theme Selector
+			$('#theme-form select').on('change', function(e) {
+				var name = e.target.value;
+				var href =
+					'../vanillabox/theme/' +
+					name +
+					'/vanillabox.css';
+
+				$('#theme-link').attr('href', href);
+			});
+
+			// Interactive
+			var configForm = new ConfigForm($('#config-form'));
+			var configPre = new ConfigPre($('#config-pre'));
+
+			$(configForm).on('change', function() {
+				var config = configForm.buildConfig();
+				configPre.setConfig(config);
+			});
+
+			var box = null;
+			$('#show-button').on('click', function() {
+				if (box) {
+					box.release();
+				}
+
+				var config = configForm.buildConfig();
+				var targetElems = (config.type === 'iframe') ?
+					$('#interactive-page-list a') :
+					$('#interactive-image-list a');
+
+				box = targetElems.vanillabox(config);
+				box.show();
+			});
+		});
+	</script>
+</body>
+</html>
