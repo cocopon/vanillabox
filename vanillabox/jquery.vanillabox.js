@@ -83,6 +83,13 @@
 		}
 	};
 
+	Util.Browser = {
+		isIos: function() {
+			var ua = navigator.userAgent;
+			return !!ua.match(/(ipod|iphone|ipad)/ig);
+		}
+	};
+
 
 	/**
 	 * @alias Events
@@ -647,12 +654,10 @@
 	Content.prototype.getSize = function() {
 		var me = this;
 		var elem = me.getElement();
-		var w = elem.width();
-		var h = elem.height();
 
 		return {
-			width: w,
-			height: h
+			width: elem.width(),
+			height: elem.height()
 		};
 	};
 
@@ -847,11 +852,31 @@
 		iframeElem.off('error', me.onError_);
 	};
 
+	IframeContent.prototype.getFlexibleElement = function() {
+		var me = this;
+
+		// In iOS, cannot restrict a size of an iframe element
+		// so return an outer element instead
+		return Util.Browser.isIos() ?
+			me.getElement() :
+			me.iframeElem_;
+	};
+
+	IframeContent.prototype.getSize = function() {
+		var me = this;
+		var elem = me.getFlexibleElement();
+
+		return {
+			width: elem.width(),
+			height: elem.height()
+		};
+	};
+
 	IframeContent.prototype.setMaxContentSize = function(width, height) {
 		var me = this;
-		var iframeElem = me.iframeElem_;
+		var elem = me.getFlexibleElement();
 
-		iframeElem.css({
+		elem.css({
 			maxWidth: width,
 			maxHeight: height
 		});
@@ -871,14 +896,9 @@
 			return;
 		}
 
-		if (Util.isDefined(me.preferredWidth_)) {
-			iframeElem.width(me.preferredWidth_);
-			iframeElem.attr('width', me.preferredWidth_);
-		}
-		if (Util.isDefined(me.preferredHeight_)) {
-			iframeElem.height(me.preferredHeight_);
-			iframeElem.attr('height', me.preferredHeight_);
-		}
+		var elem = me.getFlexibleElement();
+		elem.width(me.preferredWidth_);
+		elem.height(me.preferredHeight_);
 
 		me.onComplete_(true);
 	};
@@ -1200,6 +1220,9 @@
 		me.mask_ = mask;
 
 		maskElem.addClass('vanilla');
+		if (Util.Browser.isIos()) {
+			maskElem.addClass('vanilla-ios');
+		}
 
 		var frame = new Frame({
 			animation: me.animation_

@@ -63,6 +63,16 @@
   vertical-align: middle;
 }
 
+.vanilla-ios .vanilla-content {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.vanilla-ios .vanilla-content > iframe {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .vanilla-empty {
   height: 150px;
   width: 200px;

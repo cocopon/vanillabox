@@ -80,6 +80,18 @@ $min-content-width: 200px;
 		vertical-align: middle;
 	}
 }
+.vanilla-ios {
+	.vanilla-content {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+
+		& > iframe {
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
+	}
+}
 .vanilla-empty {
 	height: $min-content-height;
 	width: $min-content-width;
