@@ -3,8 +3,10 @@ $outer-background-color: #ccc;
 $background-color: #f3f3f3;
 $color: #444;
 $key-color: hsl(166, 41%, 49%);
+
 $a-color: $key-color;
 $a-hover-background-color: adjust-color($a-color, $saturation: -15%, $lightness: +38%);
+$body-border-color: darken($background-color, 20%);
 $heading-border-color: darken($background-color, 9%);
 $pre-background-color: darken($background-color, 2%);
 $pre-border-color: darken($background-color, 9%);
@@ -26,12 +28,14 @@ $font-size: 1.0em;
 $font-size-monospace: 80%;
 $h1-font-size: 150%;
 $h2-font-size: 100%;
+$line-height: 130%;
 
 $config-desc-cell-font-size: 90%;
 $copyright-font-size: 90%;
 $theme-form-label-font-size: 80%;
 
 // Geometry
+$body-margin: 32px auto;
 $body-padding: 32px;
 $body-width: 800px;
 $h1-margin: 0;
@@ -46,7 +50,7 @@ $pre-padding: 8px;
 $table-cell-padding: 8px 1.0em;
 
 $button-margin: 1.0em 0;
-$button-padding: 4px 8px;
+$button-padding: 6px 1.0em;
 $config-form-margin:1.0em 0 0.5em;
 $copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
@@ -64,10 +68,12 @@ html {
 }
 body {
 	background-color: $background-color;
+	border: $body-border-color solid 1px;
 	color: $color;
 	font-family: $font-family-sans-serif;
 	font-size: $font-size;
-	margin: 0 auto;
+	line-height: $line-height;
+	margin: $body-margin;
 	padding: $body-padding;
 	width: $body-width;
 }

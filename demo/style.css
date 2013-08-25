@@ -10,10 +10,12 @@ html {
 
 body {
   background-color: #f3f3f3;
+  border: silver solid 1px;
   color: #444444;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 1em;
-  margin: 0 auto;
+  line-height: 130%;
+  margin: 32px auto;
   padding: 32px;
   width: 800px;
 }
@@ -152,7 +154,7 @@ a:hover {
   cursor: pointer;
   display: inline-block;
   margin: 1em 0;
-  padding: 4px 8px;
+  padding: 6px 1em;
   text-align: center;
 }
 .button:hover {
