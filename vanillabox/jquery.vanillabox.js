@@ -942,6 +942,7 @@
 
 
 	/**
+	 * The pager class manages a current page.
 	 * @constructor
 	 * @alias Pager
 	 */
@@ -955,10 +956,16 @@
 		me.setPage(Util.getOrDefault(config.page, 0));
 	};
 
+	/**
+	 * @return {Number} Current page of the pager.
+	 */
 	Pager.prototype.getPage = function() {
 		return this.currentPage_;
 	};
 
+	/**
+	 * @param {Number} page Current page of the pager.
+	 */
 	Pager.prototype.setPage = function(page) {
 		var me = this;
 		var currentIndex = me.currentPage_;
@@ -972,10 +979,16 @@
 		}
 	};
 
+	/**
+	 * @return {Number} Total number of pages of the pager.
+	 */
 	Pager.prototype.getTotalPages = function() {
 		return this.totalPages_;
 	};
 
+	/**
+	 * @return {Boolean} true if the current page has a previous page
+	 */
 	Pager.prototype.hasPrevious = function() {
 		var me = this;
 
@@ -986,6 +999,9 @@
 		return me.currentPage_ > 0;
 	};
 
+	/**
+	 * @return {Boolean} true if the current page has a next page
+	 */
 	Pager.prototype.hasNext = function() {
 		var me = this;
 
@@ -997,6 +1013,9 @@
 		return me.currentPage_ < totalPages - 1;
 	};
 
+	/**
+	 * Sets the current page to the next page.
+	 */
 	Pager.prototype.next = function() {
 		var me = this;
 		var totalPages = me.getTotalPages();
@@ -1015,6 +1034,9 @@
 		}
 	};
 
+	/**
+	 * Sets the current page to the previous page.
+	 */
 	Pager.prototype.previous = function() {
 		var me = this;
 		var totalPages = me.getTotalPages();
