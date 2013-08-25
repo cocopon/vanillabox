@@ -64,10 +64,15 @@
 }
 
 .vanilla-empty {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 200px;
 }
 
+.vanilla-loading,
+.vanilla-error {
+  height: 150px;
+  width: 200px;
+}
 .vanilla-loading > img, .vanilla-loading > iframe,
 .vanilla-error > img,
 .vanilla-error > iframe {

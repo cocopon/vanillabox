@@ -8,8 +8,8 @@
 
 
 // Geometry
-$empty-content-height: 100px;
-$empty-content-width: 100px;
+$min-content-height: 150px;
+$min-content-width: 200px;
 
 
 .vanilla * {
@@ -81,11 +81,14 @@ $empty-content-width: 100px;
 	}
 }
 .vanilla-empty {
-	height: $empty-content-height;
-	width: $empty-content-width;
+	height: $min-content-height;
+	width: $min-content-width;
 }
 .vanilla-loading,
 .vanilla-error {
+	height: $min-content-height;
+	width: $min-content-width;
+
 	& > img,
 	& > iframe {
 		display: none;

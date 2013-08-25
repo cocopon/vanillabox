@@ -16,8 +16,6 @@ $title-height: 44px;
 $pager-button-width: 44px;
 $pager-label-height: 22px;
 $pager-label-spacing: 8px;
-$loading-image-size: 32px;
-$error-image-size: 32px;
 
 // Image
 $mask-image: url(img/mask.png);
@@ -129,11 +127,7 @@ $error-image: url(img/error.png);
 }
 .vanilla-loading {
 	background: $loading-image no-repeat center center;
-	height: $loading-image-size;
-	width: $loading-image-size;
 }
 .vanilla-error {
 	background: $error-image no-repeat center center;
-	height: $error-image-size;
-	width: $error-image-size;
 }

@@ -139,12 +139,12 @@
 
 		resizeFrame: function(frame) {
 			var container = frame.getContainer();
-			var contentSize = container.getContentSize();
-			var offset = frame.getPreferredOffset(contentSize);
+			var containerSize = container.getSize();
+			var offset = frame.getPreferredOffset(containerSize);
 
 			container.getElement().css({
-				width: contentSize.width,
-				height: contentSize.height
+				width: containerSize.width,
+				height: containerSize.height
 			});
 
 			frame.getElement().css({
@@ -173,14 +173,14 @@
 			return mask.getElement().fadeOut(300);
 		},
 
-		animateFrame_: function(frame, contentSize, offset, duration) {
+		animateFrame_: function(frame, containerSize, offset, duration) {
 			var container = frame.getContainer();
 			var containerElem = container.getElement();
 			var containerPromise;
 			containerElem.stop();
 			containerPromise = containerElem.animate({
-				width: contentSize.width,
-				height: contentSize.height
+				width: containerSize.width,
+				height: containerSize.height
 			}, duration);
 
 			var frameElem = frame.getElement();
@@ -199,12 +199,12 @@
 
 		showFrame: function(frame) {
 			var container = frame.getContainer();
-			var contentSize = container.getContentSize();
-			var offset = frame.getPreferredOffset(contentSize);
+			var containerSize = container.getSize();
+			var offset = frame.getPreferredOffset(containerSize);
 
 			container.getElement().css({
-				width: contentSize.width,
-				height: contentSize.height
+				width: containerSize.width,
+				height: containerSize.height
 			});
 
 			frame.getElement().css({
@@ -221,12 +221,12 @@
 
 		resizeFrame: function(frame) {
 			var container = frame.getContainer();
-			var contentSize = container.getContentSize();
-			var offset = frame.getPreferredOffset(contentSize);
+			var containerSize = container.getSize();
+			var offset = frame.getPreferredOffset(containerSize);
 
 			return Animation.Default.animateFrame_(
 				frame,
-				contentSize,
+				containerSize,
 				offset,
 				300
 			);
@@ -353,8 +353,8 @@
 	};
 
 	Container.CONTENT_SIZE_SAFETY_MARGIN = 100;
-	Container.MIN_CONTENT_WIDTH = 200;
-	Container.MIN_CONTENT_HEIGHT = 125;
+	Container.MIN_WIDTH = 200;
+	Container.MIN_HEIGHT = 150;
 
 	Container.prototype.create = function() {
 		var me = this;
@@ -440,21 +440,21 @@
 		animation.showContent(me.content_);
 	};
 
-	Container.prototype.getContentSize = function() {
+	Container.prototype.getSize = function() {
 		var me = this;
-		var w = 0;
-		var h = 0;
-
 		var content = me.getContent();
-		var contentElem =  content && content.getElement();
-		if (contentElem) {
-			w = contentElem.width();
-			h = contentElem.height();
+
+		var contentSize = {
+			width: 0,
+			height: 0
+		};
+		if (content) {
+			contentSize = content.getSize();
 		}
 
 		return {
-			width: Math.max(w, Container.MIN_CONTENT_WIDTH),
-			height: Math.max(h, Container.MIN_CONTENT_HEIGHT)
+			width: Math.max(contentSize.width, Container.MIN_WIDTH),
+			height: Math.max(contentSize.height, Container.MIN_HEIGHT)
 		};
 	};
 
@@ -481,12 +481,12 @@
 	Container.prototype.layout = function() {
 		var me = this;
 		var content = me.getContent();
-		var contentElem = content.getElement();
+		var contentSize = content.getSize();
 
-		contentElem.css({
-			marginLeft: -Math.round(contentElem.width() / 2),
-			marginTop: -Math.round(contentElem.height() / 2)
-		});
+		content.setOffset(
+			-Math.round(contentSize.width / 2),
+			-Math.round(contentSize.height / 2)
+		);
 	};
 
 	Container.prototype.onContentComplete_ = function(e, success) {
@@ -642,6 +642,28 @@
 
 	Content.prototype.getTitle = function() {
 		return this.title_;
+	};
+
+	Content.prototype.getSize = function() {
+		var me = this;
+		var elem = me.getElement();
+		var w = elem.width();
+		var h = elem.height();
+
+		return {
+			width: w,
+			height: h
+		};
+	};
+
+	Content.prototype.setOffset = function(left, top) {
+		var me = this;
+		var elem = me.getElement();
+
+		elem.css({
+			marginLeft: left,
+			marginTop: top
+		});
 	};
 
 	Content.prototype.setMaxContentSize = function(width, height) {
@@ -851,9 +873,11 @@
 
 		if (Util.isDefined(me.preferredWidth_)) {
 			iframeElem.width(me.preferredWidth_);
+			iframeElem.attr('width', me.preferredWidth_);
 		}
 		if (Util.isDefined(me.preferredHeight_)) {
 			iframeElem.height(me.preferredHeight_);
+			iframeElem.attr('height', me.preferredHeight_);
 		}
 
 		me.onComplete_(true);
@@ -1171,10 +1195,11 @@
 
 		var mask = new Mask();
 		var maskElem = mask.getElement();
-		maskElem.addClass('vanilla');
 		maskElem.hide();
 		$('body').append(maskElem);
 		me.mask_ = mask;
+
+		maskElem.addClass('vanilla');
 
 		var frame = new Frame({
 			animation: me.animation_
