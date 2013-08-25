@@ -1458,7 +1458,11 @@
 
 	Vanillabox.prototype.setContent_ = function(content) {
 		var me = this;
+
 		var prevContent = me.getContent_();
+		if (prevContent === content) {
+			return;
+		}
 
 		if (prevContent) {
 			me.detachContent_();
