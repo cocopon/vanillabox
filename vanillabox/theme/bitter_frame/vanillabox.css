@@ -87,6 +87,8 @@
 .vanilla-error > img,
 .vanilla-error > iframe {
   display: none;
+  height: 150px;
+  width: 200px;
 }
 
 .vanilla-mask {

@@ -104,5 +104,7 @@ $min-content-width: 200px;
 	& > img,
 	& > iframe {
 		display: none;
+		height: $min-content-height;
+		width: $min-content-width;
 	}
 }
