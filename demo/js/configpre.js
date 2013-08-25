@@ -16,7 +16,7 @@ ConfigPre.prototype.setConfig = function(config) {
 	me.config_= config;
 
 	var text =
-		'$(\'.foobar\').vanillabox(' +
+		'$(\'.foobar a\').vanillabox(' +
 		ConfigPre.stringify(me.config_) +
 		');';
 	me.elem_.text(text);

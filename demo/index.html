@@ -34,7 +34,7 @@
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$(&#39;#single-image&#39;).vanillabox();</pre>
+			<pre>$(&#39;a.image&#39;).vanillabox();</pre>
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
@@ -50,7 +50,7 @@
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$(&#39;#grouped-image-list a&#39;).vanillabox();</pre>
+			<pre>$(&#39;.image-list a&#39;).vanillabox();</pre>
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
@@ -58,13 +58,13 @@
 	<h2>Webpage</h2>
 	<div class="double-column">
 		<div class="column1">
-			<ul id="grouped-page-list">
-				<li><a href="http://en.wikipedia.org/wiki/Vanilla" title="Vanilla">Vanilla - Wikipedia</a></li>
-				<li><a href="http://en.wikipedia.org/wiki/JQuery" title="jQuery">jQuery - Wikipedia</a></li>
+			<ul>
+				<li><a id="dribbble" href="http://dribbble.com/" title="Dribbble">Dribbble</a></li>
+				<li><a id="vimeo" href="https://player.vimeo.com/video/61411580" title="Vimeo">Vimeo</a></li>
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$(&#39;#grouped-page-list a&#39;).vanillabox({
+			<pre>$(&#39;a.webpage&#39;).vanillabox({
   type: &#39;iframe&#39;
 });</pre>
 		</div>
@@ -72,11 +72,15 @@
 
 	<h2>Options</h2>
 	<ul id="interactive-image-list">
-		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">Image 1</a></li>
-		<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">Image 2</a></li>
-		<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">Image 3</a></li>
-		<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">Image 4</a></li>
+		<li><a href="http://placehold.it/400x300/0cc/f7f7f7" title="Title 1">&nbsp;</a></li>
+		<li><a href="http://placehold.it/300x400/c0c/f7f7f7" title="Title 2">&nbsp;</a></li>
+		<li><a href="http://placehold.it/400x300/cc0/f7f7f7" title="Title 3">&nbsp;</a></li>
+		<li><a href="http://placehold.it/300x400/777/f7f7f7" title="Title 4">&nbsp;</a></li>
 	</ul>
+	<ul id="interactive-page-list">
+		<li><a href="http://dribbble.com/" title="Dribbble">&nbsp;</a></li>
+	</ul>
+
 	<form id="config-form">
 	</form>
 	<div class="config-form-toolbar">
@@ -94,8 +98,13 @@
 			$('#single-large-image').vanillabox();
 			$('#single-error').vanillabox();
 			$('#grouped-image-list a').vanillabox();
-			$('#grouped-page-list a').vanillabox({
+			$('#dribbble').vanillabox({
 				type: 'iframe'
+			});
+			$('#vimeo').vanillabox({
+				type: 'iframe',
+				preferredWidth: 500,
+				preferredHeight: 281
 			});
 
 			// Theme Selector
@@ -118,16 +127,19 @@
 				configPre.setConfig(config);
 			});
 
-			var interactiveBox = null;
+			var box = null;
 			$('#show-button').on('click', function() {
-				if (interactiveBox) {
-					interactiveBox.release();
+				if (box) {
+					box.release();
 				}
 
-				// TODO: Apply config.type to target elements
 				var config = configForm.buildConfig();
-				interactiveBox = $('#interactive-image-list a').vanillabox(config);
-				interactiveBox.show();
+				var targetElems = (config.type === 'iframe') ?
+					$('#interactive-page-list a') :
+					$('#interactive-image-list a');
+
+				box = targetElems.vanillabox(config);
+				box.show();
 			});
 		});
 	</script>

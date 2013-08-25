@@ -333,7 +333,7 @@ ConfigForm.CONFIGS = [
 		name: 'type',
 		type: 'select',
 		options: ['image', 'iframe'],
-		description: 'Type of contents.'
+		description: 'Type of contents. Set \'iframe\' to show an external webpage.'
 	}
 ];
 
