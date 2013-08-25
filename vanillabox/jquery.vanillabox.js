@@ -1083,7 +1083,7 @@
 		}
 
 		// Enable :active pseudo-class on touch device
-		elem.attr('ontouchstart', 'javascript:void(0)');
+		elem.attr('ontouchstart', 'void(0)');
 
 		me.elem_ = elem;
 
