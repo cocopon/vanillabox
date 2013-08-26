@@ -38,13 +38,13 @@ $error-image: url(img/error.png);
 
 
 // Mask
-.vanilla-mask {
+.#{$prefix}mask {
 	background: $mask-image repeat left top;
 }
 
 
 // Frame
-.vanilla-frame {
+.#{$prefix}frame {
 	background-color: $frame-background-color;
 	border-radius: $frame-corner-radius;
 	padding: $title-height $frame-width $frame-width;
@@ -52,24 +52,24 @@ $error-image: url(img/error.png);
 
 
 // Button
-.vanilla-button {
+.#{$prefix}button {
 	position: absolute;
 }
-.vanilla-button.vanilla-disabled {
+.#{$prefix}button.#{$prefix}disabled {
 	display: none;
 }
-.vanilla-close {
+.#{$prefix}close {
 	background: $close-button-image no-repeat center center;
 	height: $close-button-size;
 	right: $frame-width;
 	top: $frame-width;
 	width: $close-button-size;
 }
-.vanilla-close:hover {
+.#{$prefix}close:hover {
 	background-image: $close-button-highlighted-image;
 }
-.vanilla-prev,
-.vanilla-next {
+.#{$prefix}prev,
+.#{$prefix}next {
 	$pager-button-offset: ($title-height - $frame-width) / 2;
 
 	height: 100%;
@@ -77,31 +77,31 @@ $error-image: url(img/error.png);
 	top: 0;
 	width: $pager-button-width;
 }
-.vanilla-prev {
+.#{$prefix}prev {
 	background: $prev-button-image no-repeat center center;
 	left: -$pager-button-width;
 }
-.vanilla-prev:active,
-.vanilla-prev:hover {
+.#{$prefix}prev:active,
+.#{$prefix}prev:hover {
 	background-image: $prev-button-highlighted-image;
 }
-.vanilla-next {
+.#{$prefix}next {
 	background: $next-button-image no-repeat center center;
 	right: -$pager-button-width;
 }
-.vanilla-next:active,
-.vanilla-next:hover {
+.#{$prefix}next:active,
+.#{$prefix}next:hover {
 	background-image: $next-button-highlighted-image;
 }
 
 
 // Label
-.vanilla-label {
+.#{$prefix}label {
 	font-family: $font-family;
 	font-size: $font-size;
 	position: absolute;
 }
-.vanilla-title {
+.#{$prefix}title {
 	@include box-sizing(border-box);
 
 	color: $title-color;
@@ -116,13 +116,13 @@ $error-image: url(img/error.png);
 	white-space: nowrap;
 	width: 100%;
 
-	.vanilla-close-button-enabled & {
+	.#{$prefix}close-button-enabled & {
 		padding-right: $close-button-spacing
 			+ $close-button-size
 			+ $frame-width;
 	}
 }
-.vanilla-pager {
+.#{$prefix}pager {
 	bottom: -($pager-label-spacing + $pager-label-height);
 	color: $pager-label-color;
 	font-size: $pager-label-font-size;
@@ -135,19 +135,19 @@ $error-image: url(img/error.png);
 
 
 // Container
-.vanilla-container {
+.#{$prefix}container {
 	background-color: $container-background-color;
 	text-align: center;
 }
 
 
 // Content
-.vanilla-loading {
+.#{$prefix}loading {
 	background: $loading-image no-repeat center center;
 	height: $loading-image-size;
 	width: $loading-image-size;
 }
-.vanilla-error {
+.#{$prefix}error {
 	background: $error-image no-repeat center center;
 	height: $error-image-size;
 	width: $error-image-size;

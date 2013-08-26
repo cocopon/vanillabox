@@ -7,6 +7,10 @@
  */
 
 
+// Name
+$root: 'vanilla';
+$prefix: 'vanilla-';
+
 // Geometry
 $min-content-height: 150px;
 $min-content-width: 200px;
@@ -18,59 +22,59 @@ $min-content-width: 200px;
 }
 
 
-.vanilla * {
+.#{$root} * {
 	@include box-sizing(content-box);
 }
 
 
 // Mask
-.vanilla-mask {
+.#{$prefix}mask {
 	left: 0;
 	position: absolute;
 	top: 0;
 }
 // Frame
-.vanilla-frame {
+.#{$prefix}frame {
 	position: absolute;
 }
 
 
 // Button
-.vanilla-button {
+.#{$prefix}button {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 }
-.vanilla-prev,
-.vanilla-next {
+.#{$prefix}prev,
+.#{$prefix}next {
 	visibility: hidden;
 }
-.vanilla-group {
-	.vanilla-prev,
-	.vanilla-next {
+.#{$prefix}group {
+	.#{$prefix}prev,
+	.#{$prefix}next {
 		visibility: visible;
 	}
 }
 
 
 // Label
-.vanilla-pager {
+.#{$prefix}pager {
 	visibility: hidden;
 }
-.vanilla-group .vanilla-pager {
+.#{$prefix}group .#{$prefix}pager {
 	visibility: visible;
 }
 
 
 // Container
-.vanilla-container {
+.#{$prefix}container {
 	overflow: hidden;
 	position: relative;
 }
 
 
 // Content
-.vanilla-content {
+.#{$prefix}content {
 	display: block;
 	left: 50%;
 	position: absolute;
@@ -85,7 +89,7 @@ $min-content-width: 200px;
 		vertical-align: middle;
 	}
 
-	.vanilla-ios & {
+	.#{$prefix}ios & {
 		overflow: auto;
 		-webkit-overflow-scrolling: touch;
 
@@ -96,12 +100,12 @@ $min-content-width: 200px;
 		}
 	}
 }
-.vanilla-empty {
+.#{$prefix}empty {
 	height: $min-content-height;
 	width: $min-content-width;
 }
-.vanilla-loading,
-.vanilla-error {
+.#{$prefix}loading,
+.#{$prefix}error {
 	height: $min-content-height;
 	width: $min-content-width;
 
