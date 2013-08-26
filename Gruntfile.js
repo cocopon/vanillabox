@@ -36,15 +36,15 @@ module.exports = function(grunt) {
 					style: 'expanded'
 				},
 				files: {
-					'demo/style.css': 'src/demo/style.scss',
-					'vanillabox/theme/bitter/vanillabox.css': 'src/theme/bitter/bitter.scss',
-					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/theme/bitter_frame/bitter_frame.scss'
+					'demo/style.css': 'src/css/demo/style.scss',
+					'vanillabox/theme/bitter/vanillabox.css': 'src/css/theme/bitter/bitter.scss',
+					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/css/theme/bitter_frame/bitter_frame.scss'
 				}
 			}
 		},
 		watch: {
 			css: {
-				files: 'src/**/*.scss',
+				files: 'src/css/**/*.scss',
 				tasks: ['sass']
 			}
 		}
