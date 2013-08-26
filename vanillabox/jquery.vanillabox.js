@@ -10,21 +10,51 @@
 
 
 	/**
+	 * @namespace
 	 * @alias Util
 	 */
 	var Util = {
+		/**
+		 * @constant
+		 * @type {Function}
+		 */
 		EMPTY_FN: function() {},
 
+		/**
+		 * @constant
+		 * @type {String}
+		 */
+		ROOT_CSS: 'vanilla',
+
+		/**
+		 * @constant
+		 * @type {String}
+		 */
+		CSS_PREFIX: 'vanilla-',
+
+		/**
+		 * @param {*} value
+		 * @return {Boolean} true if the value is defined
+		 */
 		isDefined: function(value) {
 			return value !== undefined;
 		},
 
+		/**
+		 * @param {*} value
+		 * @param {*} defaultValue
+		 * @return {*}
+		 */
 		getOrDefault: function(value, defaultValue) {
 			return Util.isDefined(value) ?
 				value :
 				defaultValue;
 		},
 
+		/**
+		 * @param {Function} Child
+		 * @param {Function} Parent
+		 */
 		inherits: function(Child, Parent) {
 			var Tmp = function() {};
 			Tmp.prototype = Parent.prototype;
@@ -285,7 +315,7 @@
 		}
 
 		var $elem = $('<div>');
-		$elem.addClass('vanilla-mask');
+		$elem.addClass(Util.CSS_PREFIX + 'mask');
 
 		me.elem_ = $elem;
 		me.attach_();
@@ -371,7 +401,7 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-container');
+		elem.addClass(Util.CSS_PREFIX + 'container');
 		me.elem_ = elem;
 
 		me.attach_();
@@ -528,7 +558,7 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-frame');
+		elem.addClass(Util.CSS_PREFIX + 'frame');
 		me.elem_ = elem;
 
 		var container = me.container_;
@@ -623,7 +653,7 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-content');
+		elem.addClass(Util.CSS_PREFIX + 'content');
 		me.elem_ = elem;
 
 		me.createInternal_();
@@ -682,7 +712,7 @@
 		var me = this;
 		var elem = me.getElement();
 
-		elem.addClass('vanilla-loading');
+		elem.addClass(Util.CSS_PREFIX + 'loading');
 
 		if (me.loaded_) {
 			this.onComplete_(me.success_);
@@ -701,9 +731,9 @@
 		me.loaded_ = true;
 		me.success_ = success;
 
-		elem.removeClass('vanilla-loading');
+		elem.removeClass(Util.CSS_PREFIX + 'loading');
 		if (!success) {
-			elem.addClass('vanilla-error');
+			elem.addClass(Util.CSS_PREFIX + 'error');
 		}
 
 		$(me).trigger(Events.COMPLETE, success);
@@ -725,7 +755,7 @@
 
 		Content.prototype.create.call(me);
 
-		me.elem_.addClass('vanilla-empty');
+		me.elem_.addClass(Util.CSS_PREFIX + 'empty');
 	};
 
 	EmptyContent.prototype.load = function() {
@@ -1077,7 +1107,7 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-button');
+		elem.addClass(Util.CSS_PREFIX + 'button');
 		if (me.cls_) {
 			elem.addClass(me.cls_);
 		}
@@ -1125,10 +1155,10 @@
 		me.disabled_ = disabled;
 
 		if (me.disabled_) {
-			elem.addClass('vanilla-disabled');
+			elem.addClass(Util.CSS_PREFIX + 'disabled');
 		}
 		else {
-			elem.removeClass('vanilla-disabled');
+			elem.removeClass(Util.CSS_PREFIX + 'disabled');
 		}
 	};
 
@@ -1163,7 +1193,7 @@
 		}
 
 		var elem = $('<div>');
-		elem.addClass('vanilla-label');
+		elem.addClass(Util.CSS_PREFIX + 'label');
 		if (me.cls_) {
 			elem.addClass(me.cls_);
 		}
@@ -1237,7 +1267,7 @@
 
 		var mask = new Mask();
 		var maskElem = mask.getElement();
-		maskElem.addClass('vanilla');
+		maskElem.addClass(Util.ROOT_CSS);
 		maskElem.hide();
 		$('body').append(maskElem);
 		me.mask_ = mask;
@@ -1252,31 +1282,31 @@
 		maskElem.append(frameElem);
 
 		var titleLabel = new Label({
-			cls: 'vanilla-title'
+			cls: Util.CSS_PREFIX + 'title'
 		});
 		me.titleLabel_ = titleLabel;
 		frameElem.append(titleLabel.getElement());
 
 		var pagerLabel = new Label({
-			cls: 'vanilla-pager'
+			cls: Util.CSS_PREFIX + 'pager'
 		});
 		me.pagerLabel_ = pagerLabel;
 		frameElem.append(pagerLabel.getElement());
 
 		var prevButton = new Button({
-			cls: 'vanilla-prev'
+			cls: Util.CSS_PREFIX + 'prev'
 		});
 		me.prevButton_ = prevButton;
 		frameElem.append(prevButton.getElement());
 
 		var nextButton = new Button({
-			cls: 'vanilla-next'
+			cls: Util.CSS_PREFIX + 'next'
 		});
 		me.nextButton_ = nextButton;
 		frameElem.append(nextButton.getElement());
 
 		var closeButton = new Button({
-			cls: 'vanilla-close'
+			cls: Util.CSS_PREFIX + 'close'
 		});
 		if (!me.closeButtonEnabled_) {
 			closeButton.getElement().hide();
@@ -1301,13 +1331,13 @@
 		var rootElem = me.mask_.getElement();
 
 		if (Util.Browser.isIos()) {
-			rootElem.addClass('vanilla-ios');
+			rootElem.addClass(Util.CSS_PREFIX + 'ios');
 		}
 		if (me.closeButtonEnabled_) {
-			rootElem.addClass('vanilla-close-button-enabled');
+			rootElem.addClass(Util.CSS_PREFIX + 'close-button-enabled');
 		}
 		if (me.pager_.getTotalPages() > 1) {
-			rootElem.addClass('vanilla-group');
+			rootElem.addClass(Util.CSS_PREFIX + 'group');
 		}
 	};
 
