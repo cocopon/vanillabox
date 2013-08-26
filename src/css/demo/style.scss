@@ -47,6 +47,7 @@ $h1-font-size: 150%;
 $h2-font-size: 120%;
 $line-height: 150%;
 $code-line-height: 150%;
+$nav-font-size: 90%;
 
 $config-desc-cell-font-size: 90%;
 $copyright-font-size: 90%;
@@ -186,6 +187,7 @@ ul.nav {
 	border: $nav-border-color solid $nav-border-width;
 	border-radius: $nav-border-radius;
 	font-family: $nav-font-family;
+	font-size: $nav-font-size;
 	height: $nav-height;
 	margin: $nav-margin;
 	padding: 0;
