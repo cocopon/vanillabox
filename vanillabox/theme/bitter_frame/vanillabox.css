@@ -91,7 +91,7 @@
 }
 
 .vanilla-mask {
-  background: url(img/mask.png) repeat left top;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .vanilla-frame {

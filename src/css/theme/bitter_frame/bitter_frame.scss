@@ -3,9 +3,11 @@
 
 // Color
 $frame-background-color: #111;
-$title-color: #888;
 $container-background-color: #222;
+$mask-color: #000;
+$mask-opacity: 0.7;
 $pager-label-color: #aaa;
+$title-color: #888;
 
 // Font
 $font-family: sans-serif;
@@ -26,7 +28,6 @@ $error-image-size: 32px;
 $close-button-size: $title-height - $frame-width * 2;
 
 // Image
-$mask-image: url(img/mask.png);
 $close-button-image: url(img/close0.png);
 $close-button-highlighted-image: url(img/close1.png);
 $prev-button-image: url(img/prev0.png);
@@ -39,7 +40,7 @@ $error-image: url(img/error.png);
 
 // Mask
 .#{$prefix}mask {
-	background: $mask-image repeat left top;
+	background-color: rgba($mask-color, $mask-opacity);
 }
 
 

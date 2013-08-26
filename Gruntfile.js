@@ -32,13 +32,13 @@ module.exports = function(grunt) {
 		},
 		sass: {
 			dist: {
-				options: {
-					style: 'expanded'
-				},
 				files: {
 					'demo/style.css': 'src/css/demo/style.scss',
 					'vanillabox/theme/bitter/vanillabox.css': 'src/css/theme/bitter/bitter.scss',
 					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/css/theme/bitter_frame/bitter_frame.scss'
+				},
+				options: {
+					style: 'expanded'
 				}
 			}
 		},

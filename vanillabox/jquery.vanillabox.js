@@ -465,7 +465,7 @@
 
 		var elem = me.getElement();
 		var contentElem = me.content_.getElement();
-		var contentElems = elem.find('>');
+		var contentElems = elem.find('> *');
 		if (contentElems.length === 0) {
 			elem.append(contentElem);
 		}
