@@ -1649,14 +1649,14 @@
 
 
 	var DEFAULT_CONFIG = {
-		animation: 'default',
-		closeButton: false,
-		keyboard: true,
-		loop: false,
-		preferredHeight: 600,
-		preferredWidth: 800,
-		repositionOnScroll: false,
-		type: 'image'
+		'animation': 'default',
+		'closeButton': false,
+		'keyboard': true,
+		'loop': false,
+		'preferredHeight': 600,
+		'preferredWidth': 800,
+		'repositionOnScroll': false,
+		'type': 'image'
 	};
 
 
@@ -1666,18 +1666,18 @@
 		$.extend(config, opt_config);
 
 		var targetElems = $(this);
-		var animation = AnimationProvider.get(config.animation);
+		var animation = AnimationProvider.get(config['animation']);
 
 		var box = new Vanillabox({
 			animation: animation,
-			closeButton: config.closeButton,
-			keyboard: config.keyboard,
-			loop: config.loop,
-			preferredHeight: config.preferredHeight,
-			preferredWidth: config.preferredWidth,
-			repositionOnScroll: config.repositionOnScroll,
+			closeButton: config['closeButton'],
+			keyboard: config['keyboard'],
+			loop: config['loop'],
+			preferredHeight: config['preferredHeight'],
+			preferredWidth: config['preferredWidth'],
+			repositionOnScroll: config['repositionOnScroll'],
 			targets: targetElems,
-			type: config.type
+			type: config['type']
 		});
 
 		return box;
