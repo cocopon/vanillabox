@@ -1,0 +1,145 @@
+// Color
+$container-background-color: #222 !default;
+$mask-color: #000 !default;
+$mask-opacity: 0.7 !default;
+$pager-label-color: #aaa !default;
+$title-color: #eee !default;
+
+// Font
+$font-family: sans-serif !default;
+$font-size: 1.0em !default;
+$pager-label-font-size: 90% !default;
+
+// Geometry
+$title-height: 32px !default;
+$close-button-spacing: 8px !default;
+$close-button-intutive-offset: -8px !default;
+$pager-button-width: 44px !default;
+$pager-label-height: 22px !default;
+$pager-label-spacing: 8px !default;
+
+$close-button-size: $title-height !default;
+
+// Image
+$close-button-image: url(img/close0.png) !default;
+$close-button-highlighted-image: url(img/close1.png) !default;
+$prev-button-image: url(img/prev0.png) !default;
+$prev-button-highlighted-image: url(img/prev1.png) !default;
+$next-button-image: url(img/next0.png) !default;
+$next-button-highlighted-image: url(img/next1.png) !default;
+$loading-image: url(img/loading.gif) !default;
+$error-image: url(img/error.png) !default;
+
+
+// Mask
+.#{$prefix}mask {
+	background-color: rgba($mask-color, $mask-opacity);
+}
+
+
+// Frame
+.#{$prefix}frame {
+	padding-top: $title-height;
+}
+
+
+// Button
+.#{$prefix}button {
+	position: absolute;
+}
+.#{$prefix}button.#{$prefix}disabled {
+	display: none;
+}
+.#{$prefix}close {
+	background: $close-button-image no-repeat center center;
+	height: $close-button-size;
+	right: 0 + $close-button-intutive-offset;
+	top: 0;
+	width: $close-button-size;
+}
+.#{$prefix}close:hover {
+	background-image: $close-button-highlighted-image;
+}
+.#{$prefix}prev,
+.#{$prefix}next {
+	$pager-button-offset: $title-height / 2;
+
+	height: 100%;
+	margin-top: $pager-button-offset;
+	top: 0;
+	width: $pager-button-width;
+}
+.#{$prefix}prev {
+	background: $prev-button-image no-repeat center center;
+	left: -$pager-button-width;
+}
+.#{$prefix}prev:active,
+.#{$prefix}prev:hover {
+	background-image: $prev-button-highlighted-image;
+}
+.#{$prefix}next {
+	background: $next-button-image no-repeat center center;
+	right: -$pager-button-width;
+}
+.#{$prefix}next:active,
+.#{$prefix}next:hover {
+	background-image: $next-button-highlighted-image;
+}
+
+
+// Label
+.#{$prefix}label {
+	font-family: $font-family;
+	font-size: $font-size;
+	position: absolute;
+}
+.#{$prefix}title {
+	@include box-sizing(border-box);
+
+	color: $title-color;
+	height: $title-height;
+	left: 0;
+	line-height: $title-height;
+	overflow: hidden;
+	text-align: left;
+	text-overflow: ellipsis;
+	top: 0;
+	white-space: nowrap;
+	width: 100%;
+
+	.#{$prefix}close-button-enabled & {
+		padding-right: $close-button-spacing
+			+ $close-button-size
+			+ $close-button-intutive-offset;
+	}
+}
+.#{$prefix}pager {
+	bottom: -($pager-label-spacing + $pager-label-height);
+	color: $pager-label-color;
+	font-size: $pager-label-font-size;
+	height: $pager-label-height;
+	left: 0;
+	line-height: $pager-label-height;
+	text-align: center;
+	width: 100%;
+}
+
+
+// Container
+.#{$prefix}container {
+	background-color: $container-background-color;
+	text-align: center;
+}
+
+
+// Content
+.#{$prefix}content {
+	display: inline-block;
+}
+.#{$prefix}loading {
+	background: $loading-image no-repeat center center;
+}
+.#{$prefix}error {
+	background: $error-image no-repeat center center;
+}
+
