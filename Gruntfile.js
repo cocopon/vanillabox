@@ -2,14 +2,20 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.initConfig({
+		env: process.env,
 		pkg: grunt.file.readJSON('package.json'),
+
 		'closure-compiler': {
 			frontend: {
 				js: 'vanillabox/jquery.vanillabox.js',
 				jsOutputFile: 'vanillabox/jquery.vanillabox-<%= pkg.version %>.min.js',
 				noreport: true,
 				options: {
-					compilation_level: 'SIMPLE_OPTIMIZATIONS'
+					compilation_level: 'ADVANCED_OPTIMIZATIONS',
+					externs: [
+						'<%= env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js',
+						'src/js/externs.js'
+					]
 				}
 			}
 		},

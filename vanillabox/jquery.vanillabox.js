@@ -1416,6 +1416,9 @@
 		contentElem.off('click', me.onContentClick_);
 	};
 
+	/**
+	 * @param {Number} opt_index
+	 */
 	Vanillabox.prototype.show = function(opt_index) {
 		var me = this;
 		var animation = me.animation_;
@@ -1450,6 +1453,9 @@
 		);
 	};
 
+	/**
+	 * @return {undefined}
+	 */
 	Vanillabox.prototype.hide = function() {
 		var me = this;
 
