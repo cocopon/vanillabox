@@ -14,8 +14,42 @@
 		<li><a href="demo.html">Demo</a></li>
 	</ul>
 
-	<h2>Getting Started</h2>
-	<p>TODO:</p>
+	<h2>Download</h2>
+	<p>
+		First, download the latest version of Vanillabox from <a href="https://github.com/cocopon/vanillabox/releases" target="_blank">GitHub</a>.
+	</p>
+	<h2>Install</h2>
+	<p>
+		Unzip an archive and copy <code>vanillabox</code> directory to your project.
+	</p>
+	<pre>+ doc
++ src
++ ...
++ <strong>vanillabox</strong>
+  | + theme
+  | jquery.vanillabox-#.#.#.min.js
+  | jquery.vanillabox.js</pre>
+	<h2>Setup</h2>
+	<p>
+		Add required tags inside <code>head</code> element in your page.
+	</p>
+	<pre>&lt;link rel=&quot;stylesheet&quot; href=&quot;vanillabox/theme/bitter/vanillabox.css&quot;&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-latest.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;vanillabox/vanillabox-#.#.#.min.js&quot;&gt;&lt;/script&gt;</pre>
+	<p>
+		Write code, and setup an image gallery.
+	</p>
+	<pre>&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+	$('<strong>selector-for-image-elements</strong>').vanillabox();
+});
+&lt;/script&gt;</pre>
+	<p>
+		If you don't know how to write a jQuery selector, see the <a href="http://api.jquery.com/category/selectors/" target="_blank">official document</a>.
+	</p>
+	<p>
+		If you want to customize a behavior, see <a href="demo.html">demo page</a> for available options.
+	</p>
 
 	<div class="copyright">&copy; 2013 cocopon.</div>
 </body>

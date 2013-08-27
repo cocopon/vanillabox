@@ -32,7 +32,7 @@ h1 {
 }
 
 h2 {
-  border-bottom: gainsboro solid 1px;
+  border-bottom: #dcdcdc solid 1px;
   font-size: 120%;
   margin: 2em 0 0.75em;
   padding: 4px 0;
@@ -40,12 +40,12 @@ h2 {
 
 table {
   border-collapse: collapse;
-  border: gainsboro solid 1px;
+  border: #dcdcdc solid 1px;
   width: 100%;
 }
 
 th, td {
-  border: gainsboro solid 1px;
+  border: #dcdcdc solid 1px;
   padding: 8px 1em;
 }
 
@@ -69,11 +69,12 @@ p {
 
 pre {
   background-color: #eeeeee;
-  border: gainsboro solid 1px;
+  border: #dcdcdc solid 1px;
   font-family: "Source Code Pro", "Menlo", "Courier New", monospace;
   font-size: 80%;
   line-height: 150%;
   margin: 0.75em 0;
+  overflow: scroll;
   padding: 8px;
 }
 

@@ -155,6 +155,7 @@ pre {
 	font-size: $font-size-monospace;
 	line-height: $code-line-height;
 	margin: $pre-margin;
+	overflow: scroll;
 	padding: $pre-padding;
 }
 
