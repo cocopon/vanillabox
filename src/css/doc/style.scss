@@ -7,6 +7,8 @@ $key-color: hsl(166, 41%, 49%);
 $a-color: $key-color;
 $a-hover-background-color: adjust-color($a-color, $saturation: -15%, $lightness: +38%);
 $body-border-color: darken($background-color, 20%);
+$code-background-color: darken($background-color, 2%);
+$code-border-color: darken($background-color, 9%);
 $heading-color: #444;
 $heading-border-color: darken($background-color, 9%);
 $pre-background-color: darken($background-color, 2%);
@@ -46,7 +48,7 @@ $font-size-monospace: 80%;
 $h1-font-size: 150%;
 $h2-font-size: 120%;
 $line-height: 150%;
-$code-line-height: 150%;
+$pre-line-height: 150%;
 $nav-font-size: 90%;
 
 $config-desc-cell-font-size: 90%;
@@ -57,6 +59,8 @@ $theme-form-label-font-size: 80%;
 $body-margin: 32px auto;
 $body-padding: 32px;
 $body-width: 800px;
+$code-border-radius: 3px;
+$code-padding: 2px 4px;
 $h1-margin: 0;
 $h1-padding: 0;
 $h2-margin: 2.0em 0 0.75em;
@@ -153,10 +157,22 @@ pre {
 	border: $pre-border-color solid 1px;
 	font-family: $code-font-family;
 	font-size: $font-size-monospace;
-	line-height: $code-line-height;
+	line-height: $pre-line-height;
 	margin: $pre-margin;
 	overflow: scroll;
 	padding: $pre-padding;
+}
+
+code {
+	background-color: $code-background-color;
+	border: $code-border-color solid 1px;
+	border-radius: $code-border-radius;
+	padding: $code-padding;
+}
+
+strong {
+	font-style: italic;
+	font-weight: normal;
 }
 
 a {
@@ -266,7 +282,6 @@ ul.nav {
 .config-name-cell {
 	font-family: $code-font-family;
 	font-size: $font-size-monospace;
-	line-height: $code-line-height;
 }
 .config-desc-cell {
 	font-size: $config-desc-cell-font-size;
