@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 			dist: {
 				src: ['vanillabox/jquery.vanillabox.js'],
 				options: {
-					destination: 'doc'
+					destination: 'jsdoc'
 				}
 			}
 		},
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 		sass: {
 			dist: {
 				files: {
-					'demo/style.css': 'src/css/demo/style.scss',
+					'doc/style.css': 'src/css/doc/style.scss',
 					'vanillabox/theme/bitter/vanillabox.css': 'src/css/theme/bitter/bitter.scss',
 					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/css/theme/bitter_frame/bitter_frame.scss'
 				},
