@@ -107,6 +107,7 @@ body {
 	line-height: $line-height;
 	margin: $body-margin;
 	padding: $body-padding;
+	-webkit-text-size-adjust: 100%;
 	width: $body-width;
 }
 
