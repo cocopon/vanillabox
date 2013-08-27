@@ -1526,9 +1526,11 @@
 
 	Vanillabox.prototype.setContent_ = function(content) {
 		var me = this;
+		var container = me.frame_.getContainer();
 
 		var prevContent = me.getContent_();
 		if (prevContent === content) {
+			container.layout();
 			return;
 		}
 
@@ -1536,7 +1538,6 @@
 			me.detachContent_();
 		}
 
-		var container = me.frame_.getContainer();
 		container.setContent(content);
 		me.attachContent_();
 		me.setTitle(content.getTitle());
