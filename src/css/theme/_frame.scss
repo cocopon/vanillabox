@@ -21,8 +21,6 @@ $close-button-spacing: 8px !default;
 $pager-button-width: 44px !default;
 $pager-label-height: 22px !default;
 $pager-label-spacing: 8px !default;
-$loading-image-size: 32px !default;
-$error-image-size: 32px !default;
 
 $close-button-size: $title-height - $frame-width * 2 !default;
 
@@ -145,12 +143,8 @@ $error-image: url(img/error.png) !default;
 // Content
 .#{$prefix}loading {
 	background: $loading-image no-repeat center center;
-	height: $loading-image-size;
-	width: $loading-image-size;
 }
 .#{$prefix}error {
 	background: $error-image no-repeat center center;
-	height: $error-image-size;
-	width: $error-image-size;
 }
 

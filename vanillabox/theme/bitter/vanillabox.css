@@ -186,10 +186,6 @@
   text-align: center;
 }
 
-.vanilla-content {
-  display: inline-block;
-}
-
 .vanilla-loading {
   background: url(img/loading.gif) no-repeat center center;
 }

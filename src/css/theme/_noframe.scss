@@ -133,9 +133,6 @@ $error-image: url(img/error.png) !default;
 
 
 // Content
-.#{$prefix}content {
-	display: inline-block;
-}
 .#{$prefix}loading {
 	background: $loading-image no-repeat center center;
 }
