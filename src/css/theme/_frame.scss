@@ -1,5 +1,6 @@
 // Color
 $frame-background-color: #000 !default;
+$frame-border-color: transparent !default;
 $container-background-color: #000 !default;
 $mask-color: #000 !default;
 $mask-opacity: 0.7 !default;
@@ -12,6 +13,7 @@ $font-size: 1.0em !default;
 $pager-label-font-size: 90% !default;
 
 // Geometry
+$frame-border-width: 0 !default;
 $frame-width: 6px !default;
 $frame-corner-radius: 5px !default;
 $title-height: 38px !default;
@@ -44,6 +46,7 @@ $error-image: url(img/error.png) !default;
 // Frame
 .#{$prefix}frame {
 	background-color: $frame-background-color;
+	border: $frame-border-color solid $frame-border-width;
 	border-radius: $frame-corner-radius;
 	padding: $title-height $frame-width $frame-width;
 }

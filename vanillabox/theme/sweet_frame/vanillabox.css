@@ -91,12 +91,12 @@
 }
 
 .vanilla-mask {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(245, 245, 245, 0.8);
 }
 
 .vanilla-frame {
-  background-color: #111111;
-  border: transparent solid 0;
+  background-color: rgba(221, 221, 221, 0.9);
+  border: rgba(213, 213, 213, 0.9) solid 1px;
   border-radius: 5px;
   padding: 38px 6px 6px;
 }
@@ -158,7 +158,7 @@
 .vanilla-title {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  color: #888888;
+  color: #555555;
   height: 38px;
   left: 0;
   line-height: 38px;
@@ -176,7 +176,7 @@
 
 .vanilla-pager {
   bottom: -30px;
-  color: #aaaaaa;
+  color: #777777;
   font-size: 90%;
   height: 22px;
   left: 0;
@@ -186,7 +186,7 @@
 }
 
 .vanilla-container {
-  background-color: #222222;
+  background-color: #cccccc;
   text-align: center;
 }
 

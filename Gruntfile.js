@@ -35,7 +35,9 @@ module.exports = function(grunt) {
 				files: {
 					'doc/style.css': 'src/css/doc/style.scss',
 					'vanillabox/theme/bitter/vanillabox.css': 'src/css/theme/bitter/bitter.scss',
-					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/css/theme/bitter_frame/bitter_frame.scss'
+					'vanillabox/theme/bitter_frame/vanillabox.css': 'src/css/theme/bitter_frame/bitter_frame.scss',
+					'vanillabox/theme/sweet/vanillabox.css': 'src/css/theme/sweet/sweet.scss',
+					'vanillabox/theme/sweet_frame/vanillabox.css': 'src/css/theme/sweet_frame/sweet_frame.scss'
 				},
 				options: {
 					style: 'expanded'
