@@ -125,9 +125,12 @@
 	 * @alias Events
 	 */
 	var Events = {
-		CHANGE: 'vanilla-change',
-		CLICK: 'vanilla-click',
-		COMPLETE: 'vanilla-complete'
+		CHANGE: 'vnbx_change',
+		CLICK: 'vnbx_click',
+		COMPLETE: 'vnbx_complete',
+		HIDE: 'vnbx_hide',
+		LOAD: 'vnbx_load',
+		SHOW: 'vnbx_show'
 	};
 
 
@@ -1485,7 +1488,9 @@
 		return $.when(
 			maskPromise,
 			framePromise
-		);
+		).done(function() {
+			$(me).trigger(Events.SHOW);
+		});
 	};
 
 	/**
@@ -1504,6 +1509,8 @@
 		).done(function() {
 			me.detachWindow_();
 			me.showed_ = false;
+
+			$(me).trigger(Events.HIDE);
 		});
 	};
 
@@ -1672,7 +1679,11 @@
 	};
 
 	Vanillabox.prototype.onContentComplete_ = function(e, success) {
-		this.layout(true);
+		var me = this;
+
+		me.layout(true);
+
+		$(me).trigger(Events.LOAD, success);
 	};
 
 	Vanillabox.prototype.onContentClick_ = function(e) {
