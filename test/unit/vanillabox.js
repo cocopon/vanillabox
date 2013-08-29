@@ -14,6 +14,7 @@
 	throws: false,
 	Util: false,
 */
+var Events = Util.privateClass('Events');
 var Vanillabox = Util.privateClass('Vanillabox');
 var VanillaException = Util.privateClass('VanillaException');
 
@@ -42,14 +43,24 @@ test('Vanillabox', function() {
 
 
 asyncTest('Vanillabox#(show|hide)', function() {
-	expect(6);
+	expect(8);
 
 	var maskCssClass = Util.cssClass('mask');
+	var showedCount = 0;
+	var hiddenCount = 0;
 	var box;
 
 	box = new Vanillabox({
 		targets: Util.targets(1),
 		type: 'image'
+	});
+
+	$(box).on(Events.SHOW, function() {
+		++showedCount;
+	});
+
+	$(box).on(Events.HIDE, function() {
+		++hiddenCount;
 	});
 
 	box.show().pipe(function() {
@@ -83,6 +94,19 @@ asyncTest('Vanillabox#(show|hide)', function() {
 		return box.hide();
 	}).done(function() {
 		ok(true, 'Twice calling hide() should not throw any exception');
+
+		strictEqual(
+			showedCount,
+			1,
+			'Custom event `show` should be fired just one time'
+		);
+
+		strictEqual(
+			hiddenCount,
+			1,
+			'Custom event `hide` should be fired just one time'
+		);
+
 		start();
 	});
 });
