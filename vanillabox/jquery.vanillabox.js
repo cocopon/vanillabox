@@ -457,10 +457,7 @@
 		me.attachContent_();
 
 		if (me.maxContentSize_) {
-			me.content_.setMaxContentSize(
-				me.maxContentSize_.width,
-				me.maxContentSize_.height
-			);
+			me.applyMaxContentSize_();
 		}
 
 		var elem = me.getElement();
@@ -495,7 +492,7 @@
 		};
 	};
 
-	Container.prototype.updateMaxContentSize = function() {
+	Container.prototype.updateMaxContentSize_ = function() {
 		var me = this;
 
 		var safetyMargin = Container.CONTENT_SIZE_SAFETY_MARGIN;
@@ -509,9 +506,17 @@
 			return;
 		}
 
+		me.applyMaxContentSize_();
+	};
+
+	Container.prototype.applyMaxContentSize_ = function() {
+		var me = this;
+		var content = me.getContent();
+		var maxSize = me.maxContentSize_;
+
 		content.setMaxContentSize(
-			me.maxContentSize_.width,
-			me.maxContentSize_.height
+			Math.max(maxSize.width, Container.MIN_WIDTH),
+			Math.max(maxSize.height, Container.MIN_HEIGHT)
 		);
 	};
 
@@ -1461,7 +1466,7 @@
 		me.attachWindow_();
 
 		var container = me.frame_.getContainer();
-		container.updateMaxContentSize();
+		container.updateMaxContentSize_();
 
 		var mask = me.mask_;
 		mask.layout();
