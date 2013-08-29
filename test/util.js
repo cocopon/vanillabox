@@ -3,6 +3,11 @@ var Util = {
 		return $.fn.vanillabox.privateClasses_[name];
 	},
 
+	cssClass: function(name) {
+		var prefix = Util.privateClass('Util').CSS_PREFIX;
+		return '.' + prefix + name;
+	},
+
 	targets: function(totalTargets) {
 		var elems = [];
 		var len = totalTargets;

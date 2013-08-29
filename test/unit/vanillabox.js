@@ -44,6 +44,7 @@ test('Vanillabox', function() {
 asyncTest('Vanillabox#(show|hide)', function() {
 	expect(6);
 
+	var maskCssClass = Util.cssClass('mask');
 	var box;
 
 	box = new Vanillabox({
@@ -51,30 +52,30 @@ asyncTest('Vanillabox#(show|hide)', function() {
 		type: 'image'
 	});
 
-	box.show().then(function() {
+	box.show().pipe(function() {
 		strictEqual(
-			$('.vanilla-mask').length,
+			$(maskCssClass).length,
 			1,
 			'Mask element should be appended'
 		);
 		ok(
-			$('.vanilla-mask').is(':visible'),
+			$(maskCssClass).is(':visible'),
 			'Mask element should be visible'
 		);
 
 		return box.show();
-	}).then(function() {
+	}).pipe(function() {
 		ok(true, 'Twice calling show() should not throw any exception');
 		strictEqual(
-			$('.vanilla-mask').length,
+			$(maskCssClass).length,
 			1,
 			'Mask element should not be duplicated'
 		);
 
 		return box.hide();
-	}).then(function() {
+	}).pipe(function() {
 		strictEqual(
-			$('.vanilla-mask').is(':visible'),
+			$(maskCssClass).is(':visible'),
 			false,
 			'Mask element should be hidden'
 		);

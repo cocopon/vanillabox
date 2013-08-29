@@ -1488,7 +1488,7 @@
 		return $.when(
 			maskPromise,
 			framePromise
-		).done(function() {
+		).then(function() {
 			$(me).trigger(Events.SHOW);
 		});
 	};
@@ -1506,7 +1506,7 @@
 		return $.when(
 			me.animation_.hideFrame(me.frame_),
 			me.animation_.hideMask(me.mask_)
-		).done(function() {
+		).then(function() {
 			me.detachWindow_();
 			me.showed_ = false;
 
@@ -1742,6 +1742,7 @@
 		'Events': Events,
 		'DEFAULT_CONFIG': DEFAULT_CONFIG,
 		'Pager': Pager,
+		'Util': Util,
 		'Vanillabox': Vanillabox,
 		'VanillaException': VanillaException
 	};
