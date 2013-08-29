@@ -24,13 +24,13 @@
 		 * @constant
 		 * @type {String}
 		 */
-		ROOT_CSS: 'vanilla',
+		ROOT_CSS: 'vnbx',
 
 		/**
 		 * @constant
 		 * @type {String}
 		 */
-		CSS_PREFIX: 'vanilla-',
+		CSS_PREFIX: 'vnbx-',
 
 		/**
 		 * @param {*} value
