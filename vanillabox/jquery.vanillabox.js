@@ -33,6 +33,12 @@
 		CSS_PREFIX: 'vnbx-',
 
 		/**
+		 * @constant
+		 * @type {String}
+		 */
+		EVENT_PREFIX: 'vnbx_',
+
+		/**
 		 * @param {*} value
 		 * @return {Boolean} true if the value is defined
 		 */
@@ -125,12 +131,12 @@
 	 * @alias Events
 	 */
 	var Events = {
-		CHANGE: 'vnbx_change',
-		CLICK: 'vnbx_click',
-		COMPLETE: 'vnbx_complete',
-		HIDE: 'vnbx_hide',
-		LOAD: 'vnbx_load',
-		SHOW: 'vnbx_show'
+		CHANGE: Util.EVENT_PREFIX + 'change',
+		CLICK: Util.EVENT_PREFIX + 'click',
+		COMPLETE: Util.EVENT_PREFIX + 'complete',
+		HIDE: Util.EVENT_PREFIX + 'hide',
+		LOAD: Util.EVENT_PREFIX + 'load',
+		SHOW: Util.EVENT_PREFIX + 'show'
 	};
 
 
