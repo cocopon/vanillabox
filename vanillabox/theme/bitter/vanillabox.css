@@ -107,15 +107,28 @@
 }
 
 .vnbx-close {
-  background: url(img/close0.png) no-repeat center center;
+  background-image: url("img/close0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
   height: 32px;
   right: -8px;
   top: 0;
   width: 32px;
 }
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-close {
+    background-image: url("img/close0@2x.png");
+  }
+}
 
 .vnbx-close:hover {
-  background-image: url(img/close1.png);
+  background-image: url("img/close1.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-close:hover {
+    background-image: url("img/close1@2x.png");
+  }
 }
 
 .vnbx-prev,
@@ -127,23 +140,51 @@
 }
 
 .vnbx-prev {
-  background: url(img/prev0.png) no-repeat center center;
+  background-image: url("img/prev0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
   left: -44px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-prev {
+    background-image: url("img/prev0@2x.png");
+  }
 }
 
 .vnbx-prev:active,
 .vnbx-prev:hover {
-  background-image: url(img/prev1.png);
+  background-image: url("img/prev1.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-prev:active,
+  .vnbx-prev:hover {
+    background-image: url("img/prev1@2x.png");
+  }
 }
 
 .vnbx-next {
-  background: url(img/next0.png) no-repeat center center;
+  background-image: url("img/next0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
   right: -44px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-next {
+    background-image: url("img/next0@2x.png");
+  }
 }
 
 .vnbx-next:active,
 .vnbx-next:hover {
-  background-image: url(img/next1.png);
+  background-image: url("img/next1.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-next:active,
+  .vnbx-next:hover {
+    background-image: url("img/next1@2x.png");
+  }
 }
 
 .vnbx-label {
@@ -187,9 +228,25 @@
 }
 
 .vnbx-loading {
-  background: url(img/loading.gif) no-repeat center center;
+  background-image: url("img/loading.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-loading {
+    background-image: url("img/loading@2x.gif");
+  }
 }
 
 .vnbx-error {
-  background: url(img/error.png) no-repeat center center;
+  background-image: url("img/error.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .vnbx-error {
+    background-image: url("img/error@2x.png");
+  }
 }

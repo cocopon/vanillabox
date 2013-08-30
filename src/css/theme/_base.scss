@@ -5,6 +5,7 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  */
+@import 'mixins';
 
 
 // Name
@@ -14,12 +15,6 @@ $prefix: 'vnbx-';
 // Geometry
 $min-content-height: 150px;
 $min-content-width: 200px;
-
-
-@mixin box-sizing($value) {
-	box-sizing: $value;
-	-moz-box-sizing: $value;
-}
 
 
 .#{$root} * {

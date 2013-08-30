@@ -21,14 +21,23 @@ $pager-label-spacing: 8px !default;
 $close-button-size: $title-height !default;
 
 // Image
-$close-button-image: url(img/close0.png) !default;
-$close-button-highlighted-image: url(img/close1.png) !default;
-$prev-button-image: url(img/prev0.png) !default;
-$prev-button-highlighted-image: url(img/prev1.png) !default;
-$next-button-image: url(img/next0.png) !default;
-$next-button-highlighted-image: url(img/next1.png) !default;
-$loading-image: url(img/loading.gif) !default;
-$error-image: url(img/error.png) !default;
+$close-button-image-size: 32px !default;
+$close-button-image-url: 'img/close0.png' !default;
+$close-button-highlighted-image-url: 'img/close1.png' !default;
+
+$prev-button-image-size: 32px !default;
+$prev-button-image-url: 'img/prev0.png' !default;
+$prev-button-highlighted-image-url: 'img/prev1.png' !default;
+
+$next-button-image-size: 32px !default;
+$next-button-image-url: 'img/next0.png' !default;
+$next-button-highlighted-image-url: 'img/next1.png' !default;
+
+$loading-image-size: 32px !default;
+$loading-image-url: 'img/loading.gif' !default;
+
+$error-image-size: 32px !default;
+$error-image-url: 'img/error.png' !default;
 
 
 // Mask
@@ -51,14 +60,19 @@ $error-image: url(img/error.png) !default;
 	display: none;
 }
 .#{$prefix}close {
-	background: $close-button-image no-repeat center center;
+	@include background-images(
+		$position: center center,
+		$repeat: no-repeat,
+		$size: $close-button-image-size,
+		$url: $close-button-image-url
+	);
 	height: $close-button-size;
 	right: 0 + $close-button-intutive-offset;
 	top: 0;
 	width: $close-button-size;
 }
 .#{$prefix}close:hover {
-	background-image: $close-button-highlighted-image;
+	@include background-images($close-button-highlighted-image-url);
 }
 .#{$prefix}prev,
 .#{$prefix}next {
@@ -70,20 +84,30 @@ $error-image: url(img/error.png) !default;
 	width: $pager-button-width;
 }
 .#{$prefix}prev {
-	background: $prev-button-image no-repeat center center;
+	@include background-images(
+		$position: center center,
+		$repeat: no-repeat,
+		$size: $prev-button-image-size,
+		$url: $prev-button-image-url
+	);
 	left: -$pager-button-width;
 }
 .#{$prefix}prev:active,
 .#{$prefix}prev:hover {
-	background-image: $prev-button-highlighted-image;
+	@include background-images($prev-button-highlighted-image-url);
 }
 .#{$prefix}next {
-	background: $next-button-image no-repeat center center;
+	@include background-images(
+		$position: center center,
+		$repeat: no-repeat,
+		$size: $next-button-image-size,
+		$url: $next-button-image-url
+	);
 	right: -$pager-button-width;
 }
 .#{$prefix}next:active,
 .#{$prefix}next:hover {
-	background-image: $next-button-highlighted-image;
+	@include background-images($next-button-highlighted-image-url);
 }
 
 
@@ -134,9 +158,19 @@ $error-image: url(img/error.png) !default;
 
 // Content
 .#{$prefix}loading {
-	background: $loading-image no-repeat center center;
+	@include background-images(
+		$position: center center,
+		$repeat: no-repeat,
+		$size: $loading-image-size,
+		$url: $loading-image-url
+	);
 }
 .#{$prefix}error {
-	background: $error-image no-repeat center center;
+	@include background-images(
+		$position: center center,
+		$repeat: no-repeat,
+		$size: $error-image-size,
+		$url: $error-image-url
+	);
 }
 

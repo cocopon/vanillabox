@@ -40,6 +40,7 @@ module.exports = function(grunt) {
 					'vanillabox/theme/sweet_frame/vanillabox.css': 'src/css/theme/sweet_frame/sweet_frame.scss'
 				},
 				options: {
+					require: 'src/css/lib/vanillabox.rb',
 					style: 'expanded'
 				}
 			}

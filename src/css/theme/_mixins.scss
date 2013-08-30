@@ -1,0 +1,28 @@
+@mixin box-sizing($value) {
+	box-sizing: $value;
+	-moz-box-sizing: $value;
+}
+
+@mixin background-images($url, $size: null, $repeat: null, $position: null) {
+	background-image: url($url);
+
+	@if $position != null {
+		background-position: $position;
+	}
+	@if $repeat != null {
+		background-repeat: $repeat;
+	}
+	@if $size != null {
+		background-size: $size;
+	}
+
+	@each $ratio in 2 {
+		@include background-high-res-image($url, $ratio);
+	}
+}
+
+@mixin background-high-res-image($url, $ratio) {
+	@media only screen and (-webkit-min-device-pixel-ratio: $ratio) {
+		background-image: url(high_res($url, $ratio));
+	}
+}
