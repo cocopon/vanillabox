@@ -1,5 +1,7 @@
 .sass-cache
 jsdoc
+vanillabox/jquery.vanillabox-*.min.js
+vanillabox-*.zip
 
 # node.js
 node_modules

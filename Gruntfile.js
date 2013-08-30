@@ -5,6 +5,7 @@ module.exports = function(grunt) {
 		env: process.env,
 		pkg: grunt.file.readJSON('package.json'),
 
+		clean: ['vanillabox/jquery.vanillabox-*.min.js'],
 		'closure-compiler': {
 			frontend: {
 				js: 'vanillabox/jquery.vanillabox.js',
@@ -17,6 +18,19 @@ module.exports = function(grunt) {
 						'src/js/externs.js'
 					]
 				}
+			}
+		},
+		compress: {
+			main: {
+				options: {
+					archive: 'vanillabox-<%= pkg.version %>.zip'
+				},
+				src: [
+					'doc/**',
+					'LICENSE.txt',
+					'README.md',
+					'vanillabox/**'
+				]
 			}
 		},
 		jsdoc: {
@@ -54,8 +68,13 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.loadNpmTasks('grunt-closure-compiler');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsdoc');
+
+	grunt.registerTask('compile', ['sass', 'closure-compiler']);
+	grunt.registerTask('package', ['clean', 'compile', 'compress']);
 };
