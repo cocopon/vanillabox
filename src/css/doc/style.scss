@@ -72,7 +72,6 @@ $p-margin: 0.75em 0;
 $pre-margin: 0.75em 0;
 $pre-padding: 8px;
 $table-cell-padding: 8px 1.0em;
-$double-column-margin-offset: -0.75em;
 
 $button-margin: 1.0em 0;
 $button-padding: 4px 1.0em;
@@ -80,6 +79,9 @@ $config-form-margin:0.75em 0;
 $copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
 $double-column-column2-width: 60%;
+$double-column-margin-offset: -0.75em;
+$github-height: 24px;
+$github-padding: 2px 0;
 $link-li-spacing: 0;
 $nav-height: 30px;
 $nav-margin: 2.0em 0;
@@ -87,7 +89,7 @@ $nav-border-radius: 3px;
 $nav-border-width: 1px;
 $nav-item-height: $nav-height - $nav-border-width * 2;
 $nav-item-width: 20%;
-$theme-form-height: 30px;
+$theme-form-height: 28px;
 
 
 * {
@@ -184,23 +186,6 @@ a:hover {
 	text-decoration: none;
 }
 
-#theme-form {
-	float: right;
-	height: $theme-form-height;
-	line-height: $theme-form-height;
-	margin: 0;
-	position: relative;
-	text-align: right;
-	top: -$theme-form-height;
-}
-#theme-form label {
-	font-size: $theme-form-label-font-size;
-	vertical-align: middle;
-}
-#theme-form select {
-	vertical-align: middle;
-}
-
 ul.nav {
 	border: $nav-border-color solid $nav-border-width;
 	border-radius: $nav-border-radius;
@@ -243,6 +228,43 @@ ul.nav {
 	}
 }
 
+.copyright {
+	color: $copyright-color;
+	font-size: $copyright-font-size;
+	margin-top: $copyright-spacing;
+	text-align: center;
+}
+
+
+// Index
+.github {
+	float: right;
+	height: $github-height;
+	padding: $github-padding;
+	position: relative;
+	text-align: right;
+	top: -$github-height;
+}
+
+
+// Demo
+#theme-form {
+	float: right;
+	height: $theme-form-height;
+	line-height: $theme-form-height;
+	margin: 0;
+	position: relative;
+	text-align: right;
+	top: -$theme-form-height;
+}
+#theme-form label {
+	font-size: $theme-form-label-font-size;
+	vertical-align: middle;
+}
+#theme-form select {
+	vertical-align: middle;
+}
+
 .link-list {
 	li + li {
 		margin-top: $link-li-spacing;
@@ -263,7 +285,6 @@ ul.nav {
 .column2 {
 	width: $double-column-column2-width;
 }
-
 .term {
 	clear: both;
 	height: 0;
@@ -307,13 +328,6 @@ ul.nav {
 		background-color: $button-hover-background-color;
 		color: $button-hover-color;
 	}
-}
-
-.copyright {
-	color: $copyright-color;
-	font-size: $copyright-font-size;
-	margin-top: $copyright-spacing;
-	text-align: center;
 }
 
 #interactive-image-list,

@@ -100,25 +100,6 @@ a:hover {
   text-decoration: none;
 }
 
-#theme-form {
-  float: right;
-  height: 30px;
-  line-height: 30px;
-  margin: 0;
-  position: relative;
-  text-align: right;
-  top: -30px;
-}
-
-#theme-form label {
-  font-size: 80%;
-  vertical-align: middle;
-}
-
-#theme-form select {
-  vertical-align: middle;
-}
-
 ul.nav {
   border: #888888 solid 1px;
   border-radius: 3px;
@@ -155,6 +136,41 @@ ul.nav li > a:active, ul.nav li > a:hover {
 }
 ul.nav li + li {
   margin-top: 0;
+}
+
+.copyright {
+  color: silver;
+  font-size: 90%;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.github {
+  float: right;
+  height: 24px;
+  padding: 2px 0;
+  position: relative;
+  text-align: right;
+  top: -24px;
+}
+
+#theme-form {
+  float: right;
+  height: 28px;
+  line-height: 28px;
+  margin: 0;
+  position: relative;
+  text-align: right;
+  top: -28px;
+}
+
+#theme-form label {
+  font-size: 80%;
+  vertical-align: middle;
+}
+
+#theme-form select {
+  vertical-align: middle;
 }
 
 .link-list li + li {
@@ -224,13 +240,6 @@ ul.nav li + li {
 .button:hover {
   background-color: #48cbad;
   color: white;
-}
-
-.copyright {
-  color: silver;
-  font-size: 90%;
-  margin-top: 2em;
-  text-align: center;
 }
 
 #interactive-image-list,
