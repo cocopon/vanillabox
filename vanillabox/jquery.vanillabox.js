@@ -1643,7 +1643,7 @@
 
 	Vanillabox.prototype.onTargetElementClick_ = function(e) {
 		var me = this;
-		var index = me.targetElems_.index(e.target);
+		var index = me.targetElems_.index(e.delegateTarget);
 
 		if (index < 0) {
 			return;
