@@ -1,7 +1,7 @@
 // Color
 $base-hue: 45;
 $key-hue: 166;
-$key-color: hsl(166, 41%, 49%);
+$key-color: hsl($key-hue, 41%, 49%);
 
 $outer-background-color: hsl($base-hue, 3%, 80%);
 $background-color: hsl($base-hue, 3%, 95%);
