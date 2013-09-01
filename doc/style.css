@@ -3,14 +3,14 @@
 }
 
 html {
-  background-color: #cccccc;
+  background-color: #cfcdc9;
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-color: #f3f3f3;
-  border: silver solid 1px;
+  background-color: #f3f3f2;
+  border: #c2c1bc solid 1px;
   color: #444444;
   font-family: "Georgia", "Times New Roman", serif;
   font-size: 1em;
@@ -33,7 +33,7 @@ h1 {
 }
 
 h2 {
-  border-bottom: gainsboro solid 1px;
+  border-bottom: #dddcda solid 1px;
   font-size: 120%;
   margin: 2em 0 0.75em;
   padding: 4px 0;
@@ -41,17 +41,17 @@ h2 {
 
 table {
   border-collapse: collapse;
-  border: gainsboro solid 1px;
+  border: #dddcda solid 1px;
   width: 100%;
 }
 
 th, td {
-  border: gainsboro solid 1px;
+  border: #dddcda solid 1px;
   padding: 8px 1em;
 }
 
 th {
-  background-color: #eeeeee;
+  background-color: #eeeeec;
   font-weight: normal;
 }
 
@@ -69,8 +69,8 @@ p {
 }
 
 pre {
-  background-color: #eeeeee;
-  border: gainsboro solid 1px;
+  background-color: #eeeeec;
+  border: #dddcda solid 1px;
   font-family: "Source Code Pro", "Menlo", "Courier New", monospace;
   font-size: 80%;
   line-height: 150%;
@@ -80,8 +80,8 @@ pre {
 }
 
 code {
-  background-color: #eeeeee;
-  border: gainsboro solid 1px;
+  background-color: #eeeeec;
+  border: #dddcda solid 1px;
   border-radius: 3px;
   padding: 2px 4px;
 }
@@ -101,7 +101,7 @@ a:hover {
 }
 
 ul.nav {
-  border: #888888 solid 1px;
+  border: #8b8984 solid 1px;
   border-radius: 3px;
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 90%;
@@ -111,9 +111,9 @@ ul.nav {
   width: 100%;
 }
 ul.nav li {
-  background-color: #888888;
-  border-right: #888888 solid 1px;
-  color: #f3f3f3;
+  background-color: #8b8984;
+  border-right: #8b8984 solid 1px;
+  color: #f3f3f2;
   display: block;
   float: left;
   height: 28px;
@@ -123,23 +123,23 @@ ul.nav li {
   width: 20%;
 }
 ul.nav li > a {
-  background-color: #f3f3f3;
-  color: #888888;
+  background-color: #f3f3f2;
+  color: #8b8984;
   display: block;
   height: 100%;
   text-decoration: none;
   width: 100%;
 }
 ul.nav li > a:active, ul.nav li > a:hover {
-  background-color: #e6e6e6;
-  color: #888888;
+  background-color: #e7e6e4;
+  color: #8b8984;
 }
 ul.nav li + li {
   margin-top: 0;
 }
 
 .copyright {
-  color: silver;
+  color: #c2c1bc;
   font-size: 90%;
   margin-top: 2em;
   text-align: center;
@@ -206,8 +206,8 @@ ul.nav li + li {
 }
 
 .config-row-disabled {
-  background-color: #eeeeee;
-  color: #959595;
+  background-color: #eeeeec;
+  color: #99978f;
 }
 
 .config-enabled-cell {
