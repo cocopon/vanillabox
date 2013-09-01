@@ -97,6 +97,7 @@ $theme-form-height: 28px;
 
 * {
 	box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 html {
 	background-color: $outer-background-color;
