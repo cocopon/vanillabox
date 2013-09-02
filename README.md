@@ -28,7 +28,7 @@ System Requirements
 
 How to Build Your Own Vanillabox
 --------------------------------
-If you just want to use Vanillabox, get a compressed file from the [official page](http://cocopon/me/app/vanillabox/getting_started.html).
+If you just want to use Vanillabox, get a compressed file from the [official page](http://cocopon.me/app/vanillabox/getting_started.html).
 You may not need to perform the following steps.
 
 First, these commands are required to setup a development environment:
