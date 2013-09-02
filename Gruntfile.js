@@ -14,8 +14,7 @@ module.exports = function(grunt) {
 				options: {
 					compilation_level: 'ADVANCED_OPTIMIZATIONS',
 					externs: [
-						'<%= env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js',
-						'src/js/externs.js'
+						'<%= env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js'
 					]
 				}
 			}

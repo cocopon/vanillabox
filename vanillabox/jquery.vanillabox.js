@@ -1742,9 +1742,15 @@
 		return box;
 	};
 
+	// Exports
+	$.fn['vanillabox'] = $.fn.vanillabox;
+	Vanillabox.prototype['hide'] = Vanillabox.prototype.hide;
+	Vanillabox.prototype['release'] = Vanillabox.prototype.release;
+	Vanillabox.prototype['show'] = Vanillabox.prototype.show;
+
 	// For testing of private classes
 	// TODO: Better solution?
-	$.fn.vanillabox.privateClasses_ = {
+	$.fn.vanillabox['privateClasses_'] = {
 		'Events': Events,
 		'DEFAULT_CONFIG': DEFAULT_CONFIG,
 		'Pager': Pager,
