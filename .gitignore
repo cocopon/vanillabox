@@ -1,7 +1,10 @@
+doc/style.css
+vanillabox-*.zip
+vanillabox/jquery.vanillabox.js
+vanillabox/jquery.vanillabox-*.min.js
+vanillabox/theme/*/vanillabox.css
 .sass-cache
 jsdoc
-vanillabox/jquery.vanillabox-*.min.js
-vanillabox-*.zip
 
 # node.js
 node_modules
