@@ -7,15 +7,11 @@ var Button = function(config) {
 	me.cls_ = config.cls;
 	me.disabled_ = Util.getOrDefault(config.disabled, false);
 
-	me.create();
+	me.setup_();
 };
 
-Button.prototype.create = function() {
+Button.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var elem = $('<div>');
 	elem.addClass(Util.CSS_PREFIX + 'button');

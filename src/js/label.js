@@ -6,15 +6,11 @@ var Label = function(config) {
 
 	me.cls_ = config.cls;
 
-	me.create();
+	me.setup_();
 };
 
-Label.prototype.create = function() {
+Label.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var elem = $('<div>');
 	elem.addClass(Util.CSS_PREFIX + 'label');

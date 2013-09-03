@@ -2,15 +2,11 @@
  * @constructor
  */
 var Mask = function() {
-	this.create();
+	this.setup_();
 };
 
-Mask.prototype.create = function() {
+Mask.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var $elem = $('<div>');
 	$elem.addClass(Util.CSS_PREFIX + 'mask');

@@ -30,18 +30,13 @@ var Vanillabox = function(config) {
 		totalPages: me.targetElems_.length
 	});
 
-	me.create();
+	me.setup_();
 };
 
 Vanillabox.DELAYED_LAYOUT_DELAY = 300;
 
-Vanillabox.prototype.create = function() {
+Vanillabox.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.created_) {
-		return;
-	}
-	me.created_ = true;
 
 	var mask = new Mask();
 	var maskElem = mask.getElement();
@@ -151,8 +146,6 @@ Vanillabox.prototype.dispose = function() {
 	me.mask_.getElement().remove();
 	me.mask_.dispose();
 	me.mask_ = null;
-
-	me.created_ = false;
 };
 
 Vanillabox.prototype.attach_ = function() {

@@ -10,18 +10,14 @@ var Frame = function(opt_config) {
 	});
 	me.container_ = container;
 
-	me.create();
+	me.setup_();
 	me.attach_();
 };
 
 Frame.RESIZE_TIMEOUT_DELAY = 500;
 
-Frame.prototype.create = function() {
+Frame.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var elem = $('<div>');
 	elem.addClass(Util.CSS_PREFIX + 'frame');

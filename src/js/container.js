@@ -7,19 +7,15 @@ var Container = function(opt_config) {
 
 	me.animation_ = Util.getOrDefault(config.animation, AnimationProvider.getDefault());
 
-	me.create();
+	me.setup_();
 };
 
 Container.CONTENT_SIZE_SAFETY_MARGIN = 100;
 Container.MIN_WIDTH = 200;
 Container.MIN_HEIGHT = 150;
 
-Container.prototype.create = function() {
+Container.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var elem = $('<div>');
 	elem.addClass(Util.CSS_PREFIX + 'container');

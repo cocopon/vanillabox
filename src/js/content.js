@@ -11,25 +11,21 @@ var Content = function(opt_config) {
 	me.path_ = config.path;
 	me.title_ = Util.getOrDefault(config.title, '');
 
-	me.create();
+	me.setup_();
 };
 
-Content.prototype.create = function() {
+Content.prototype.setup_ = function() {
 	var me = this;
-
-	if (me.elem_) {
-		return;
-	}
 
 	var elem = $('<div>');
 	elem.addClass(Util.CSS_PREFIX + 'content');
 	me.elem_ = elem;
 
-	me.createInternal_();
+	me.setupInternal_();
 	me.attach_();
 };
 
-Content.prototype.createInternal_ = Util.EMPTY_FN;
+Content.prototype.setupInternal_ = Util.EMPTY_FN;
 
 Content.prototype.attach_ = Util.EMPTY_FN;
 
@@ -118,10 +114,10 @@ var EmptyContent = function(opt_config) {
 };
 Util.inherits(EmptyContent, Content);
 
-EmptyContent.prototype.create = function() {
+EmptyContent.prototype.setup_ = function() {
 	var me = this;
 
-	Content.prototype.create.call(me);
+	Content.prototype.setup_.call(me);
 
 	me.elem_.addClass(Util.CSS_PREFIX + 'empty');
 };
@@ -144,7 +140,7 @@ var ImageContent = function(opt_config) {
 };
 Util.inherits(ImageContent, Content);
 
-ImageContent.prototype.createInternal_ = function() {
+ImageContent.prototype.setupInternal_ = function() {
 	var me = this;
 
 	var imgElem = $('<img>');
@@ -215,7 +211,7 @@ var IframeContent = function(opt_config) {
 };
 Util.inherits(IframeContent, Content);
 
-IframeContent.prototype.createInternal_ = function() {
+IframeContent.prototype.setupInternal_ = function() {
 	var me = this;
 
 	var iframeElem = $('<iframe>');
