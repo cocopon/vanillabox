@@ -28,7 +28,7 @@ Container.prototype.create = function() {
 	me.attach_();
 };
 
-Container.prototype.release = function() {
+Container.prototype.dispose = function() {
 	var me = this;
 
 	me.detach_();

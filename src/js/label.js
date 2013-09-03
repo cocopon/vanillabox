@@ -24,7 +24,7 @@ Label.prototype.create = function() {
 	me.elem_ = elem;
 };
 
-Label.prototype.release = function() {
+Label.prototype.dispose = function() {
 	var me = this;
 
 	me.elem_ = null;

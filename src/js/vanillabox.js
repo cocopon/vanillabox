@@ -119,37 +119,37 @@ Vanillabox.prototype.setupRootCss_ = function() {
 	}
 };
 
-Vanillabox.prototype.release = function() {
+Vanillabox.prototype.dispose = function() {
 	var me = this;
 
 	me.detachWindow_();
 	me.detach_();
 
 	Util.Array.forEach(me.contents_, function(content) {
-		content.release();
+		content.dispose();
 	});
 	me.contents_ = null;
 
-	me.titleLabel_.release();
+	me.titleLabel_.dispose();
 	me.titleLabel_ = null;
 
-	me.pagerLabel_.release();
+	me.pagerLabel_.dispose();
 	me.pagerLabel_ = null;
 
-	me.closeButton_.release();
+	me.closeButton_.dispose();
 	me.closeButton_ = null;
 
-	me.prevButton_.release();
+	me.prevButton_.dispose();
 	me.prevButton_ = null;
 
-	me.nextButton_.release();
+	me.nextButton_.dispose();
 	me.nextButton_ = null;
 
-	me.frame_.release();
+	me.frame_.dispose();
 	me.frame_ = null;
 
 	me.mask_.getElement().remove();
-	me.mask_.release();
+	me.mask_.dispose();
 	me.mask_ = null;
 
 	me.created_ = false;

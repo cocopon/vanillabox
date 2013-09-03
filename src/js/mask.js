@@ -19,7 +19,7 @@ Mask.prototype.create = function() {
 	me.attach_();
 };
 
-Mask.prototype.release = function() {
+Mask.prototype.dispose = function() {
 	var me = this;
 
 	me.detach_();

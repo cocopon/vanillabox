@@ -31,7 +31,7 @@ Button.prototype.create = function() {
 	me.attach_();
 };
 
-Button.prototype.release = function() {
+Button.prototype.dispose = function() {
 	var me = this;
 
 	me.elem_ = null;

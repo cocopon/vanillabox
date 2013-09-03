@@ -35,7 +35,7 @@ Content.prototype.attach_ = Util.EMPTY_FN;
 
 Content.prototype.detach_ = Util.EMPTY_FN;
 
-Content.prototype.release = function() {
+Content.prototype.dispose = function() {
 	var me = this;
 
 	me.detach_();
@@ -152,10 +152,10 @@ ImageContent.prototype.createInternal_ = function() {
 	me.imgElem_ = imgElem;
 };
 
-ImageContent.prototype.release = function() {
+ImageContent.prototype.dispose = function() {
 	var me = this;
 
-	Content.prototype.release.call(me);
+	Content.prototype.dispose.call(me);
 
 	me.imgElem_ = null;
 };
@@ -224,10 +224,10 @@ IframeContent.prototype.createInternal_ = function() {
 	me.iframeElem_ = iframeElem;
 };
 
-IframeContent.prototype.release = function() {
+IframeContent.prototype.dispose = function() {
 	var me = this;
 
-	Content.prototype.release.call(me);
+	Content.prototype.dispose.call(me);
 
 	me.iframeElem_ = null;
 };

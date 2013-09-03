@@ -136,7 +136,7 @@
 			var box = null;
 			$('#show-button').on('click', function() {
 				if (box) {
-					box.release();
+					box.dispose();
 				}
 
 				var config = configForm.buildConfig();

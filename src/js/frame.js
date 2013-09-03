@@ -31,10 +31,10 @@ Frame.prototype.create = function() {
 	me.elem_.append(container.getElement());
 };
 
-Frame.prototype.release = function() {
+Frame.prototype.dispose = function() {
 	var me = this;
 
-	me.container_.release();
+	me.container_.dispose();
 	me.container_ = null;
 
 	me.detach_();
