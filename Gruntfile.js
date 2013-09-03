@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 		sass: {
 			document: {
 				files: {
-					'doc/style.css': 'src/css/doc/style.scss',
+					'doc/style.css': 'src/css/doc/style.scss'
 				},
 				options: {
 					style: 'expanded'
