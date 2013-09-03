@@ -1,4 +1,5 @@
 /**
+ * @param {Object} config Config options.
  * @constructor
  */
 var Vanillabox = function(config) {
@@ -35,6 +36,8 @@ var Vanillabox = function(config) {
 
 Vanillabox.DELAYED_LAYOUT_DELAY = 300;
 
+
+/** @private */
 Vanillabox.prototype.setup_ = function() {
 	var me = this;
 
@@ -99,6 +102,7 @@ Vanillabox.prototype.setup_ = function() {
 	me.setContent_(emptyContent);
 };
 
+/** @private */
 Vanillabox.prototype.setupRootCss_ = function() {
 	var me = this;
 	var rootElem = me.mask_.getElement();
@@ -114,6 +118,9 @@ Vanillabox.prototype.setupRootCss_ = function() {
 	}
 };
 
+/**
+ * Disposes the component.
+ */
 Vanillabox.prototype.dispose = function() {
 	var me = this;
 
@@ -148,6 +155,7 @@ Vanillabox.prototype.dispose = function() {
 	me.mask_ = null;
 };
 
+/** @private */
 Vanillabox.prototype.attach_ = function() {
 	var me = this;
 
@@ -163,6 +171,7 @@ Vanillabox.prototype.attach_ = function() {
 	$(me.nextButton_).on(Events.CLICK, $.proxy(me.onNextButtonClick_, me));
 };
 
+/** @private */
 Vanillabox.prototype.detach_ = function() {
 	var me = this;
 
@@ -181,6 +190,7 @@ Vanillabox.prototype.detach_ = function() {
 	me.content_ = null;
 };
 
+/** @private */
 Vanillabox.prototype.attachWindow_ = function() {
 	var me = this;
 	var $window = $(window);
@@ -191,6 +201,7 @@ Vanillabox.prototype.attachWindow_ = function() {
 	$document.on('keyup', $.proxy(me.onDocumentKeyUp_, me));
 };
 
+/** @private */
 Vanillabox.prototype.detachWindow_ = function() {
 	var me = this;
 	var $window = $(window);
@@ -201,6 +212,7 @@ Vanillabox.prototype.detachWindow_ = function() {
 	$document.off('keyup', me.onDocumentKeyUp_, me);
 };
 
+/** @private */
 Vanillabox.prototype.attachContent_ = function() {
 	var me = this;
 	var content = me.getContent_();
@@ -210,6 +222,7 @@ Vanillabox.prototype.attachContent_ = function() {
 	contentElem.on('click', $.proxy(me.onContentClick_, me));
 };
 
+/** @private */
 Vanillabox.prototype.detachContent_ = function() {
 	var me = this;
 	var content = me.getContent_();
@@ -220,7 +233,9 @@ Vanillabox.prototype.detachContent_ = function() {
 };
 
 /**
- * @param {Number} opt_index
+ * Shows the component.
+ * @param {Number} opt_index Index of a content to show.
+ * @return {Promise} Promise object for showing animation.
  */
 Vanillabox.prototype.show = function(opt_index) {
 	var me = this;
@@ -259,7 +274,8 @@ Vanillabox.prototype.show = function(opt_index) {
 };
 
 /**
- * @return {undefined}
+ * Hides the component.
+ * @return {Promise} promise Promise object for hiding operation.
  */
 Vanillabox.prototype.hide = function() {
 	var me = this;
@@ -279,21 +295,29 @@ Vanillabox.prototype.hide = function() {
 	});
 };
 
-Vanillabox.prototype.setTitle = function(title) {
+/** @private */
+Vanillabox.prototype.setTitle_ = function(title) {
 	var me = this;
 	var titleLabel = me.titleLabel_;
 
 	titleLabel.setText(title);
 };
 
+/**
+ * Shows the previous content.
+ */
 Vanillabox.prototype.previous = function() {
 	this.pager_.previous();
 };
 
+/**
+ * Shows the next content.
+ */
 Vanillabox.prototype.next = function() {
 	this.pager_.next();
 };
 
+/** @private */
 Vanillabox.prototype.getContent_ = function() {
 	var me = this;
 	var container = me.frame_.getContainer();
@@ -301,6 +325,7 @@ Vanillabox.prototype.getContent_ = function() {
 	return container.getContent();
 };
 
+/** @private */
 Vanillabox.prototype.setContent_ = function(content) {
 	var me = this;
 	var container = me.frame_.getContainer();
@@ -317,13 +342,14 @@ Vanillabox.prototype.setContent_ = function(content) {
 
 	container.setContent(content);
 	me.attachContent_();
-	me.setTitle(content.getTitle());
+	me.setTitle_(content.getTitle());
 
 	content.load();
 	container.layout();
 };
 
-Vanillabox.prototype.layout = function(forceLayout) {
+/** @private */
+Vanillabox.prototype.layout_ = function(forceLayout) {
 	var me = this;
 	var needsResizing = (forceLayout || me.repositionOnScroll_);
 
@@ -332,6 +358,7 @@ Vanillabox.prototype.layout = function(forceLayout) {
 	}
 };
 
+/** @private */
 Vanillabox.prototype.updatePager_ = function() {
 	var me = this;
 	var pager = me.pager_;
@@ -350,6 +377,7 @@ Vanillabox.prototype.updatePager_ = function() {
 	me.nextButton_.setDisabled(!pager.hasNext());
 };
 
+/** @private */
 Vanillabox.prototype.updateContent_ = function() {
 	var me = this;
 
@@ -360,6 +388,7 @@ Vanillabox.prototype.updateContent_ = function() {
 	me.setContent_(content);
 };
 
+/** @private */
 Vanillabox.prototype.delayedLayout_ = function(forceLayout) {
 	var me = this;
 
@@ -368,18 +397,21 @@ Vanillabox.prototype.delayedLayout_ = function(forceLayout) {
 	}
 
 	me.layoutTimeout_ = setTimeout(function() {
-		me.layout(forceLayout);
+		me.layout_(forceLayout);
 	}, Vanillabox.DELAYED_LAYOUT_DELAY);
 };
 
+/** @private */
 Vanillabox.prototype.onWindowResize_ = function() {
 	this.delayedLayout_(false);
 };
 
+/** @private */
 Vanillabox.prototype.onWindowScroll_ = function() {
 	this.delayedLayout_(false);
 };
 
+/** @private */
 Vanillabox.prototype.onDocumentKeyUp_ = function(e) {
 	var me = this;
 
@@ -400,6 +432,7 @@ Vanillabox.prototype.onDocumentKeyUp_ = function(e) {
 	}
 };
 
+/** @private */
 Vanillabox.prototype.onTargetElementClick_ = function(e) {
 	var me = this;
 	var index = me.targetElems_.index(e.delegateTarget);
@@ -413,10 +446,12 @@ Vanillabox.prototype.onTargetElementClick_ = function(e) {
 	me.show(index);
 };
 
+/** @private */
 Vanillabox.prototype.onPagerChange_ = function() {
 	this.updateContent_();
 };
 
+/** @private */
 Vanillabox.prototype.onMaskClick_ = function() {
 	var me = this;
 
@@ -425,6 +460,7 @@ Vanillabox.prototype.onMaskClick_ = function() {
 	}
 };
 
+/** @private */
 Vanillabox.prototype.onCloseButtonClick_ = function() {
 	var me = this;
 
@@ -435,22 +471,27 @@ Vanillabox.prototype.onCloseButtonClick_ = function() {
 	me.hide();
 };
 
+/** @private */
 Vanillabox.prototype.onPreviousButtonClick_ = function() {
 	this.previous();
 };
 
+/** @private */
 Vanillabox.prototype.onNextButtonClick_ = function() {
 	this.next();
 };
 
+/** @private */
 Vanillabox.prototype.onContentComplete_ = function(e, success) {
+/** @private */
 	var me = this;
 
-	me.layout(true);
+	me.layout_(true);
 
 	$(me).trigger(Events.LOAD, success);
 };
 
+/** @private */
 Vanillabox.prototype.onContentClick_ = function(e) {
 	var me = this;
 	var pager = me.pager_;
