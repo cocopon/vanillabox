@@ -73,8 +73,7 @@ grunt compile
 ```
 
 
-Available Grunt Tasks
----------------------
+### Available Grunt Tasks
 
 | Command            | Description                                |
 | ------------------ | ------------------------------------------ |
