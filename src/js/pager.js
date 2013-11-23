@@ -99,7 +99,7 @@ Pager.prototype.previous = function() {
 	var currentIndex = me.currentPage_;
 	var prevIndex = currentIndex - 1;
 
-	if (prevIndex <= 0) {
+	if (prevIndex < 0) {
 		prevIndex = me.allowsLoop_ ?
 			totalPages - 1 :
 			0;
