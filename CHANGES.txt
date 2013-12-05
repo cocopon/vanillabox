@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.1.2
+-----
+* Fixed #2, set default z-index
+* Fixed #1, off-by-one error when navigating to previous page
+* Refactor plugin interface
+
+
 0.1.1
 -----
 * Fixed a bug of event handling
