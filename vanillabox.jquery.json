@@ -1,0 +1,38 @@
+{
+	"name": "vanillabox",
+	"title": "Vanillabox",
+	"description": "Simple, modern Lightbox-like plugin for jQuery",
+	"keywords": [
+		"lightbox",
+		"mobile",
+		"modal",
+		"popup",
+		"simple",
+		"ui",
+		"window"
+	],
+	"version": "0.1.2",
+	"author": {
+		"name": "cocopon",
+		"url": "http://cocopon.me/"
+	},
+	"maintainers": [
+		{
+			"name": "cocopon",
+			"url": "http://cocopon.me/"
+		}
+	],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/cocopon/vanillabox/blob/master/LICENSE.txt"
+		}
+	],
+	"bugs": "https://github.com/cocopon/vanillabox/issues",
+	"homepage": "http://cocopon.me/app/vanillabox/",
+	"docs": "http://cocopon.me/app/vanillabox/",
+	"download": "http://cocopon.me/app/vanillabox/release/",
+	"dependencies": {
+		"jquery": ">=1.7"
+	}
+}
