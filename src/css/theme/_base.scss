@@ -15,6 +15,7 @@ $prefix: 'vnbx-';
 // Geometry
 $min-content-height: 150px;
 $min-content-width: 200px;
+$mask-z-index: 999;
 
 
 .#{$root} * {
@@ -27,6 +28,7 @@ $min-content-width: 200px;
 	left: 0;
 	position: absolute;
 	top: 0;
+	z-index: $mask-z-index;
 }
 // Frame
 .#{$prefix}frame {
