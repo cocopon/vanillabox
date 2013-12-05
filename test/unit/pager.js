@@ -110,7 +110,10 @@ test('Pager#previous', function() {
 
 	pager.setPage(0);
 	pager.previous();
-	strictEqual(pager.getPage(), 0, 'Previous page of a first page should be 0');
+	strictEqual(
+		pager.getPage(), 0,
+		'Previous page of a first page should be 0'
+	);
 });
 
 test('Pager#next', function() {
@@ -135,11 +138,31 @@ test('config.loop', function() {
 		totalPages: totalPages
 	});
 
+	pager.setPage(1);
+	pager.previous();
+	strictEqual(
+		pager.getPage(), 0,
+		'Previous page of a second page should be first page'
+	);
+
 	pager.setPage(0);
 	pager.previous();
-	strictEqual(pager.getPage(), totalPages - 1, 'Previous page of a first page should be (total - 1)');
+	strictEqual(
+		pager.getPage(), totalPages - 1,
+		'Previous page of a first page should be (total - 1)'
+	);
+
+	pager.setPage(totalPages - 2);
+	pager.next();
+	strictEqual(
+		pager.getPage(), totalPages - 1,
+		'Next page of a last page should be (total - 1)'
+	);
 
 	pager.setPage(totalPages - 1);
 	pager.next();
-	strictEqual(pager.getPage(), 0, 'Next page of a last page should be 0');
+	strictEqual(
+		pager.getPage(), 0,
+		'Next page of a last page should be 0'
+	);
 });
