@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.1.3
+-----
+* No changes
+  (Failed to register the plugin in plugins.jquery.com so retried tagging)
+
+
 0.1.2
 -----
 * Fixed #2, set default z-index
