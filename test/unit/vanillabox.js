@@ -1,5 +1,6 @@
 /*global
 	$: false,
+	Util: false,
 	asyncTest: false,
 	deepEqual: false,
 	expect: false,
@@ -12,7 +13,6 @@
 	strictEqual: false,
 	test: false,
 	throws: false,
-	Util: false,
 */
 var Events = Util.privateClass('Events');
 var Vanillabox = Util.privateClass('Vanillabox');

@@ -303,12 +303,12 @@ ConfigForm.CONFIGS = [
 		name: 'animation',
 		type: 'select',
 		options: ['default', 'none'],
-		description: 'Animation type. Set \'none\' to disable animation.'
+		description: 'An animation type. Set \'none\' to disable animation.'
 	},
 	{
 		name: 'closeButton',
 		type: 'boolean',
-		description: 'Visibility of a close button. If true, a mask will be unclickable.'
+		description: 'Visibility of the close button. If true, the mask will be unclickable.'
 	}, {
 		name: 'keyboard',
 		type: 'boolean',
@@ -334,6 +334,11 @@ ConfigForm.CONFIGS = [
 		type: 'select',
 		options: ['image', 'iframe'],
 		description: 'Type of contents. Set \'iframe\' to show an external webpage.'
+	}, {
+		name: 'adjustToWindow',
+		type: 'select',
+		options: ['both', 'horizontal', 'vertical', 'none'],
+		description: 'A direction to fit a large content to the window bounding rectangle.'
 	}
 ];
 

@@ -26,6 +26,7 @@ $mask-z-index: 999;
 // Mask
 .#{$prefix}mask {
 	left: 0;
+	overflow: auto;
 	position: absolute;
 	top: 0;
 	z-index: $mask-z-index;
