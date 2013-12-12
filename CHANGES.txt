@@ -2,10 +2,16 @@ Changelog
 =========
 
 
+0.1.4
+-----
+* Added adjustToWindow option
+  (thanks @HjelmPatrik)
+
+
 0.1.3
 -----
 * No changes
-  (Failed to register the plugin in plugins.jquery.com so retried tagging)
+  (failed to register the plugin in plugins.jquery.com so retried tagging)
 
 
 0.1.2

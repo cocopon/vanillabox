@@ -57,6 +57,7 @@ module.exports = function(grunt) {
 				},
 				src: [
 					'doc/**',
+					'CHANGES.txt',
 					'LICENSE.txt',
 					'README.md',
 					'vanillabox/**'
