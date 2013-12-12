@@ -6,6 +6,7 @@ var Container = function(opt_config) {
 	var config = opt_config || {};
 
 	me.animation_ = Util.getOrDefault(config.animation, AnimationProvider.getDefault());
+	me.adjustToWindow_ = Util.getOrDefault(config.adjustToWindow, 'both');
 
 	me.setup_();
 };
@@ -109,13 +110,23 @@ Container.prototype.getSize = function() {
 	};
 };
 
+Container.prototype.needsAdjustment = function(direction) {
+	var me = this;
+	return me.adjustToWindow_ === true
+		|| me.adjustToWindow_ === 'both'
+		|| me.adjustToWindow_ === direction;
+}
+
 Container.prototype.updateMaxContentSize_ = function() {
 	var me = this;
-
 	var safetyMargin = Container.CONTENT_SIZE_SAFETY_MARGIN;
 	me.maxContentSize_ = {
-		width: Util.Dom.getViewportWidth() - safetyMargin,
-		height: Util.Dom.getViewportHeight() - safetyMargin
+		width: me.needsAdjustment('horizontal')
+			? (Util.Dom.getViewportWidth() - safetyMargin)
+			: Number.MAX_VALUE,
+		height: me.needsAdjustment('vertical')
+			? (Util.Dom.getViewportHeight() - safetyMargin)
+			: Number.MAX_VALUE
 	};
 
 	var content = me.content_;

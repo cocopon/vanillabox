@@ -1,6 +1,7 @@
 var DEFAULT_CONFIG = {
 	'animation': 'default',
 	'closeButton': false,
+	'adjustToWindow': 'both',
 	'keyboard': true,
 	'loop': false,
 	'preferredHeight': 600,
@@ -20,6 +21,7 @@ $.fn.vanillabox = function(opt_config) {
 	var box = new Vanillabox({
 		animation: animation,
 		closeButton: config['closeButton'],
+		adjustToWindow: config['adjustToWindow'],
 		keyboard: config['keyboard'],
 		loop: config['loop'],
 		preferredHeight: config['preferredHeight'],

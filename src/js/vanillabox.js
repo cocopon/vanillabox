@@ -19,6 +19,7 @@ var Vanillabox = function(config) {
 	me.repositionOnScroll_ = config.repositionOnScroll;
 	me.supportsKeyboard_ = config.keyboard;
 	me.closeButtonEnabled_ = config.closeButton;
+	me.adjustToWindow_ = config.adjustToWindow;
 
 	me.contentOptions_ = {
 		preferredWidth: config.preferredWidth,
@@ -51,7 +52,8 @@ Vanillabox.prototype.setup_ = function() {
 	me.setupRootCss_();
 
 	var frame = new Frame({
-		animation: me.animation_
+		animation: me.animation_,
+		adjustToWindow: me.adjustToWindow_
 	});
 	var frameElem = frame.getElement();
 	me.frame_ = frame;

@@ -6,7 +6,8 @@ var Frame = function(opt_config) {
 	var config = opt_config || {};
 
 	var container = new Container({
-		animation: config.animation
+		animation: config.animation,
+		adjustToWindow: config.adjustToWindow
 	});
 	me.container_ = container;
 
@@ -74,7 +75,7 @@ Frame.prototype.getPreferredOffset = function(contentSize) {
 	var ow = Util.Dom.getViewportWidth();
 	var oh = Util.Dom.getViewportHeight();
 	var left = Math.round($window.scrollLeft() + (ow - elem.outerWidth()) / 2);
-	var top = Math.round($window.scrollTop() + (oh - elem.outerHeight()) / 2);
+	var top = Math.max(Math.round($window.scrollTop() + (oh - elem.outerHeight()) / 2), 0);
 
 	// Restore original size
 	containerElem.width(w);
