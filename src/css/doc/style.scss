@@ -36,7 +36,8 @@ $nav-active-item-color: $background-color;
 $nav-item-hover-background-color: darken($nav-item-background-color, 5%);
 $nav-item-hover-color: $nav-item-color;
 $pre-strong-background-color: mix($key-color, $pre-background-color, 15%);
-$toolbar-margin: 1.0em;
+$pre-title-background-color: $pre-border-color;
+$pre-title-color: darken($pre-border-color, 40%);
 
 // Font
 $font-family-sans-serif: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -48,6 +49,7 @@ $button-font-family: $font-family-sans-serif;
 $code-font-family: $font-family-monospace;
 $heading-font-family: $font-family-sans-serif;
 $nav-font-family: $font-family-sans-serif;
+$pre-title-font-family: $font-family-sans-serif;
 
 $font-size: 1.0em;
 $font-size-monospace: 80%;
@@ -55,10 +57,12 @@ $h1-font-size: 150%;
 $h2-font-size: 120%;
 $line-height: 150%;
 $pre-line-height: 150%;
+$pre-title-line-height: 175%;
 $nav-font-size: 90%;
 
 $desc-cell-font-size: 90%;
 $copyright-font-size: 90%;
+$pre-title-font-size: 70%;
 $theme-form-label-font-size: 80%;
 
 // Geometry
@@ -79,8 +83,10 @@ $li-spacing: 0.5em;
 $p-margin: 0 0 $def-vert-margin;
 $pre-margin: 0 0 $def-vert-margin;
 $pre-padding: 8px;
+$pre-title-padding: 0 0.75em;
 $table-margin: 0 0 $def-vert-margin;
 $table-cell-padding: 8px 1.0em;
+$toolbar-margin: 1.0em;
 
 $button-padding: 4px 1.0em;
 $copyright-spacing: 2.0em;
@@ -199,6 +205,27 @@ a {
 a:hover {
 	background-color: $a-hover-background-color;
 	text-decoration: none;
+}
+
+.pre-container {
+	margin: $pre-margin;
+	position: relative;
+
+	pre {
+		margin: 0;
+		padding-top: 2.0em;
+	}
+	.title {
+		background-color: $pre-title-background-color;
+		color: $pre-title-color;
+		font-family: $pre-title-font-family;
+		font-size: $pre-title-font-size;
+		left: 0;
+		line-height: $pre-title-line-height;
+		padding: $pre-title-padding;
+		position: absolute;
+		top: 0;
+	}
 }
 
 ul.nav {

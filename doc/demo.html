@@ -40,7 +40,10 @@
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$('a.image').vanillabox();</pre>
+			<div class="pre-container">
+				<div class="title">Example</div>
+				<pre>$('a.image').vanillabox();</pre>
+			</div>
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
@@ -56,7 +59,10 @@
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$('.image-list a').vanillabox();</pre>
+			<div class="pre-container">
+				<div class="title">Example</div>
+				<pre>$('.image-list a').vanillabox();</pre>
+			</div>
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
@@ -70,9 +76,12 @@
 			</ul>
 		</div>
 		<div class="column2">
-			<pre>$('a.webpage').vanillabox({
+			<div class="pre-container">
+				<div class="title">Example</div>
+				<pre>$('a.webpage').vanillabox({
     <strong>type: 'iframe'</strong>
 });</pre>
+			</div>
 		</div>
 		<div class="term">&nbsp;</div>
 	</div>
@@ -93,7 +102,10 @@
 	<div class="toolbar">
 		<div id="show-button" class="button">Show</div>
 	</div>
-	<pre id="config-pre">{}</pre>
+	<div class="pre-container">
+		<div class="title">Code</div>
+		<pre id="config-pre">{}</pre>
+	</div>
 
 	<h2>Events</h2>
 	<p>You can attach custom actions to events fired by Vanillabox.</p>
@@ -102,15 +114,21 @@
 		<li><a href="http://placehold.it/320x480/c0c/f7f7f7">&nbsp;</a></li>
 		<li><a href="http://placehold.it/320x480/cc0/f7f7f7">&nbsp;</a></li>
 	</ul>
-	<pre>var box = $('#foobar').vanillabox();
+	<div class="pre-container">
+		<div class="title">Example</div>
+		<pre>var box = $('#foobar').vanillabox();
 
 $(box).on(<strong>'vnbx_show'</strong>, function(sender) {
     // Do something
 });</pre>
+	</div>
 	<div class="toolbar">
 		<div id="event-button" class="button">Show</div>
 	</div>
-	<pre id="event-logger" class="logger"></pre>
+	<div class="pre-container">
+		<div class="title">Console</div>
+		<pre id="event-logger" class="logger"></pre>
+	</div>
 	<p>Available events:</p>
 	<table>
 		<tr><th>Name</th><th>Arguments</th><th>Description</th></tr>
