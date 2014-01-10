@@ -62,6 +62,8 @@ $copyright-font-size: 90%;
 $theme-form-label-font-size: 80%;
 
 // Geometry
+$def-vert-margin: 0.75em;
+
 $body-margin: 32px auto;
 $body-padding: 32px;
 $body-width: 800px;
@@ -69,15 +71,15 @@ $code-border-radius: 3px;
 $code-padding: 2px 4px;
 $h1-margin: 0;
 $h1-padding: 0;
-$h2-margin: 2.0em 0 0.5em;
+$h2-margin: 2.0em 0 $def-vert-margin;
 $h2-padding: 4px 0;
-$ul-margin: 0 0 1.0em;
+$ul-margin: 0 0 $def-vert-margin;
 $ul-padding: 0 0 0 1.5em;
 $li-spacing: 0.5em;
-$p-margin: 0 0 1.0em;
-$pre-margin: 0 0 1.0em;
+$p-margin: 0 0 $def-vert-margin;
+$pre-margin: 0 0 $def-vert-margin;
 $pre-padding: 8px;
-$table-margin: 0 0 1.0em;
+$table-margin: 0 0 $def-vert-margin;
 $table-cell-padding: 8px 1.0em;
 
 $button-padding: 4px 1.0em;
@@ -200,6 +202,7 @@ a:hover {
 }
 
 ul.nav {
+	background-color: $nav-item-background-color;
 	border: $nav-border-color solid $nav-border-width;
 	border-radius: $nav-border-radius;
 	font-family: $nav-font-family;
@@ -210,7 +213,6 @@ ul.nav {
 	width: 100%;
 
 	li {
-		background-color: $nav-active-item-background-color;
 		border-right: $nav-border-color solid $nav-border-width;
 		color: $nav-active-item-color;
 		display: block;
@@ -221,8 +223,10 @@ ul.nav {
 		text-align: center;
 		width: $nav-item-width;
 
+		&.active {
+			background-color: $nav-active-item-background-color;
+		}
 		& > a {
-			background-color: $nav-item-background-color;
 			color: $nav-item-color;
 			display: block;
 			height: 100%;
