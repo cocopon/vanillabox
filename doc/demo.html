@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="../vanillabox/jquery.vanillabox.js"></script>
 	<script type="text/javascript" src="js/configform.js"></script>
 	<script type="text/javascript" src="js/configpre.js"></script>
+	<script type="text/javascript" src="js/logger.js"></script>
 </head>
 <body>
 	<h1>Vanillabox</h1>
@@ -70,7 +71,7 @@
 		</div>
 		<div class="column2">
 			<pre>$('a.webpage').vanillabox({
-  type: 'iframe'
+    <strong>type: 'iframe'</strong>
 });</pre>
 		</div>
 		<div class="term">&nbsp;</div>
@@ -93,6 +94,30 @@
 		<div id="show-button" class="button">Show</div>
 	</div>
 	<pre id="config-pre">{}</pre>
+
+	<h2>Events</h2>
+	<p>You can attach custom actions to events fired by Vanillabox.</p>
+	<ul id="event-image-list">
+		<li><a href="http://placehold.it/320x480/0cc/f7f7f7">&nbsp;</a></li>
+		<li><a href="http://placehold.it/320x480/c0c/f7f7f7">&nbsp;</a></li>
+		<li><a href="http://placehold.it/320x480/cc0/f7f7f7">&nbsp;</a></li>
+	</ul>
+	<pre>var box = $('#foobar').vanillabox();
+
+$(box).on(<strong>'vnbx_show'</strong>, function(sender) {
+    // Do something
+});</pre>
+	<div class="config-form-toolbar">
+		<div id="event-button" class="button">Show</div>
+	</div>
+	<pre id="event-logger" class="logger"></pre>
+	<p>Available events:</p>
+	<table>
+		<tr><th>Name</th><th>Arguments</th><th>Description</th></tr>
+		<tr><td class="event-name-cell">vnbx_show</td><td class="event-args-cell">(sender)</td><td class="event-desc-cell">Fired after showing</td></tr>
+		<tr><td class="event-name-cell">vnbx_load</td><td class="event-args-cell">(sender)</td><td class="event-desc-cell">Fired after loading a content</td></tr>
+		<tr><td class="event-name-cell">vnbx_hide</td><td class="event-args-cell">(sender, success)</td><td class="event-desc-cell">Fired after hiding</td></tr>
+	</table>
 
 	<div class="copyright">&copy; 2013 cocopon.</div>
 
@@ -124,7 +149,7 @@
 				$('#theme-link').attr('href', href);
 			});
 
-			// Interactive
+			// Options Demo
 			var configForm = new ConfigForm($('#config-form'));
 			var configPre = new ConfigPre($('#config-pre'));
 
@@ -133,10 +158,10 @@
 				configPre.setConfig(config);
 			});
 
-			var box = null;
+			var optionBox = null;
 			$('#show-button').on('click', function() {
-				if (box) {
-					box.dispose();
+				if (optionBox) {
+					optionBox.dispose();
 				}
 
 				var config = configForm.buildConfig();
@@ -144,8 +169,26 @@
 					$('#interactive-page-list a') :
 					$('#interactive-image-list a');
 
-				box = targetElems.vanillabox(config);
-				box.show();
+				optionBox = targetElems.vanillabox(config);
+				optionBox.show();
+			});
+
+			// Events Demo
+			var logger = new Logger($('#event-logger'));
+			var eventBox = $('#event-image-list a').vanillabox();
+
+			$(eventBox).on('vnbx_show', function(sender) {
+				logger.append('vnbx_show');
+			});
+			$(eventBox).on('vnbx_load', function(sender, success) {
+				logger.append('vnbx_load (success: ' + String(success) + ')');
+			});
+			$(eventBox).on('vnbx_hide', function(sender) {
+				logger.append('vnbx_hide');
+			});
+
+			$('#event-button').on('click', function() {
+				eventBox.show();
 			});
 		});
 	</script>

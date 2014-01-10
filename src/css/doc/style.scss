@@ -26,6 +26,7 @@ $button-hover-color: lighten($button-color, 30%);
 $config-row-disabled-background-color: darken($background-color, 2%);
 $config-row-disabled-color: darken($config-row-disabled-background-color, 35%);
 $copyright-color: darken($background-color, 20%);
+$logger-color: lighten($color, 30%);
 $nav-key-color: hsl($base-hue, 3%, 53%);
 $nav-border-color: $nav-key-color;
 $nav-item-background-color: $background-color;
@@ -34,6 +35,7 @@ $nav-active-item-background-color: $nav-key-color;
 $nav-active-item-color: $background-color;
 $nav-item-hover-background-color: darken($nav-item-background-color, 5%);
 $nav-item-hover-color: $nav-item-color;
+$pre-strong-background-color: mix($key-color, $pre-background-color, 15%);
 
 // Font
 $font-family-sans-serif: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -54,7 +56,7 @@ $line-height: 150%;
 $pre-line-height: 150%;
 $nav-font-size: 90%;
 
-$config-desc-cell-font-size: 90%;
+$desc-cell-font-size: 90%;
 $copyright-font-size: 90%;
 $theme-form-label-font-size: 80%;
 
@@ -83,6 +85,7 @@ $copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
 $double-column-column2-width: 60%;
 $double-column-margin-offset: -0.75em;
+$event-logger-height: 8.0em;
 $github-height: 24px;
 $github-padding: 2px 0;
 $link-li-spacing: 0;
@@ -168,6 +171,12 @@ pre {
 	margin: $pre-margin;
 	overflow: scroll;
 	padding: $pre-padding;
+
+	strong {
+		background-color: $pre-strong-background-color;
+		font-style: normal;
+		font-weight: normal;
+	}
 }
 
 code {
@@ -275,6 +284,10 @@ ul.nav {
 	}
 }
 
+.logger {
+	color: $logger-color;
+}
+
 .double-column {
 	position: relative;
 	width: 100%;
@@ -310,12 +323,33 @@ ul.nav {
 	font-size: $font-size-monospace;
 }
 .config-desc-cell {
-	font-size: $config-desc-cell-font-size;
+	font-size: $desc-cell-font-size;
 }
 .config-field-cell {
 	input, select {
 		width: 100%;
 	}
+}
+
+// Events
+#event-image-list {
+	display: none;
+}
+.event-name-cell {
+	font-family: $code-font-family;
+	font-size: $font-size-monospace;
+	text-align: center;
+}
+.event-args-cell {
+	font-family: $code-font-family;
+	font-size: $font-size-monospace;
+}
+.event-desc-cell {
+	font-size: $desc-cell-font-size;
+}
+#event-logger {
+	height: $event-logger-height;
+	overflow: auto;
 }
 
 .button {
