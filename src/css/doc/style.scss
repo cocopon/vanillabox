@@ -88,6 +88,7 @@ $table-margin: 0 0 $def-vert-margin;
 $table-cell-padding: 8px 1.0em;
 $toolbar-margin: 1.0em;
 
+$button-border-radius: 3px;
 $button-padding: 4px 1.0em;
 $copyright-spacing: 2.0em;
 $double-column-column1-width: 40%;
@@ -384,6 +385,7 @@ ul.nav {
 }
 .button {
 	background-color: $button-background-color;
+	border-radius: $button-border-radius;
 	color: $button-color;
 	cursor: pointer;
 	display: inline-block;
