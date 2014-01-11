@@ -110,9 +110,9 @@
 	<h2>Events</h2>
 	<p>You can attach custom actions to events fired by Vanillabox.</p>
 	<ul id="event-image-list">
-		<li><a href="http://placehold.it/320x480/0cc/f7f7f7">&nbsp;</a></li>
-		<li><a href="http://placehold.it/320x480/c0c/f7f7f7">&nbsp;</a></li>
-		<li><a href="http://placehold.it/320x480/cc0/f7f7f7">&nbsp;</a></li>
+		<li><a href="http://placehold.it/320x480/0cc/f7f7f7" title="Title 1">&nbsp;</a></li>
+		<li><a href="http://placehold.it/480x320/c0c/f7f7f7" title="Title 2">&nbsp;</a></li>
+		<li><a href="http://placehold.it/320x480/cc0/f7f7f7" title="Title 3">&nbsp;</a></li>
 	</ul>
 	<div class="pre-container">
 		<div class="title">Example</div>
@@ -134,7 +134,7 @@ $(box).on(<strong>'vnbx_show'</strong>, function(sender) {
 		<tr><th>Name</th><th>Arguments</th><th>Description</th></tr>
 		<tr><td class="event-name-cell">vnbx_show</td><td class="event-args-cell">(sender)</td><td class="event-desc-cell">Fired after showing</td></tr>
 		<tr><td class="event-name-cell">vnbx_load</td><td class="event-args-cell">(sender)</td><td class="event-desc-cell">Fired after loading a content</td></tr>
-		<tr><td class="event-name-cell">vnbx_hide</td><td class="event-args-cell">(sender, success)</td><td class="event-desc-cell">Fired after hiding</td></tr>
+		<tr><td class="event-name-cell">vnbx_hide</td><td class="event-args-cell">(sender, success, content, index)</td><td class="event-desc-cell">Fired after hiding</td></tr>
 	</table>
 
 	<div class="copyright">&copy; 2013 cocopon.</div>
@@ -198,8 +198,13 @@ $(box).on(<strong>'vnbx_show'</strong>, function(sender) {
 			$(eventBox).on('vnbx_show', function(sender) {
 				logger.append('vnbx_show');
 			});
-			$(eventBox).on('vnbx_load', function(sender, success) {
-				logger.append('vnbx_load (success: ' + String(success) + ')');
+			$(eventBox).on('vnbx_load', function(sender, success, content, index) {
+				var args = [
+					'success: ' + String(success),
+					'title: "' + content.getTitle() + '"',
+					'index: ' + String(index)
+				];
+				logger.append('vnbx_load (' + args.join(', ') + ')');
 			});
 			$(eventBox).on('vnbx_hide', function(sender) {
 				logger.append('vnbx_hide');

@@ -490,7 +490,9 @@ Vanillabox.prototype.onContentComplete_ = function(e, success) {
 
 	me.layout_(true);
 
-	$(me).trigger(Events.LOAD, success);
+	var content = e.target;
+	var index = Util.Array.indexOf(me.contents_, content);
+	$(me).trigger(Events.LOAD, [success, content, index]);
 };
 
 /** @private */

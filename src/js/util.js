@@ -80,6 +80,18 @@ Util.Array = {
 		}
 
 		return result;
+	},
+
+	indexOf: function(array, item) {
+		var len = array.length;
+		var i;
+
+		for (i = 0; i < len; i++) {
+			if (array[i] === item) {
+				return i;
+			}
+		}
+		return -1;
 	}
 };
 
