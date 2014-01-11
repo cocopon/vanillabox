@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.1.5
+-----
+* Added arguments of loading event
+* Fixed #4, EmptyContent fires loading event
+* Improved a document
+
+
 0.1.4
 -----
 * Added adjustToWindow option
