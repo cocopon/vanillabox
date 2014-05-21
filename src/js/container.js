@@ -49,6 +49,9 @@ Container.prototype.attachContent_ = function() {
 Container.prototype.detachContent_ = function() {
 	var me = this;
 	var content = me.getContent();
+	if (!content) {
+		return;
+	}
 
 	$(content).off(Events.COMPLETE, me.onContentComplete_);
 };
@@ -71,6 +74,9 @@ Container.prototype.setContent = function(content) {
 	}
 
 	me.content_ = content;
+	if (!me.content_) {
+		return;
+	}
 
 	me.attachContent_();
 
