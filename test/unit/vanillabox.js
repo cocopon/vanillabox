@@ -43,7 +43,7 @@ test('Vanillabox', function() {
 
 
 asyncTest('Vanillabox#(show|hide)', function() {
-	expect(8);
+	expect(9);
 
 	var maskCssClass = Util.cssClass('mask');
 	var showedCount = 0;
@@ -63,6 +63,10 @@ asyncTest('Vanillabox#(show|hide)', function() {
 		++hiddenCount;
 	});
 
+	// Deferred.pipe is deprecated as of jQuery 1.8. It should be replaced
+	// with Deferred.then when we drop support for jQuery 1.7.
+	//
+	// http://bugs.jquery.com/ticket/11010
 	box.show().pipe(function() {
 		strictEqual(
 			$(maskCssClass).length,
@@ -92,7 +96,7 @@ asyncTest('Vanillabox#(show|hide)', function() {
 		);
 
 		return box.hide();
-	}).done(function() {
+	}).pipe(function() {
 		ok(true, 'Twice calling hide() should not throw any exception');
 
 		strictEqual(
@@ -107,6 +111,42 @@ asyncTest('Vanillabox#(show|hide)', function() {
 			'Custom event `hide` should be fired just one time'
 		);
 
+		box.dispose();
+		strictEqual(
+			$('.vnbx').length,
+			0,
+			'dispose() should remove related elements'
+		);
+
+		start();
+	});
+});
+
+
+asyncTest('Vanillabox#hide with \'dispose\' option', function() {
+	expect(2);
+
+	var box = new Vanillabox({
+		targets: Util.targets(1),
+		type: 'image',
+		dispose: true
+	});
+	box.show().pipe(function() {
+		return box.hide();
+	}).pipe(function() {
+		strictEqual(
+			$('.vnbx-content img').length,
+			0,
+			'\'dispose\' option should remove all content elements'
+		);
+
+		return box.show();
+	}).pipe(function() {
+		ok(true, 'show() after disposing should not throw any exception');
+
+		return box.hide();
+	}).done(function() {
+		box.dispose();
 		start();
 	});
 });

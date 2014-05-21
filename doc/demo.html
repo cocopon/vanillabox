@@ -150,10 +150,12 @@ $(box).on(<strong>'vnbx_show'</strong>, function(sender) {
 			$('#cocopon-me').vanillabox({
 				type: 'iframe'
 			});
+
 			$('#vimeo').vanillabox({
 				type: 'iframe',
 				preferredWidth: 500,
-				preferredHeight: 281
+				preferredHeight: 281,
+				dispose: true
 			});
 
 			// Theme Selector

@@ -20,6 +20,7 @@ var Vanillabox = function(config) {
 	me.supportsKeyboard_ = config.keyboard;
 	me.closeButtonEnabled_ = config.closeButton;
 	me.adjustToWindow_ = config.adjustToWindow;
+	me.disposeOnHide_ = config.dispose;
 
 	me.contentOptions_ = {
 		preferredWidth: config.preferredWidth,
@@ -94,14 +95,7 @@ Vanillabox.prototype.setup_ = function() {
 
 	me.attach_();
 
-	var contents = Util.Array.map(me.targetElems_, function(target) {
-		var targetElem = $(target);
-		return ContentFactory.create(targetElem, me.contentOptions_);
-	});
-	me.contents_ = contents;
-
-	var emptyContent = new EmptyContent();
-	me.setContent_(emptyContent);
+	me.setupContents_();
 };
 
 /** @private */
@@ -129,10 +123,7 @@ Vanillabox.prototype.dispose = function() {
 	me.detachWindow_();
 	me.detach_();
 
-	Util.Array.forEach(me.contents_, function(content) {
-		content.dispose();
-	});
-	me.contents_ = null;
+	me.disposeContents_();
 
 	me.titleLabel_.dispose();
 	me.titleLabel_ = null;
@@ -155,6 +146,34 @@ Vanillabox.prototype.dispose = function() {
 	me.mask_.getElement().remove();
 	me.mask_.dispose();
 	me.mask_ = null;
+};
+
+/** @private */
+Vanillabox.prototype.setupContents_ = function() {
+	var me = this;
+
+	me.contents_ = Util.Array.map(me.targetElems_, function(target) {
+		var targetElem = $(target);
+		return ContentFactory.create(targetElem, me.contentOptions_);
+	});
+
+	var emptyContent = new EmptyContent();
+	me.setContent_(emptyContent);
+};
+
+/** @private */
+Vanillabox.prototype.disposeContents_ = function() {
+	var me = this;
+
+	var container = me.frame_.getContainer();
+	container.setContent(null);
+
+	if (me.contents_) {
+		Util.Array.forEach(me.contents_, function(content) {
+			content.dispose();
+		});
+		me.contents_ = null;
+	}
 };
 
 /** @private */
@@ -227,10 +246,14 @@ Vanillabox.prototype.attachContent_ = function() {
 /** @private */
 Vanillabox.prototype.detachContent_ = function() {
 	var me = this;
-	var content = me.getContent_();
-	var contentElem = content.getElement();
 
+	var content = me.getContent_();
+	if (!content) {
+		return;
+	}
 	$(content).off('complete', me.onContentComplete_);
+
+	var contentElem = content.getElement();
 	contentElem.off('click', me.onContentClick_);
 };
 
@@ -247,6 +270,10 @@ Vanillabox.prototype.show = function(opt_index) {
 		return Util.Deferred.emptyPromise();
 	}
 	me.showed_ = true;
+
+	if (me.contents_ === null) {
+		me.setupContents_();
+	}
 
 	me.attachWindow_();
 
@@ -292,6 +319,10 @@ Vanillabox.prototype.hide = function() {
 	).then(function() {
 		me.detachWindow_();
 		me.showed_ = false;
+
+		if (me.disposeOnHide_) {
+			me.disposeContents_();
+		}
 
 		$(me).trigger(Events.HIDE);
 	});

@@ -35,6 +35,7 @@ Content.prototype.dispose = function() {
 	var me = this;
 
 	me.detach_();
+	me.elem_.remove();
 	me.elem_ = null;
 };
 
