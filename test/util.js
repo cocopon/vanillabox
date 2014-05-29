@@ -8,7 +8,8 @@ var Util = {
 		return '.' + prefix + name;
 	},
 
-	targets: function(totalTargets) {
+	generateTargetElements: function(totalTargets, opt_href) {
+		var href = (opt_href === undefined) ? 'about:blank' : opt_href;
 		var elems = [];
 		var len = totalTargets;
 		var i;
@@ -17,12 +18,20 @@ var Util = {
 		for (i = 0; i < len; i++) {
 			elem = $('<a>');
 			elem.attr({
-				href: 'about:blank'
+				href: href
 			});
 
 			elems.push(elem);
 		}
 
 		return $(elems);
+	},
+
+	getPagerOfBox: function(box) {
+		return box.pager_;
+	},
+
+	getContentsOfBox: function(box) {
+		return box.contents_;
 	}
 };

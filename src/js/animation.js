@@ -5,7 +5,7 @@ var Animation = {};
 
 Animation.None = {
 	showMask: function(mask) {
-		return mask.getElement().show();
+		return mask.getElement().show().promise();
 	},
 
 	hideMask: function(mask) {
@@ -14,7 +14,7 @@ Animation.None = {
 
 	showFrame: function(frame) {
 		Animation.None.resizeFrame(frame);
-		return frame.getElement().show();
+		return frame.getElement().show().promise();
 	},
 
 	hideFrame: function(frame) {
@@ -40,21 +40,21 @@ Animation.None = {
 	},
 
 	showContent: function(content) {
-		return content.getElement().show();
+		return content.getElement().show().promise();
 	},
 
 	hideContent: function(content) {
-		return content.getElement().hide();
+		return content.getElement().hide().promise();
 	}
 };
 
 Animation.Default = {
 	showMask: function(mask) {
-		return mask.getElement().fadeIn(200);
+		return mask.getElement().fadeIn(200).promise();
 	},
 
 	hideMask: function(mask) {
-		return mask.getElement().fadeOut(300);
+		return mask.getElement().fadeOut(300).promise();
 	},
 
 	animateFrame_: function(frame, containerSize, offset, duration) {
@@ -117,11 +117,11 @@ Animation.Default = {
 	},
 
 	showContent: function(content) {
-		return content.getElement().fadeIn(200);
+		return content.getElement().fadeIn(200).promise();
 	},
 
 	hideContent: function(content) {
-		return content.getElement().fadeOut(300);
+		return content.getElement().fadeOut(300).promise();
 	}
 };
 

@@ -339,10 +339,6 @@ ConfigForm.CONFIGS = [
 		type: 'select',
 		options: ['both', 'horizontal', 'vertical', 'none'],
 		description: 'A direction to fit a large content to the window bounding rectangle.'
-	}, {
-		name: 'dispose',
-		type: 'boolean',
-		description: 'If true, contents will be disposed after hiding.'
 	}
 ];
 

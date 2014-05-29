@@ -68,9 +68,17 @@ Container.prototype.setContent = function(content) {
 	var me = this;
 	var animation = me.animation_;
 
+	if (content === me.content_) {
+		return;
+	}
+
 	if (me.content_) {
 		me.detachContent_();
-		animation.hideContent(me.content_);
+
+		var prevContent = me.content_;
+		animation.hideContent(prevContent).done(function() {
+			me.onContentHide_(prevContent);
+		});
 	}
 
 	me.content_ = content;
@@ -95,7 +103,9 @@ Container.prototype.setContent = function(content) {
 		contentElem.insertBefore(contentElems.first());
 	}
 
-	animation.showContent(me.content_);
+	animation.showContent(me.content_).done(function() {
+		me.onContentShow_();
+	});
 };
 
 Container.prototype.getSize = function() {
@@ -169,3 +179,18 @@ Container.prototype.onContentComplete_ = function(e, success) {
 	this.layout();
 };
 
+Container.prototype.onContentShow_ = function() {
+	var me = this;
+	$(me).trigger(Events.CONTENT_SHOW, [
+		me,
+		me.getContent()
+	]);
+};
+
+Container.prototype.onContentHide_ = function(content) {
+	var me = this;
+	$(me).trigger(Events.CONTENT_HIDE, [
+		me,
+		content
+	]);
+};
