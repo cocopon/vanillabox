@@ -5,6 +5,7 @@
 	test: false,
 */
 var Container = Util.privateClass('Container');
+var Events = Util.privateClass('Events');
 
 
 test('Container#needsAdjustment', function()  {

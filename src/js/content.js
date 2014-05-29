@@ -39,6 +39,14 @@ Content.prototype.dispose = function() {
 	me.elem_ = null;
 };
 
+Content.prototype.shouldUnloadOnHide = function() {
+	return false;
+};
+
+Content.prototype.isLoaded = function() {
+	return this.loaded_;
+};
+
 Content.prototype.getElement = function() {
 	return this.elem_;
 };
@@ -89,6 +97,14 @@ Content.prototype.load = function() {
 };
 
 Content.prototype.loadInternal_ = Util.EMPTY_FN;
+
+Content.prototype.unload = function() {
+	var me = this;
+	me.unloadInternal_();
+	me.loaded_ = false;
+};
+
+Content.prototype.unloadInternal_ = Util.EMPTY_FN;
 
 Content.prototype.onComplete_ = function(success) {
 	var me = this;
@@ -141,6 +157,8 @@ var ImageContent = function(opt_config) {
 };
 Util.inherits(ImageContent, Content);
 
+ImageContent.EMPTY_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
 ImageContent.prototype.setupInternal_ = function() {
 	var me = this;
 
@@ -188,7 +206,17 @@ ImageContent.prototype.loadInternal_ = function() {
 	me.imgElem_.attr('src', me.path_);
 };
 
+ImageContent.prototype.unloadInternal_ = function() {
+	this.imgElem_.attr('src', ImageContent.EMPTY_SRC);
+};
+
 ImageContent.prototype.onLoad_ = function(e) {
+	var me = this;
+
+	if (me.imgElem_.attr('src') === ImageContent.EMPTY_SRC) {
+		return;
+	}
+
 	this.onComplete_(true);
 };
 
@@ -212,6 +240,8 @@ var IframeContent = function(opt_config) {
 };
 Util.inherits(IframeContent, Content);
 
+IframeContent.EMPTY_SRC = 'about:blank';
+
 IframeContent.prototype.setupInternal_ = function() {
 	var me = this;
 
@@ -227,6 +257,10 @@ IframeContent.prototype.dispose = function() {
 	Content.prototype.dispose.call(me);
 
 	me.iframeElem_ = null;
+};
+
+IframeContent.prototype.shouldUnloadOnHide = function() {
+	return true;
 };
 
 IframeContent.prototype.attach_ = function() {
@@ -280,12 +314,26 @@ IframeContent.prototype.loadInternal_ = function() {
 	me.iframeElem_.attr('src', me.path_);
 };
 
+IframeContent.prototype.unloadInternal_ = function() {
+	var me = this;
+
+	me.iframeElem_.attr('src', IframeContent.EMPTY_SRC);
+
+	var elem = me.getFlexibleElement();
+	elem.width('');
+	elem.height('');
+};
+
 IframeContent.prototype.onLoad_ = function(e) {
 	var me = this;
 	var iframeElem = me.iframeElem_;
 
-	if (!iframeElem.attr('src')) {
+	var src = iframeElem.attr('src');
+	if (!src) {
 		// Ignore unwanted load event that is fired when appending to DOM
+		return;
+	}
+	if (src === IframeContent.EMPTY_SRC) {
 		return;
 	}
 

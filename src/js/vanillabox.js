@@ -20,7 +20,6 @@ var Vanillabox = function(config) {
 	me.supportsKeyboard_ = config.keyboard;
 	me.closeButtonEnabled_ = config.closeButton;
 	me.adjustToWindow_ = config.adjustToWindow;
-	me.disposeOnHide_ = config.dispose;
 
 	me.contentOptions_ = {
 		preferredWidth: config.preferredWidth,
@@ -123,7 +122,7 @@ Vanillabox.prototype.dispose = function() {
 	me.detachWindow_();
 	me.detach_();
 
-	me.disposeContents_();
+	me.disposeAllContents_();
 
 	me.titleLabel_.dispose();
 	me.titleLabel_ = null;
@@ -162,7 +161,7 @@ Vanillabox.prototype.setupContents_ = function() {
 };
 
 /** @private */
-Vanillabox.prototype.disposeContents_ = function() {
+Vanillabox.prototype.disposeAllContents_ = function() {
 	var me = this;
 
 	var container = me.frame_.getContainer();
@@ -184,8 +183,11 @@ Vanillabox.prototype.attach_ = function() {
 
 	$(me.mask_).on(Events.CLICK, $.proxy(me.onMaskClick_, me));
 
-	var $pager = $(me.pager_);
-	$pager.on(Events.CHANGE, $.proxy(me.onPagerChange_, me));
+	var container = me.frame_.getContainer();
+	$(container).on(Events.CONTENT_HIDE, $.proxy(me.onContentHide_, me));
+
+	var pager = me.pager_;
+	$(pager).on(Events.CHANGE, $.proxy(me.onPagerChange_, me));
 
 	$(me.closeButton_).on(Events.CLICK, $.proxy(me.onCloseButtonClick_, me));
 	$(me.prevButton_).on(Events.CLICK, $.proxy(me.onPreviousButtonClick_, me));
@@ -200,8 +202,11 @@ Vanillabox.prototype.detach_ = function() {
 
 	$(me.mask_).off(Events.CLICK, me.onMaskClick_);
 
-	var $pager = $(me.pager_);
-	$pager.off(Events.CHANGE, me.onPagerChange_);
+	var container = me.frame_.getContainer();
+	$(container).off(Events.CONTENT_HIDE, me.onContentHide_);
+
+	var pager = me.pager_;
+	$(pager).off(Events.CHANGE, me.onPagerChange_);
 
 	$(me.closeButton_).off(Events.CLICK, me.onCloseButtonClick_);
 	$(me.prevButton_).off(Events.CLICK, me.onPreviousButtonClick_);
@@ -236,10 +241,11 @@ Vanillabox.prototype.detachWindow_ = function() {
 /** @private */
 Vanillabox.prototype.attachContent_ = function() {
 	var me = this;
-	var content = me.getContent_();
-	var contentElem = content.getElement();
 
+	var content = me.getContent_();
 	$(content).on(Events.COMPLETE, $.proxy(me.onContentComplete_, me));
+
+	var contentElem = content.getElement();
 	contentElem.on('click', $.proxy(me.onContentClick_, me));
 };
 
@@ -320,9 +326,11 @@ Vanillabox.prototype.hide = function() {
 		me.detachWindow_();
 		me.showed_ = false;
 
-		if (me.disposeOnHide_) {
-			me.disposeContents_();
-		}
+		Util.Array.forEach(me.contents_, function(content) {
+			if (content.shouldUnloadOnHide()) {
+				content.unload();
+			}
+		});
 
 		$(me).trigger(Events.HIDE);
 	});
@@ -364,16 +372,16 @@ Vanillabox.prototype.setContent_ = function(content) {
 	var container = me.frame_.getContainer();
 
 	var prevContent = me.getContent_();
-	if (prevContent === content) {
+	if (prevContent && prevContent.isLoaded() && prevContent === content) {
+		// Already loaded a same content
 		container.layout();
 		return;
 	}
 
-	if (prevContent) {
-		me.detachContent_();
-	}
+	me.detachContent_();
 
 	container.setContent(content);
+
 	me.attachContent_();
 	me.setTitle_(content.getTitle());
 
@@ -543,3 +551,11 @@ Vanillabox.prototype.onContentClick_ = function(e) {
 	me.next();
 };
 
+/** @private */
+Vanillabox.prototype.onContentHide_ = function(e, container, content) {
+	var me = this;
+
+	if (content.shouldUnloadOnHide()) {
+		content.unload();
+	}
+};

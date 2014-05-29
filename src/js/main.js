@@ -7,8 +7,7 @@ var DEFAULT_CONFIG = {
 	'preferredHeight': 600,
 	'preferredWidth': 800,
 	'repositionOnScroll': false,
-	'type': 'image',
-	'dispose': false
+	'type': 'image'
 };
 
 $.fn.vanillabox = function(opt_config) {
@@ -29,8 +28,7 @@ $.fn.vanillabox = function(opt_config) {
 		preferredWidth: config['preferredWidth'],
 		repositionOnScroll: config['repositionOnScroll'],
 		targets: targetElems,
-		type: config['type'],
-		dispose: config['dispose']
+		type: config['type']
 	});
 
 	return box;

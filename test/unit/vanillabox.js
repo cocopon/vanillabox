@@ -18,8 +18,11 @@ var Events = Util.privateClass('Events');
 var Vanillabox = Util.privateClass('Vanillabox');
 var VanillaException = Util.privateClass('VanillaException');
 
+// Delay for waiting to hide content
+var PAGING_DELAY = 500;
 
-test('Vanillabox', function() {
+
+test('Constructing the box', function() {
 	var box;
 
 	throws(
@@ -42,16 +45,140 @@ test('Vanillabox', function() {
 });
 
 
-asyncTest('Vanillabox#(show|hide)', function() {
+asyncTest('Disposing the box', function() {
+	expect(3);
+
+	var box = new Vanillabox({
+		targets: Util.generateTargetElements(1),
+		type: 'image'
+	});
+	box.show().pipe(function() {
+		notStrictEqual(
+			$('.vnbx').length,
+			0,
+			'show() should add box elements'
+		);
+		return box.hide();
+	}).pipe(function() {
+		notStrictEqual(
+			$('.vnbx').length,
+			0,
+			'hide() should not remove box elements'
+		);
+
+		box.dispose();
+
+		strictEqual(
+			$('.vnbx').length,
+			0,
+			'hide() should remove box elements'
+		);
+
+		start();
+	});
+});
+
+
+asyncTest('Changing a page of the box with image contents', function() {
 	expect(9);
+
+	// Hidden image contents should be cached
+	var box = new Vanillabox({
+		targets: Util.generateTargetElements(3),
+		type: 'image'
+	});
+	var nextPage = function() {
+		var pager = Util.getPagerOfBox(box);
+		var contents = Util.getContentsOfBox(box);
+		switch (pager.getPage()) {
+			case 0:
+				ok(contents[0].isLoaded());
+				ok(!contents[1].isLoaded());
+				ok(!contents[2].isLoaded());
+				box.next();
+				break;
+			case 1:
+				ok(contents[0].isLoaded());
+				ok(contents[1].isLoaded());
+				ok(!contents[2].isLoaded());
+				box.next();
+				break;
+			case 2:
+				ok(contents[0].isLoaded());
+				ok(contents[1].isLoaded());
+				ok(contents[2].isLoaded());
+				box.dispose();
+				start();
+				break;
+		}
+	};
+
+	$(box).on(Events.LOAD, function() {
+		setTimeout(function() {
+			nextPage();
+		}, PAGING_DELAY);
+	});
+
+	box.show();
+});
+
+
+asyncTest('Changing a page of the box with iframe contents', function() {
+	expect(9);
+
+	// Delay for waiting to hide content
+	var DELAY = 500;
+
+	// Hidden iframe contents should be unloaded
+	var box = new Vanillabox({
+		targets: Util.generateTargetElements(3, 'http://example.com/'),
+		type: 'iframe'
+	});
+	var nextPage = function() {
+		var pager = Util.getPagerOfBox(box);
+		var contents = Util.getContentsOfBox(box);
+
+		switch (pager.getPage()) {
+			case 0:
+				ok(contents[0].isLoaded());
+				ok(!contents[1].isLoaded());
+				ok(!contents[2].isLoaded());
+				box.next();
+				break;
+			case 1:
+				ok(!contents[0].isLoaded());
+				ok(contents[1].isLoaded());
+				ok(!contents[2].isLoaded());
+				box.next();
+				break;
+			case 2:
+				ok(!contents[0].isLoaded());
+				ok(!contents[1].isLoaded());
+				ok(contents[2].isLoaded());
+				box.dispose();
+				start();
+				break;
+		}
+	};
+
+	$(box).on(Events.LOAD, function() {
+		setTimeout(function() {
+			nextPage();
+		}, PAGING_DELAY);
+	});
+
+	box.show();
+});
+
+
+asyncTest('Showing/hidng the box', function() {
+	expect(8);
 
 	var maskCssClass = Util.cssClass('mask');
 	var showedCount = 0;
 	var hiddenCount = 0;
-	var box;
-
-	box = new Vanillabox({
-		targets: Util.targets(1),
+	var box = new Vanillabox({
+		targets: Util.generateTargetElements(1),
 		type: 'image'
 	});
 
@@ -112,41 +239,7 @@ asyncTest('Vanillabox#(show|hide)', function() {
 		);
 
 		box.dispose();
-		strictEqual(
-			$('.vnbx').length,
-			0,
-			'dispose() should remove related elements'
-		);
 
-		start();
-	});
-});
-
-
-asyncTest('Vanillabox#hide with \'dispose\' option', function() {
-	expect(2);
-
-	var box = new Vanillabox({
-		targets: Util.targets(1),
-		type: 'image',
-		dispose: true
-	});
-	box.show().pipe(function() {
-		return box.hide();
-	}).pipe(function() {
-		strictEqual(
-			$('.vnbx-content img').length,
-			0,
-			'\'dispose\' option should remove all content elements'
-		);
-
-		return box.show();
-	}).pipe(function() {
-		ok(true, 'show() after disposing should not throw any exception');
-
-		return box.hide();
-	}).done(function() {
-		box.dispose();
 		start();
 	});
 });
