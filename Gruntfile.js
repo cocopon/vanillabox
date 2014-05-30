@@ -134,5 +134,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('compile', ['sass:theme', 'closure-compiler']);
 	grunt.registerTask('document', ['sass:document', 'combine']);
 	grunt.registerTask('package', ['clean', 'compile', 'document', 'compress']);
+
+	grunt.registerTask('default', ['watch']);
 	grunt.registerTask('test', ['combine', 'qunit']);
 };
