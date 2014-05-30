@@ -44,13 +44,13 @@ test('Constructing the box', function() {
 	);
 });
 
-
 asyncTest('Disposing the box', function() {
 	expect(3);
 
 	var box = new Vanillabox({
-		targets: Util.generateTargetElements(1),
-		type: 'image'
+		targets: Util.generateTargetElements(1, 'test.png'),
+		type: 'image',
+		grouping: true
 	});
 	box.show().pipe(function() {
 		notStrictEqual(
@@ -78,18 +78,18 @@ asyncTest('Disposing the box', function() {
 	});
 });
 
-
 asyncTest('Changing a page of the box with image contents', function() {
 	expect(9);
 
 	// Hidden image contents should be cached
 	var box = new Vanillabox({
-		targets: Util.generateTargetElements(3),
-		type: 'image'
+		targets: Util.generateTargetElements(3, 'test.png'),
+		type: 'image',
+		grouping: true
 	});
 	var nextPage = function() {
-		var pager = Util.getPagerOfBox(box);
-		var contents = Util.getContentsOfBox(box);
+		var pager = Util.Box.getPager(box);
+		var contents = Util.Box.getContents(box);
 		switch (pager.getPage()) {
 			case 0:
 				ok(contents[0].isLoaded());
@@ -121,22 +121,19 @@ asyncTest('Changing a page of the box with image contents', function() {
 
 	box.show();
 });
-
 
 asyncTest('Changing a page of the box with iframe contents', function() {
 	expect(9);
 
-	// Delay for waiting to hide content
-	var DELAY = 500;
-
 	// Hidden iframe contents should be unloaded
 	var box = new Vanillabox({
 		targets: Util.generateTargetElements(3, 'http://example.com/'),
-		type: 'iframe'
+		type: 'iframe',
+		grouping: true
 	});
 	var nextPage = function() {
-		var pager = Util.getPagerOfBox(box);
-		var contents = Util.getContentsOfBox(box);
+		var pager = Util.Box.getPager(box);
+		var contents = Util.Box.getContents(box);
 
 		switch (pager.getPage()) {
 			case 0:
@@ -169,7 +166,6 @@ asyncTest('Changing a page of the box with iframe contents', function() {
 
 	box.show();
 });
-
 
 asyncTest('Showing/hidng the box', function() {
 	expect(8);
@@ -178,8 +174,9 @@ asyncTest('Showing/hidng the box', function() {
 	var showedCount = 0;
 	var hiddenCount = 0;
 	var box = new Vanillabox({
-		targets: Util.generateTargetElements(1),
-		type: 'image'
+		targets: Util.generateTargetElements(1, 'test.png'),
+		type: 'image',
+		grouping: true
 	});
 
 	$(box).on(Events.SHOW, function() {
@@ -240,6 +237,48 @@ asyncTest('Showing/hidng the box', function() {
 
 		box.dispose();
 
+		start();
+	});
+});
+
+asyncTest('config.grouping', function() {
+	expect(4);
+
+	var box = new Vanillabox({
+		targets: Util.generateTargetElements(3, 'test.png'),
+		type: 'image',
+		grouping: false
+	});
+
+	var prevButtonElem = Util.Box.getPreviousButton(box).getElement();
+	ok(
+		!prevButtonElem.is(':visible'),
+		'Previous button should be invisible'
+	);
+
+	var nextButtonElem = Util.Box.getNextButton(box).getElement();
+	ok(
+		!nextButtonElem.is(':visible'),
+		'Next button should be invisible'
+	);
+
+	box.show().pipe(function() {
+		var pager = Util.Box.getPager(box);
+
+		box.next();
+		strictEqual(
+			pager.getPage(),
+			0,
+			'next() should not change the current page'
+		);
+
+		box.previous();
+		strictEqual(
+			pager.getPage(),
+			0,
+			'previous() should not change the current page'
+		);
+		box.dispose();
 		start();
 	});
 });

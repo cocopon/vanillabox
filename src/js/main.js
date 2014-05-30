@@ -7,7 +7,8 @@ var DEFAULT_CONFIG = {
 	'preferredHeight': 600,
 	'preferredWidth': 800,
 	'repositionOnScroll': false,
-	'type': 'image'
+	'type': 'image',
+	'grouping': true
 };
 
 $.fn.vanillabox = function(opt_config) {
@@ -28,7 +29,8 @@ $.fn.vanillabox = function(opt_config) {
 		preferredWidth: config['preferredWidth'],
 		repositionOnScroll: config['repositionOnScroll'],
 		targets: targetElems,
-		type: config['type']
+		type: config['type'],
+		grouping: config['grouping']
 	});
 
 	return box;

@@ -339,6 +339,10 @@ ConfigForm.CONFIGS = [
 		type: 'select',
 		options: ['both', 'horizontal', 'vertical', 'none'],
 		description: 'A direction to fit a large content to the window bounding rectangle.'
+	}, {
+		name: 'grouping',
+		type: 'boolean',
+		description: 'If false, content grouping will be disabled.'
 	}
 ];
 

@@ -20,6 +20,7 @@ var Vanillabox = function(config) {
 	me.supportsKeyboard_ = config.keyboard;
 	me.closeButtonEnabled_ = config.closeButton;
 	me.adjustToWindow_ = config.adjustToWindow;
+	me.grouping_ = config.grouping;
 
 	me.contentOptions_ = {
 		preferredWidth: config.preferredWidth,
@@ -108,7 +109,7 @@ Vanillabox.prototype.setupRootCss_ = function() {
 	if (me.closeButtonEnabled_) {
 		rootElem.addClass(Util.CSS_PREFIX + 'close-button-enabled');
 	}
-	if (me.pager_.getTotalPages() > 1) {
+	if (me.grouping_ && me.pager_.getTotalPages() > 1) {
 		rootElem.addClass(Util.CSS_PREFIX + 'group');
 	}
 };
@@ -348,14 +349,26 @@ Vanillabox.prototype.setTitle_ = function(title) {
  * Shows the previous content.
  */
 Vanillabox.prototype.previous = function() {
-	this.pager_.previous();
+	var me = this;
+
+	if (!me.grouping_) {
+		return;
+	}
+
+	me.pager_.previous();
 };
 
 /**
  * Shows the next content.
  */
 Vanillabox.prototype.next = function() {
-	this.pager_.next();
+	var me = this;
+
+	if (!me.grouping_) {
+		return;
+	}
+
+	me.pager_.next();
 };
 
 /** @private */
@@ -543,12 +556,17 @@ Vanillabox.prototype.onContentClick_ = function(e) {
 
 	e.stopPropagation();
 
-	if (!pager.hasNext()) {
+	if (!me.grouping_) {
 		me.hide();
 		return;
 	}
 
-	me.next();
+	if (!pager.hasNext()) {
+		me.hide();
+	}
+	else {
+		me.next();
+	}
 };
 
 /** @private */

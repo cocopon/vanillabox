@@ -25,13 +25,24 @@ var Util = {
 		}
 
 		return $(elems);
-	},
+	}
+};
 
-	getPagerOfBox: function(box) {
+// A utility class that access a private member of the box
+Util.Box = {
+	getPager: function(box) {
 		return box.pager_;
 	},
 
-	getContentsOfBox: function(box) {
+	getContents: function(box) {
 		return box.contents_;
+	},
+
+	getPreviousButton: function(box) {
+		return box.prevButton_;
+	},
+
+	getNextButton: function(box) {
+		return box.nextButton_;
 	}
 };
