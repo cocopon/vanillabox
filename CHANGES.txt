@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.1.6
+-----
+* Fixed #6, dispose hidden iframe content
+* Fixed #5, add an option to disable grouping
+
+
 0.1.5
 -----
 * Added arguments of loading event
