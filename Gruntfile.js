@@ -102,7 +102,8 @@ module.exports = function(grunt) {
 				},
 				options: {
 					banner: '(function($){',
-					footer: '})(jQuery);'
+					footer: '})(jQuery);',
+					preserveComments: 'some'
 				}
 			}
 		},
