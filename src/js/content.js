@@ -246,7 +246,10 @@ IframeContent.prototype.setupInternal_ = function() {
 	var me = this;
 
 	var iframeElem = $('<iframe>');
-	iframeElem.attr('frameborder', 0);  // Need to disable border in IE
+	iframeElem.attr({
+		'frameborder': 0,  // Need to disable border in IE
+		'allowfullscreen': true
+	});
 	me.elem_.append(iframeElem);
 	me.iframeElem_ = iframeElem;
 };
