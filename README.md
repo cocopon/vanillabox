@@ -43,25 +43,16 @@ gem install sass -v '>=3.2'
 npm install -g grunt-cli
 ```
 
-You also need to install Closure Compiler to compress JS files:
-
-```bash
-git clone https://code.google.com/p/closure-compiler COMPILER_HOME
-cd COMPILER_HOME
-ant
-export COMPILER_PATH=COMPILER_HOME
-```
-
 Next, clone the repository and get source files:
 
 ```bash
-git clone https://github.com/cocopon/vanillabox VANILLA_HOME
+git clone https://github.com/cocopon/vanillabox
 ```
 
 Then move into the project directory, and run npm to install required npm packages:
 
 ```bash
-cd VANILLA_HOME
+cd path/to/vanillabox
 npm install
 ```
 

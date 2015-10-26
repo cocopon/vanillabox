@@ -36,20 +36,6 @@ module.exports = function(grunt) {
 			'vanillabox/jquery.vanillabox.js',
 			'vanillabox/jquery.vanillabox-*.min.js'
 		],
-		'closure-compiler': {
-			frontend: {
-				js: prodJsFiles,
-				jsOutputFile: 'vanillabox/jquery.vanillabox-<%= pkg.version %>.min.js',
-				noreport: true,
-				options: {
-					compilation_level: 'ADVANCED_OPTIMIZATIONS',
-					externs: [
-						'<%= env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js'
-					],
-					output_wrapper: '(function($){%output%})(jQuery);'
-				}
-			}
-		},
 		compress: {
 			main: {
 				options: {
@@ -109,6 +95,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		uglify: {
+			main: {
+				files: {
+					'vanillabox/jquery.vanillabox-<%= pkg.version %>.min.js': prodJsFiles
+				},
+				options: {
+					banner: '(function($){',
+					footer: '})(jQuery);'
+				}
+			}
+		},
 		watch: {
 			css: {
 				files: 'src/css/**/*.scss',
@@ -121,17 +118,17 @@ module.exports = function(grunt) {
 		}
 	});
 	
-	grunt.loadNpmTasks('grunt-closure-compiler');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-exec');
 	grunt.loadNpmTasks('grunt-jsdoc');
 
 	grunt.registerTask('combine', ['exec:combine']);
-	grunt.registerTask('compile', ['sass:theme', 'closure-compiler']);
+	grunt.registerTask('compile', ['sass:theme', 'uglify']);
 	grunt.registerTask('document', ['sass:document', 'combine']);
 	grunt.registerTask('package', ['clean', 'compile', 'document', 'compress']);
 
