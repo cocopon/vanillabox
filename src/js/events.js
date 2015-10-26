@@ -1,7 +1,9 @@
+const Util = require('./util.js');
+
 /**
  * @alias Events
  */
-var Events = {
+const Events = {
 	CHANGE: Util.EVENT_PREFIX + 'change',
 	CLICK: Util.EVENT_PREFIX + 'click',
 	COMPLETE: Util.EVENT_PREFIX + 'complete',
@@ -12,3 +14,4 @@ var Events = {
 	SHOW: Util.EVENT_PREFIX + 'show'
 };
 
+module.exports = Events;

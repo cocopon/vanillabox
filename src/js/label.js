@@ -1,3 +1,5 @@
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
@@ -38,3 +40,4 @@ Label.prototype.setText = function(text) {
 	this.elem_.text(text);
 };
 
+module.exports = Label;

@@ -1,3 +1,7 @@
+const AnimationProvider = require('./animationprovider.js');
+const Events = require('./events.js');
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
@@ -194,3 +198,5 @@ Container.prototype.onContentHide_ = function(content) {
 		content
 	]);
 };
+
+module.exports = Container;

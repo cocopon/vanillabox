@@ -1,3 +1,15 @@
+const AnimationProvider = require('./animationprovider.js');
+const Button = require('./button.js');
+const ContentFactory = require('./contentfactory.js');
+const EmptyContent = require('./empty_content.js');
+const Events = require('./events.js');
+const Frame = require('./frame.js');
+const Label = require('./label.js');
+const Mask = require('./mask.js');
+const Pager = require('./pager.js');
+const Util = require('./util.js');
+const VanillaException = require('./exception.js');
+
 /**
  * @param {Object} config Config options.
  * @constructor
@@ -571,9 +583,9 @@ Vanillabox.prototype.onContentClick_ = function(e) {
 
 /** @private */
 Vanillabox.prototype.onContentHide_ = function(e, container, content) {
-	var me = this;
-
 	if (content.shouldUnloadOnHide()) {
 		content.unload();
 	}
 };
+
+module.exports = Vanillabox;

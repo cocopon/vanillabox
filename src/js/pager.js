@@ -1,3 +1,6 @@
+const Events = require('./events.js');
+const Util = require('./util.js');
+
 /**
  * The pager class manages a current page.
  * @constructor
@@ -111,3 +114,4 @@ Pager.prototype.previous = function() {
 	}
 };
 
+module.exports = Pager;

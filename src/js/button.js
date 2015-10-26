@@ -1,3 +1,6 @@
+const Events = require('./events.js');
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
@@ -79,3 +82,4 @@ Button.prototype.onClick_ = function(e) {
 	}
 };
 
+module.exports = Button;

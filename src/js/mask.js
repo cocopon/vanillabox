@@ -1,3 +1,6 @@
+const Events = require('./events.js');
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
@@ -60,7 +63,7 @@ Mask.prototype.layout = function() {
 	elem.height(h);
 };
 
-Mask.prototype.onWindowResize_ = function(e) {
+Mask.prototype.onWindowResize_ = function() {
 	this.layout();
 };
 
@@ -70,3 +73,4 @@ Mask.prototype.onClick_ = function() {
 	$(me).trigger(Events.CLICK);
 };
 
+module.exports = Mask;

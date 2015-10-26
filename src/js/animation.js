@@ -1,3 +1,5 @@
+const Util = require('./util.js');
+
 /**
  * @namespace
  */
@@ -99,7 +101,7 @@ Animation.Default = {
 		return Util.Deferred.emptyPromise();
 	},
 
-	hideFrame: function(frame) {
+	hideFrame: function() {
 		return Util.Deferred.emptyPromise();
 	},
 
@@ -125,3 +127,4 @@ Animation.Default = {
 	}
 };
 
+module.exports = Animation;

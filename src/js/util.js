@@ -43,18 +43,6 @@ var Util = {
 		return Util.isDefined(value) ?
 			value :
 			defaultValue;
-	},
-
-	/**
-	 * @param {Function} Child
-	 * @param {Function} Parent
-	 */
-	inherits: function(Child, Parent) {
-		var Tmp = function() {};
-		Tmp.prototype = Parent.prototype;
-
-		Child.prototype = new Tmp();
-		Child.prototype.constructor = Child;
 	}
 };
 
@@ -126,3 +114,4 @@ Util.Browser = {
 	}
 };
 
+module.exports = Util;

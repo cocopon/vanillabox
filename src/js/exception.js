@@ -16,3 +16,4 @@ VanillaException.prototype.getType = function() {
 	return this.type_;
 };
 
+module.exports = VanillaException;

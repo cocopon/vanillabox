@@ -1,3 +1,6 @@
+const Container = require('./container.js');
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
@@ -91,3 +94,4 @@ Frame.prototype.onClick_ = function(e) {
 	e.stopPropagation();
 };
 
+module.exports = Frame;

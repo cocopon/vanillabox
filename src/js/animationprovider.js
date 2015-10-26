@@ -1,3 +1,5 @@
+const Animation = require('./animation.js');
+
 /**
  * @alias AnimationProvider
  */
@@ -17,3 +19,4 @@ var AnimationProvider = {
 	}
 };
 
+module.exports = AnimationProvider;

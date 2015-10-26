@@ -1,19 +1,10 @@
-var DEFAULT_CONFIG = {
-	'animation': 'default',
-	'closeButton': false,
-	'adjustToWindow': 'both',
-	'keyboard': true,
-	'loop': false,
-	'preferredHeight': 600,
-	'preferredWidth': 800,
-	'repositionOnScroll': false,
-	'type': 'image',
-	'grouping': true
-};
+const AnimationProvider = require('./animationprovider.js');
+const DefaultConfig = require('./default_config.js');
+const Vanillabox = require('./vanillabox.js');
 
 $.fn.vanillabox = function(opt_config) {
 	var config = {};
-	$.extend(config, DEFAULT_CONFIG);
+	$.extend(config, DefaultConfig);
 	$.extend(config, opt_config);
 
 	var targetElems = $(this);
@@ -36,3 +27,4 @@ $.fn.vanillabox = function(opt_config) {
 	return box;
 };
 
+require('./test.js');

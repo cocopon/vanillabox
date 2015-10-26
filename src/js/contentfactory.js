@@ -1,9 +1,12 @@
+const IframeContent = require('./iframe_content.js');
+const ImageContent = require('./image_content.js');
+
 /**
  * @alias ContentFactory
  */
 var ContentFactory = {
 	FACTORIES_: {
-		'image': function(target, options) {
+		'image': function(target) {
 			return new ImageContent({
 				path: target.attr('href'),
 				title: target.attr('title')
@@ -30,3 +33,4 @@ var ContentFactory = {
 	}
 };
 
+module.exports = ContentFactory;
