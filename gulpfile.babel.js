@@ -7,6 +7,7 @@ const babelify = require('babelify');
 const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 const sassFunctions = require('./src/css/lib/vanillabox.js');
+const runSequence = require('run-sequence');
 
 require('babel/register');
 
@@ -98,6 +99,10 @@ gulp.task('sass:doc', () => {
 		.pipe(gulp.dest('./doc'));
 });
 
+gulp.task('test', (callback) => {
+	runSequence('js', 'qunit', callback);
+});
+
 gulp.task('watch', (callback) => {
 	gulp.watch('./src/js/**/*.js', () => {
 		gulp.start(['js'])
@@ -113,5 +118,4 @@ gulp.task('sass', ['sass:theme', 'sass:doc']);
 gulp.task('document', ['jsdoc']);
 gulp.task('compile', ['sass:theme', 'js:dist']);
 gulp.task('package', ['clean', 'compile', 'document', 'compress']);
-gulp.task('test', ['js', 'qunit']);
 gulp.task('default', ['watch']);
