@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.1.7
+-----
+* Fixed iframe content that requires fullscreen
+* Adopted modern JavaScript syntax
+
+
 0.1.6
 -----
 * Fixed #6, dispose hidden iframe content
