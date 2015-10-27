@@ -4,124 +4,114 @@ const Util = require('./util.js');
 /**
  * @constructor
  */
-var Content = function(opt_config) {
-	var me = this;
-	var config = opt_config || {};
+class Content {
+	constructor(opt_config) {
+		const config = opt_config || {};
 
-	me.loaded_ = false;
-	me.success_ = false;
+		this.loaded_ = false;
+		this.success_ = false;
 
-	me.path_ = config.path;
-	me.title_ = Util.getOrDefault(config.title, '');
+		this.path_ = config.path;
+		this.title_ = Util.getOrDefault(config.title, '');
 
-	me.setup_();
-};
-
-Content.prototype.setup_ = function() {
-	var me = this;
-
-	var elem = $('<div>');
-	elem.addClass(Util.CSS_PREFIX + 'content');
-	me.elem_ = elem;
-
-	me.setupInternal_();
-	me.attach_();
-};
-
-Content.prototype.setupInternal_ = Util.EMPTY_FN;
-
-Content.prototype.attach_ = Util.EMPTY_FN;
-
-Content.prototype.detach_ = Util.EMPTY_FN;
-
-Content.prototype.dispose = function() {
-	var me = this;
-
-	me.detach_();
-	me.elem_.remove();
-	me.elem_ = null;
-};
-
-Content.prototype.shouldUnloadOnHide = function() {
-	return false;
-};
-
-Content.prototype.isLoaded = function() {
-	return this.loaded_;
-};
-
-Content.prototype.getElement = function() {
-	return this.elem_;
-};
-
-Content.prototype.getTitle = function() {
-	return this.title_;
-};
-
-Content.prototype.getSize = function() {
-	var me = this;
-	var elem = me.getElement();
-
-	return {
-		width: elem.width(),
-		height: elem.height()
-	};
-};
-
-Content.prototype.setOffset = function(left, top) {
-	var me = this;
-	var elem = me.getElement();
-
-	elem.css({
-		marginLeft: left,
-		marginTop: top
-	});
-};
-
-Content.prototype.setMaxContentSize = function(width, height) {
-	this.getElement().css({
-		maxWidth: width,
-		maxHeight: height
-	});
-};
-
-Content.prototype.load = function() {
-	var me = this;
-	var elem = me.getElement();
-
-	elem.addClass(Util.CSS_PREFIX + 'loading');
-
-	if (me.loaded_) {
-		this.onComplete_(me.success_);
-		return;
+		this.setup_();
 	}
 
-	me.loadInternal_();
-};
+	setup_() {
+		const elem = $('<div>');
+		elem.addClass(Util.CSS_PREFIX + 'content');
+		this.elem_ = elem;
 
-Content.prototype.loadInternal_ = Util.EMPTY_FN;
-
-Content.prototype.unload = function() {
-	var me = this;
-	me.unloadInternal_();
-	me.loaded_ = false;
-};
-
-Content.prototype.unloadInternal_ = Util.EMPTY_FN;
-
-Content.prototype.onComplete_ = function(success) {
-	var me = this;
-	var elem = me.getElement();
-
-	me.loaded_ = true;
-	me.success_ = success;
-
-	elem.removeClass(Util.CSS_PREFIX + 'loading');
-	if (!success) {
-		elem.addClass(Util.CSS_PREFIX + 'error');
+		this.setupInternal_();
+		this.attach_();
 	}
 
-	$(me).trigger(Events.COMPLETE, success);
-};
+	setupInternal_() {}
+	attach_() {}
+	detach_() {}
+
+	dispose() {
+		this.detach_();
+		this.elem_.remove();
+		this.elem_ = null;
+	}
+
+	shouldUnloadOnHide() {
+		return false;
+	}
+
+	isLoaded() {
+		return this.loaded_;
+	}
+
+	getElement() {
+		return this.elem_;
+	}
+
+	getTitle() {
+		return this.title_;
+	}
+
+	getSize() {
+		const elem = this.getElement();
+
+		return {
+			width: elem.width(),
+			height: elem.height()
+		};
+	}
+
+	setOffset(left, top) {
+		const elem = this.getElement();
+
+		elem.css({
+			marginLeft: left,
+			marginTop: top
+		});
+	}
+
+	setMaxContentSize(width, height) {
+		this.getElement().css({
+			maxWidth: width,
+			maxHeight: height
+		});
+	}
+
+	load() {
+		const elem = this.getElement();
+
+		elem.addClass(Util.CSS_PREFIX + 'loading');
+
+		if (this.loaded_) {
+			this.onComplete_(this.success_);
+			return;
+		}
+
+		this.loadInternal_();
+	}
+
+	loadInternal_() {}
+
+	unload() {
+		this.unloadInternal_();
+		this.loaded_ = false;
+	}
+
+	unloadInternal_() {}
+
+	onComplete_(success) {
+		const elem = this.getElement();
+
+		this.loaded_ = true;
+		this.success_ = success;
+
+		elem.removeClass(Util.CSS_PREFIX + 'loading');
+		if (!success) {
+			elem.addClass(Util.CSS_PREFIX + 'error');
+		}
+
+		$(this).trigger(Events.COMPLETE, success);
+	}
+}
 
 module.exports = Content;

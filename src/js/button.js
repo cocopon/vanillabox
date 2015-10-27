@@ -4,82 +4,71 @@ const Util = require('./util.js');
 /**
  * @constructor
  */
-var Button = function(config) {
-	var me = this;
+class Button {
+	constructor(config) {
+		this.cls_ = config.cls;
+		this.disabled_ = Util.getOrDefault(config.disabled, false);
 
-	me.cls_ = config.cls;
-	me.disabled_ = Util.getOrDefault(config.disabled, false);
-
-	me.setup_();
-};
-
-Button.prototype.setup_ = function() {
-	var me = this;
-
-	var elem = $('<div>');
-	elem.addClass(Util.CSS_PREFIX + 'button');
-	if (me.cls_) {
-		elem.addClass(me.cls_);
+		this.setup_();
 	}
 
-	// Enable :active pseudo-class on touch device
-	elem.attr('ontouchstart', 'void(0)');
+	setup_() {
+		const elem = $('<div>');
+		elem.addClass(Util.CSS_PREFIX + 'button');
+		if (this.cls_) {
+			elem.addClass(this.cls_);
+		}
 
-	me.elem_ = elem;
+		// Enable :active pseudo-class on touch device
+		elem.attr('ontouchstart', 'void(0)');
 
-	me.attach_();
-};
+		this.elem_ = elem;
 
-Button.prototype.dispose = function() {
-	var me = this;
-
-	me.elem_ = null;
-};
-
-Button.prototype.attach_ = function() {
-	var me = this;
-	var elem = me.getElement();
-
-	elem.on('click', $.proxy(me.onClick_, me));
-};
-
-Button.prototype.detach_ = function() {
-	var me = this;
-	var elem = me.getElement();
-
-	elem.off('click', me.onClick_);
-};
-
-Button.prototype.getElement = function() {
-	return this.elem_;
-};
-
-Button.prototype.isDisabled = function() {
-	return this.disabled_;
-};
-
-Button.prototype.setDisabled = function(disabled) {
-	var me = this;
-	var elem = me.elem_;
-
-	me.disabled_ = disabled;
-
-	if (me.disabled_) {
-		elem.addClass(Util.CSS_PREFIX + 'disabled');
+		this.attach_();
 	}
-	else {
-		elem.removeClass(Util.CSS_PREFIX + 'disabled');
+
+	dispose() {
+		this.elem_ = null;
 	}
-};
 
-Button.prototype.onClick_ = function(e) {
-	var me = this;
-
-	e.stopPropagation();
-
-	if (!me.isDisabled()) {
-		$(me).trigger(Events.CLICK);
+	attach_() {
+		const elem = this.getElement();
+		elem.on('click', $.proxy(this.onClick_, this));
 	}
-};
+
+	detach_() {
+		const elem = this.getElement();
+		elem.off('click', this.onClick_);
+	}
+
+	getElement() {
+		return this.elem_;
+	}
+
+	isDisabled() {
+		return this.disabled_;
+	}
+
+	setDisabled(disabled) {
+		const elem = this.elem_;
+
+		this.disabled_ = disabled;
+
+		if (this.disabled_) {
+			elem.addClass(Util.CSS_PREFIX + 'disabled');
+		}
+		else {
+			elem.removeClass(Util.CSS_PREFIX + 'disabled');
+		}
+	}
+
+	onClick_(e) {
+		e.stopPropagation();
+
+		if (!this.isDisabled()) {
+			$(this).trigger(Events.CLICK);
+		}
+	}
+}
 
 module.exports = Button;

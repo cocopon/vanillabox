@@ -3,14 +3,14 @@ const DefaultConfig = require('./default_config.js');
 const Vanillabox = require('./vanillabox.js');
 
 $.fn.vanillabox = function(opt_config) {
-	var config = {};
+	let config = {};
 	$.extend(config, DefaultConfig);
 	$.extend(config, opt_config);
 
-	var targetElems = $(this);
-	var animation = AnimationProvider.get(config['animation']);
+	const targetElems = $(this);
+	const animation = AnimationProvider.get(config['animation']);
 
-	var box = new Vanillabox({
+	const box = new Vanillabox({
 		animation: animation,
 		closeButton: config['closeButton'],
 		adjustToWindow: config['adjustToWindow'],

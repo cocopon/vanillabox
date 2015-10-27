@@ -10,7 +10,7 @@ class ImageContent extends Content {
 	};
 
 	setupInternal_() {
-		var imgElem = $('<img>');
+		const imgElem = $('<img>');
 		this.elem_.append(imgElem);
 		this.imgElem_ = imgElem;
 	}
@@ -21,13 +21,13 @@ class ImageContent extends Content {
 	}
 
 	attach_() {
-		var imgElem = this.imgElem_;
+		const imgElem = this.imgElem_;
 		imgElem.on('load', $.proxy(this.onLoad_, this));
 		imgElem.on('error', $.proxy(this.onError_, this));
 	}
 
 	detach_() {
-		var imgElem = this.imgElem_;
+		const imgElem = this.imgElem_;
 		imgElem.off('load', this.onLoad_);
 		imgElem.off('error', this.onError_);
 	}

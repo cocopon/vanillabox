@@ -7,7 +7,7 @@ const Util = require('./util.js');
  */
 class IframeContent extends Content {
 	constructor(opt_config) {
-		var config = opt_config || {};
+		const config = opt_config || {};
 
 		super(config);
 
@@ -16,7 +16,7 @@ class IframeContent extends Content {
 	};
 
 	setupInternal_() {
-		var iframeElem = $('<iframe>');
+		const iframeElem = $('<iframe>');
 		iframeElem.attr({
 			'frameborder': 0,  // Need to disable border in IE
 			'allowfullscreen': true
@@ -36,13 +36,13 @@ class IframeContent extends Content {
 	}
 
 	attach_() {
-		var iframeElem = this.iframeElem_;
+		const iframeElem = this.iframeElem_;
 		iframeElem.on('load', $.proxy(this.onLoad_, this));
 		iframeElem.on('error', $.proxy(this.onError_, this));
 	}
 
 	detach_() {
-		var iframeElem = this.iframeElem_;
+		const iframeElem = this.iframeElem_;
 		iframeElem.off('load', this.onLoad_);
 		iframeElem.off('error', this.onError_);
 	}
@@ -56,7 +56,7 @@ class IframeContent extends Content {
 	}
 
 	getSize() {
-		var elem = this.getFlexibleElement();
+		const elem = this.getFlexibleElement();
 		return {
 			width: elem.width(),
 			height: elem.height()
@@ -64,7 +64,7 @@ class IframeContent extends Content {
 	}
 
 	setMaxContentSize(width, height) {
-		var elem = this.getFlexibleElement();
+		const elem = this.getFlexibleElement();
 		elem.css({
 			maxWidth: width,
 			maxHeight: height
@@ -78,15 +78,15 @@ class IframeContent extends Content {
 	unloadInternal_() {
 		this.iframeElem_.attr('src', IframeContent.EMPTY_SRC);
 
-		var elem = this.getFlexibleElement();
+		const elem = this.getFlexibleElement();
 		elem.width('');
 		elem.height('');
 	}
 
 	onLoad_() {
-		var iframeElem = this.iframeElem_;
+		const iframeElem = this.iframeElem_;
 
-		var src = iframeElem.attr('src');
+		const src = iframeElem.attr('src');
 		if (!src) {
 			// Ignore unwanted load event that is fired when appending to DOM
 			return;
@@ -95,7 +95,7 @@ class IframeContent extends Content {
 			return;
 		}
 
-		var elem = this.getFlexibleElement();
+		const elem = this.getFlexibleElement();
 		elem.width(this.preferredWidth_);
 		elem.height(this.preferredHeight_);
 

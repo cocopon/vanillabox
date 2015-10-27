@@ -5,113 +5,107 @@ const Util = require('./util.js');
  * The pager class manages a current page.
  * @constructor
  */
-var Pager = function(opt_config) {
-	var me = this;
-	var config = opt_config || {};
+class Pager {
+	constructor(opt_config) {
+		const config = opt_config || {};
 
-	me.totalPages_ = Util.getOrDefault(config.totalPages, 1);
-	me.allowsLoop_ = Util.getOrDefault(config.loop, false);
+		this.totalPages_ = Util.getOrDefault(config.totalPages, 1);
+		this.allowsLoop_ = Util.getOrDefault(config.loop, false);
 
-	me.setPage(Util.getOrDefault(config.page, 0));
-};
-
-/**
- * @return {Number} Current page of the pager.
- */
-Pager.prototype.getPage = function() {
-	return this.currentPage_;
-};
-
-/**
- * @param {Number} page Current page of the pager.
- */
-Pager.prototype.setPage = function(page) {
-	var me = this;
-	var currentIndex = me.currentPage_;
-	var totalPages = me.getTotalPages();
-	var newIndex = Math.min(Math.max(page, 0), totalPages - 1);
-
-	me.currentPage_ = newIndex;
-
-	if (currentIndex !== newIndex) {
-		$(me).trigger(Events.CHANGE);
-	}
-};
-
-/**
- * @return {Number} Total number of pages of the pager.
- */
-Pager.prototype.getTotalPages = function() {
-	return this.totalPages_;
-};
-
-/**
- * @return {Boolean} true if the current page has a previous page
- */
-Pager.prototype.hasPrevious = function() {
-	var me = this;
-
-	if (me.allowsLoop_) {
-		return true;
+		this.setPage(Util.getOrDefault(config.page, 0));
 	}
 
-	return me.currentPage_ > 0;
-};
-
-/**
- * @return {Boolean} true if the current page has a next page
- */
-Pager.prototype.hasNext = function() {
-	var me = this;
-
-	if (me.allowsLoop_) {
-		return true;
+	/**
+	* @return {Number} Current page of the pager.
+	*/
+	getPage() {
+		return this.currentPage_;
 	}
 
-	var totalPages = me.getTotalPages();
-	return me.currentPage_ < totalPages - 1;
-};
+	/**
+	* @param {Number} page Current page of the pager.
+	*/
+	setPage(page) {
+		const currentIndex = this.currentPage_;
+		const totalPages = this.getTotalPages();
+		const newIndex = Math.min(Math.max(page, 0), totalPages - 1);
 
-/**
- * Sets the current page to the next page.
- */
-Pager.prototype.next = function() {
-	var me = this;
-	var totalPages = me.getTotalPages();
-	var currentIndex = me.currentPage_;
-	var nextIndex = currentIndex + 1;
+		this.currentPage_ = newIndex;
 
-	if (nextIndex > totalPages - 1) {
-		nextIndex = me.allowsLoop_ ?
-			0 :
-			totalPages - 1;
+		if (currentIndex !== newIndex) {
+			$(this).trigger(Events.CHANGE);
+		}
 	}
-	me.currentPage_ = nextIndex;
 
-	if (currentIndex !== nextIndex) {
-		$(me).trigger(Events.CHANGE);
+	/**
+	* @return {Number} Total number of pages of the pager.
+	*/
+	getTotalPages() {
+		return this.totalPages_;
 	}
-};
 
-/**
- * Sets the current page to the previous page.
- */
-Pager.prototype.previous = function() {
-	var me = this;
-	var totalPages = me.getTotalPages();
-	var currentIndex = me.currentPage_;
-	var prevIndex = currentIndex - 1;
+	/**
+	* @return {Boolean} true if the current page has a previous page
+	*/
+	hasPrevious() {
+		if (this.allowsLoop_) {
+			return true;
+		}
 
-	if (prevIndex < 0) {
-		prevIndex = me.allowsLoop_ ?
-			totalPages - 1 :
-			0;
+		return this.currentPage_ > 0;
 	}
-	me.currentPage_ = prevIndex;
 
-	if (currentIndex !== prevIndex) {
-		$(me).trigger(Events.CHANGE);
+	/**
+	* @return {Boolean} true if the current page has a next page
+	*/
+	hasNext() {
+		if (this.allowsLoop_) {
+			return true;
+		}
+
+		const totalPages = this.getTotalPages();
+		return this.currentPage_ < totalPages - 1;
 	}
-};
+
+	/**
+	* Sets the current page to the next page.
+	*/
+	next() {
+		const totalPages = this.getTotalPages();
+		const currentIndex = this.currentPage_;
+		let nextIndex = currentIndex + 1;
+
+		if (nextIndex > totalPages - 1) {
+			nextIndex = this.allowsLoop_ ?
+				0 :
+				totalPages - 1;
+		}
+		this.currentPage_ = nextIndex;
+
+		if (currentIndex !== nextIndex) {
+			$(this).trigger(Events.CHANGE);
+		}
+	}
+
+	/**
+	* Sets the current page to the previous page.
+	*/
+	previous() {
+		const totalPages = this.getTotalPages();
+		const currentIndex = this.currentPage_;
+		let prevIndex = currentIndex - 1;
+
+		if (prevIndex < 0) {
+			prevIndex = this.allowsLoop_ ?
+				totalPages - 1 :
+				0;
+		}
+		this.currentPage_ = prevIndex;
+
+		if (currentIndex !== prevIndex) {
+			$(this).trigger(Events.CHANGE);
+		}
+	}
+}
 
 module.exports = Pager;

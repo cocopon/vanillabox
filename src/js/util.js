@@ -1,13 +1,7 @@
 /**
  * @namespace
  */
-var Util = {
-	/**
-	 * @constant
-	 * @type {Function}
-	 */
-	EMPTY_FN: function() {},
-
+const Util = {
 	/**
 	 * @constant
 	 * @type {String}
@@ -30,7 +24,7 @@ var Util = {
 	 * @param {*} value
 	 * @return {Boolean} true if the value is defined
 	 */
-	isDefined: function(value) {
+	isDefined: (value) => {
 		return value !== undefined;
 	},
 
@@ -39,7 +33,7 @@ var Util = {
 	 * @param {*} defaultValue
 	 * @return {*}
 	 */
-	getOrDefault: function(value, defaultValue) {
+	getOrDefault: (value, defaultValue) => {
 		return Util.isDefined(value) ?
 			value :
 			defaultValue;
@@ -47,34 +41,31 @@ var Util = {
 };
 
 Util.Array = {
-	forEach: function(array, fn, opt_scope) {
-		var scope = opt_scope || this;
-		var len = array.length;
-		var i;
+	forEach: (array, fn, opt_scope) => {
+		const scope = opt_scope || this;
+		const len = array.length;
 
-		for (i = 0; i < len; i++) {
+		for (let i = 0; i < len; i++) {
 			fn.call(scope, array[i], i);
 		}
 	},
 
-	map: function(array, fn, opt_scope) {
-		var scope = opt_scope || this;
-		var result = [];
-		var len = array.length;
-		var i;
+	map: (array, fn, opt_scope) => {
+		const scope = opt_scope || this;
+		const result = [];
+		const len = array.length;
 
-		for (i = 0; i < len; i++) {
+		for (let i = 0; i < len; i++) {
 			result.push(fn.call(scope, array[i], i));
 		}
 
 		return result;
 	},
 
-	indexOf: function(array, item) {
-		var len = array.length;
-		var i;
+	indexOf: (array, item) => {
+		const len = array.length;
 
-		for (i = 0; i < len; i++) {
+		for (let i = 0; i < len; i++) {
 			if (array[i] === item) {
 				return i;
 			}
@@ -84,10 +75,10 @@ Util.Array = {
 };
 
 Util.Deferred = {
-	emptyPromise: function() {
-		var d = new $.Deferred();
+	emptyPromise: () => {
+		const d = new $.Deferred();
 
-		setTimeout(function() {
+		setTimeout(() => {
 			d.resolve();
 		}, 0);
 
@@ -96,20 +87,20 @@ Util.Deferred = {
 };
 
 Util.Dom = {
-	getViewportWidth: function() {
+	getViewportWidth: () => {
 		return window.innerWidth ||
 			document.documentElement.clientWidth;
 	},
 
-	getViewportHeight: function() {
+	getViewportHeight: () => {
 		return window.innerHeight ||
 			document.documentElement.clientHeight;
 	}
 };
 
 Util.Browser = {
-	isIos: function() {
-		var ua = navigator.userAgent;
+	isIos: () => {
+		const ua = navigator.userAgent;
 		return !!ua.match(/(ipod|iphone|ipad)/ig);
 	}
 };
