@@ -33,14 +33,12 @@ You may not need to perform the following steps.
 
 First, these commands are required to setup a development environment:
 
-- [Node.js/npm](http://nodejs.org/) 0.10+
-- [Ruby/RubyGems](https://www.ruby-lang.org/) 1.8.7+
+- [Node.js/npm](http://nodejs.org/) 4.0+
 
-Install gems and npm packages:
+Install required npm packages:
 
 ```bash
-gem install sass -v '>=3.2'
-npm install -g grunt-cli
+npm install -g gulp
 ```
 
 Next, clone the repository and get source files:
@@ -57,20 +55,19 @@ npm install
 ```
 
 All done!
-Now you can use grunt tasks for development.
+Now you can use gulp tasks for development.
 
 ```bash
-grunt compile
+gulp build
 ```
 
 
-### Available Grunt Tasks
+### Common Gulp Tasks
 
-| Command            | Description                                |
-| ------------------ | ------------------------------------------ |
-| `grunt test`       | Runs unit tests                            |
-| `grunt combine`    | Generates an uncompressed JS file          |
-| `grunt sass:theme` | Translates theme SCSS files into CSS files |
-| `grunt document`   | Generates files for documents              |
-| `grunt compile`    | Compiles JS files                          |
-| `grunt package`    | Generates a package archive                |
+| Command           | Description                                |
+| ----------------- | ------------------------------------------ |
+| `gulp test`       | Runs unit tests                            |
+| `gulp js`         | Generates an uncompressed JS file          |
+| `gulp sass:theme` | Translates theme SCSS files into CSS files |
+| `gulp js:dist`    | Compiles JS files                          |
+| `gulp dist`       | Generates a package archive                |
