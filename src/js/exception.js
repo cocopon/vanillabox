@@ -1,18 +1,19 @@
 /**
  * @constructor
  */
-var VanillaException = function(type) {
-	var me = this;
+class VanillaException {
+	constructor(type) {
+		this.type_ = type;
+	}
 
-	me.type_ = type;
-};
+	getType() {
+		return this.type_;
+	}
+}
 
 VanillaException.Types = {
 	INVALID_TYPE: 'invalid_type',
 	NO_IMAGE: 'no_image'
 };
 
-VanillaException.prototype.getType = function() {
-	return this.type_;
-};
-
+module.exports = VanillaException;

@@ -1,72 +1,67 @@
+const Events = require('./events.js');
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
-var Mask = function() {
-	this.setup_();
-};
+class Mask {
+	constructor() {
+		this.setup_();
+	}
 
-Mask.prototype.setup_ = function() {
-	var me = this;
+	setup_() {
+		const $elem = $('<div>');
+		$elem.addClass(Util.CSS_PREFIX + 'mask');
 
-	var $elem = $('<div>');
-	$elem.addClass(Util.CSS_PREFIX + 'mask');
+		this.elem_ = $elem;
+		this.attach_();
+	}
 
-	me.elem_ = $elem;
-	me.attach_();
-};
+	dispose() {
+		this.detach_();
+		this.elem_ = null;
+	}
 
-Mask.prototype.dispose = function() {
-	var me = this;
+	attach_() {
+		$(window).on('resize', $.proxy(this.onWindowResize_, this));
 
-	me.detach_();
-	me.elem_ = null;
-};
+		const elem = this.getElement();
+		elem.on('click', $.proxy(this.onClick_, this));
+	}
 
-Mask.prototype.attach_ = function() {
-	var me = this;
+	detach_() {
+		$(window).off('resize', this.onWindowResize_);
 
-	$(window).on('resize', $.proxy(me.onWindowResize_, me));
+		const elem = this.getElement();
+		elem.off('click', this.onClick_);
+	}
 
-	var elem = me.getElement();
-	elem.on('click', $.proxy(me.onClick_, me));
-};
+	getElement() {
+		return this.elem_;
+	}
 
-Mask.prototype.detach_ = function() {
-	var me = this;
+	layout() {
+		const elem = this.getElement();
 
-	$(window).off('resize', me.onWindowResize_);
+		elem.width('');
+		elem.height('');
 
-	var elem = me.getElement();
-	elem.off('click', me.onClick_);
-};
+		const $window = $(window);
+		const $document = $(document);
+		const w = Math.max($document.width(), $window.width());
+		const h = Math.max($document.height(), $window.height());
 
-Mask.prototype.getElement = function() {
-	return this.elem_;
-};
+		elem.width(w);
+		elem.height(h);
+	}
 
-Mask.prototype.layout = function() {
-	var me = this;
-	var elem = me.getElement();
+	onWindowResize_() {
+		this.layout();
+	}
 
-	elem.width('');
-	elem.height('');
+	onClick_() {
+		$(this).trigger(Events.CLICK);
+	}
+}
 
-	var $window = $(window);
-	var $document = $(document);
-	var w = Math.max($document.width(), $window.width());
-	var h = Math.max($document.height(), $window.height());
-
-	elem.width(w);
-	elem.height(h);
-};
-
-Mask.prototype.onWindowResize_ = function(e) {
-	this.layout();
-};
-
-Mask.prototype.onClick_ = function() {
-	var me = this;
-
-	$(me).trigger(Events.CLICK);
-};
-
+module.exports = Mask;

@@ -1,40 +1,39 @@
+const Util = require('./util.js');
+
 /**
  * @constructor
  */
-var Label = function(config) {
-	var me = this;
+class Label {
+	constructor(config) {
+		this.cls_ = config.cls;
 
-	me.cls_ = config.cls;
+		this.setup_();
+	};
 
-	me.setup_();
-};
+	setup_() {
+		const elem = $('<div>');
+		elem.addClass(Util.CSS_PREFIX + 'label');
+		if (this.cls_) {
+			elem.addClass(this.cls_);
+		}
+		this.elem_ = elem;
+	};
 
-Label.prototype.setup_ = function() {
-	var me = this;
+	dispose() {
+		this.elem_ = null;
+	};
 
-	var elem = $('<div>');
-	elem.addClass(Util.CSS_PREFIX + 'label');
-	if (me.cls_) {
-		elem.addClass(me.cls_);
-	}
-	me.elem_ = elem;
-};
+	getElement() {
+		return this.elem_;
+	};
 
-Label.prototype.dispose = function() {
-	var me = this;
+	getText() {
+		return this.elem_.text();
+	};
 
-	me.elem_ = null;
-};
+	setText(text) {
+		this.elem_.text(text);
+	};
+}
 
-Label.prototype.getElement = function() {
-	return this.elem_;
-};
-
-Label.prototype.getText = function() {
-	return this.elem_.text();
-};
-
-Label.prototype.setText = function(text) {
-	this.elem_.text(text);
-};
-
+module.exports = Label;

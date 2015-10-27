@@ -1,30 +1,32 @@
+const Util = require('./util.js');
+
 /**
  * @namespace
  */
-var Animation = {};
+const Animation = {};
 
 Animation.None = {
-	showMask: function(mask) {
+	showMask: (mask) => {
 		return mask.getElement().show().promise();
 	},
 
-	hideMask: function(mask) {
+	hideMask: (mask) => {
 		return mask.getElement().hide();
 	},
 
-	showFrame: function(frame) {
+	showFrame: (frame) => {
 		Animation.None.resizeFrame(frame);
 		return frame.getElement().show().promise();
 	},
 
-	hideFrame: function(frame) {
+	hideFrame: (frame) => {
 		return frame.getElement().hide();
 	},
 
-	resizeFrame: function(frame) {
-		var container = frame.getContainer();
-		var containerSize = container.getSize();
-		var offset = frame.getPreferredOffset(containerSize);
+	resizeFrame: (frame) => {
+		const container = frame.getContainer();
+		const containerSize = container.getSize();
+		const offset = frame.getPreferredOffset(containerSize);
 
 		container.getElement().css({
 			width: containerSize.width,
@@ -39,38 +41,36 @@ Animation.None = {
 		return Util.Deferred.emptyPromise();
 	},
 
-	showContent: function(content) {
+	showContent: (content) => {
 		return content.getElement().show().promise();
 	},
 
-	hideContent: function(content) {
+	hideContent: (content) => {
 		return content.getElement().hide().promise();
 	}
 };
 
 Animation.Default = {
-	showMask: function(mask) {
+	showMask: (mask) => {
 		return mask.getElement().fadeIn(200).promise();
 	},
 
-	hideMask: function(mask) {
+	hideMask: (mask) => {
 		return mask.getElement().fadeOut(300).promise();
 	},
 
-	animateFrame_: function(frame, containerSize, offset, duration) {
-		var container = frame.getContainer();
-		var containerElem = container.getElement();
-		var containerPromise;
+	animateFrame_: (frame, containerSize, offset, duration) => {
+		const container = frame.getContainer();
+		const containerElem = container.getElement();
 		containerElem.stop();
-		containerPromise = containerElem.animate({
+		const containerPromise = containerElem.animate({
 			width: containerSize.width,
 			height: containerSize.height
 		}, duration);
 
-		var frameElem = frame.getElement();
-		var framePromise;
+		const frameElem = frame.getElement();
 		frameElem.stop();
-		framePromise = frameElem.animate({
+		const framePromise = frameElem.animate({
 			left: offset.left,
 			top: offset.top
 		}, duration);
@@ -81,10 +81,10 @@ Animation.Default = {
 		);
 	},
 
-	showFrame: function(frame) {
-		var container = frame.getContainer();
-		var containerSize = container.getSize();
-		var offset = frame.getPreferredOffset(containerSize);
+	showFrame: (frame) => {
+		const container = frame.getContainer();
+		const containerSize = container.getSize();
+		const offset = frame.getPreferredOffset(containerSize);
 
 		container.getElement().css({
 			width: containerSize.width,
@@ -99,14 +99,14 @@ Animation.Default = {
 		return Util.Deferred.emptyPromise();
 	},
 
-	hideFrame: function(frame) {
+	hideFrame: () => {
 		return Util.Deferred.emptyPromise();
 	},
 
-	resizeFrame: function(frame) {
-		var container = frame.getContainer();
-		var containerSize = container.getSize();
-		var offset = frame.getPreferredOffset(containerSize);
+	resizeFrame: (frame) => {
+		const container = frame.getContainer();
+		const containerSize = container.getSize();
+		const offset = frame.getPreferredOffset(containerSize);
 
 		return Animation.Default.animateFrame_(
 			frame,
@@ -116,12 +116,13 @@ Animation.Default = {
 		);
 	},
 
-	showContent: function(content) {
+	showContent: (content) => {
 		return content.getElement().fadeIn(200).promise();
 	},
 
-	hideContent: function(content) {
+	hideContent: (content) => {
 		return content.getElement().fadeOut(300).promise();
 	}
 };
 
+module.exports = Animation;
