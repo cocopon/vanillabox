@@ -1,4 +1,4 @@
-const AnimationProvider = require('./animationprovider.js');
+const AnimationProvider = require('./animation_provider.js');
 const DefaultConfig = require('./default_config.js');
 const Vanillabox = require('./vanillabox.js');
 
