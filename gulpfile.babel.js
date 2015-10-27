@@ -40,13 +40,18 @@ gulp.task('jsdoc', () => {
 });
 
 [false, true].forEach((production) => {
-	const postfix = production ? ':dist' : '';
+	const taskName = production ?
+		'js:dist' :
+		'js';
+	const rootJsName = production ?
+		'root_dist.js' :
+		'root_dev.js';
 	const dstName = production ?
 		`jquery.vanillabox-${pkg.version}.min.js` :
 		'jquery.vanillabox.js';
 
-	gulp.task(`js${postfix}`, () => {
-		return browserify('./src/js/main.js')
+	gulp.task(taskName, () => {
+		return browserify(`./src/js/${rootJsName}`)
 			.transform(babelify.configure({
 				compact: production
 			}))

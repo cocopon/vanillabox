@@ -26,5 +26,3 @@ $.fn.vanillabox = function(opt_config) {
 
 	return box;
 };
-
-require('./test.js');
