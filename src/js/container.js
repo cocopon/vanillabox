@@ -1,4 +1,4 @@
-const AnimationProvider = require('./animationprovider.js');
+const AnimationProvider = require('./animation_provider.js');
 const Events = require('./events.js');
 const Util = require('./util.js');
 

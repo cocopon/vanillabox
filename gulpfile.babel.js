@@ -23,12 +23,12 @@ gulp.task('clean', () => {
 
 gulp.task('compress', () => {
 	return gulp.src([
-			'doc/**',
+			'doc/**/*',
 			'CHANGES.txt',
 			'LICENSE.txt',
 			'README.md',
-			'vanillabox/**'
-		])
+			'vanillabox/**/*'
+	], {base: '.'})
 		.pipe($.zip(`vanillabox-${pkg.version}.zip`))
 		.pipe(gulp.dest('./'));
 });
@@ -40,13 +40,18 @@ gulp.task('jsdoc', () => {
 });
 
 [false, true].forEach((production) => {
-	const postfix = production ? ':dist' : '';
+	const taskName = production ?
+		'js:dist' :
+		'js';
+	const rootJsName = production ?
+		'root_dist.js' :
+		'root_dev.js';
 	const dstName = production ?
 		`jquery.vanillabox-${pkg.version}.min.js` :
 		'jquery.vanillabox.js';
 
-	gulp.task(`js${postfix}`, () => {
-		return browserify('./src/js/main.js')
+	gulp.task(taskName, () => {
+		return browserify(`./src/js/${rootJsName}`)
 			.transform(babelify.configure({
 				compact: production
 			}))
@@ -75,6 +80,15 @@ gulp.task('qunit', () => {
 		.pipe($.qunit());
 });
 
+gulp.task('dist', (callback) => {
+	runSequence(
+		'clean',
+		['build', 'build:dist'],
+		'compress',
+		callback
+	);
+});
+
 THEMES.forEach((theme) => {
 	gulp.task(`sass:theme_${theme}`, () => {
 		return gulp.src(`./src/css/theme/${theme}/${theme}.scss`)
@@ -99,8 +113,14 @@ gulp.task('sass:doc', () => {
 		.pipe(gulp.dest('./doc'));
 });
 
+gulp.task('sass', ['sass:theme', 'sass:doc']);
+
 gulp.task('test', (callback) => {
-	runSequence('js', 'qunit', callback);
+	runSequence(
+		'js',
+		'qunit',
+		callback
+	);
 });
 
 gulp.task('watch', (callback) => {
@@ -114,8 +134,6 @@ gulp.task('watch', (callback) => {
 	});
 });
 
-gulp.task('sass', ['sass:theme', 'sass:doc']);
-gulp.task('document', ['jsdoc']);
-gulp.task('compile', ['sass:theme', 'js:dist']);
-gulp.task('package', ['clean', 'compile', 'document', 'compress']);
-gulp.task('default', ['watch']);
+gulp.task('build', ['sass', 'js']);
+gulp.task('build:dist', ['sass', 'js:dist']);
+gulp.task('default', ['build', 'watch']);
