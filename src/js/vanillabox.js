@@ -17,7 +17,7 @@ const VanillaException = require('./exception.js');
 class Vanillabox {
 	constructor(config) {
 		if (!config.targets || config.targets.length === 0) {
-			throw new VanillaException(VanillaException.Types.NO_IMAGE);
+			return;
 		}
 
 		this.showed_ = false;
